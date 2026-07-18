@@ -1,0 +1,6 @@
+{
+  "name": "Community Claims Exchange",
+  "description": "Documentation infrastructure for New York State Social Care Networks under the NYHER 1115 Waiver.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

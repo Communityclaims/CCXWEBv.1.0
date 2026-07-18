@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-navy: #0B1F3A;
+  --color-gold: #B8860B;
+  --color-gold-text: #8B6420;
+  --color-off-white: #FAF8F5;
+  --color-neutral-border: #E2E8F0;
+  --color-trust-gray: #475569;
+  --color-error: #EF4444;
+}
+
+.font-section-title {
+  font-weight: 650;
+}
+
+/* Custom focus indicator (H7-04) */
+:focus-visible {
+  outline: 2px solid #B8860B;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(184, 134, 11, 0.4);
+}
+
+/* Custom CCX animations */
+@keyframes heartbeat {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 4px rgba(184, 134, 11, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 2s infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #FAF8F5;
+}
+
+body {
+  background-color: #FAF8F5;
+  color: #0B1F3A;
+}
+
+/* Custom SVG keyboard focus indicators */
+svg path:focus-visible {
+  outline: none;
+  stroke: #B8860B !important;
+  stroke-width: 3px !important;
+  fill-opacity: 0.95 !important;
+}
+
+svg g:focus-visible {
+  outline: 2px solid #B8860B !important;
+  outline-offset: 4px;
+}
+
+/* Reduced Motion Override (WCAG 2.2 Level AA / AAA) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+  }
+  
+  .animate-heartbeat,
+  .animate-fade-in,
+  .transition-all,
+  .transition-colors {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
