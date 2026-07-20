@@ -242,7 +242,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                       <span className="font-sans font-bold text-xs text-navy uppercase block">System Boundaries & Disclaimers</span>
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      CCX is a documentation format-translation and structuring middleware layer. <strong>CCX does not perform certified audits, does not issue official Office of the Medicaid Inspector General (OMIG) certifications, and is not approved or certified by the FDA.</strong>
+                      CCX is a retrospective documentation-integrity and audit-exposure analysis engine. <strong>CCX does not perform certified audits, does not issue official Office of the Medicaid Inspector General (OMIG) certifications, and is not approved or certified by the FDA.</strong>
                     </p>
                   </div>
 
@@ -261,9 +261,9 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                   </div>
 
                   <div className="space-y-2">
-                    <h4 className="font-bold text-navy text-xs uppercase font-sans">3. Approved Funding Paths</h4>
+                    <h4 className="font-bold text-navy text-xs uppercase font-sans">3. Funding &amp; Procurement</h4>
                     <p>
-                      While implementation costs may qualify for technology capacity-building funding under regional waiver initiatives, grant approval is decided by local lead SCNs and state agencies, and is not guaranteed by CCX.
+                      CBO capacity-building funds under the NYHER 1115 Waiver are restricted to not-for-profit organizations and are not available to CCX. Engagement funding, where applicable, is typically drawn from an SCN Lead Entity's own administrative and operations budget, subject to that organization's internal budget approval, and is not guaranteed by CCX.
                     </p>
                   </div>
                 </>

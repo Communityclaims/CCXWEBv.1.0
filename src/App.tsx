@@ -55,7 +55,7 @@ const PILOT_SCENARIO_PRESETS: PilotScenarioPreset[] = [
       'Lacks structured screening questionnaire references (e.g., LOINC 96777-8).',
       'Lacks secure proof of contemporaneous signature and entry-day lock.'
     ],
-    correctiveAction: 'CCX ingestion system structures this raw encounter text, matching it to LOINC 96777-8 and ICD-10 Z59.41, verifying the HIE registry match, and sealing it as a structured, evidence-referenced record contemporaneous with the point of care.'
+    correctiveAction: 'When this record is included in a retrospective export, CCX matches it to LOINC 96777-8 and ICD-10 Z59.41, verifies the HIE registry match, and seals it as a structured, evidence-referenced record with a reproducible audit trail.'
   },
   {
     id: 'partial_referral',
@@ -70,14 +70,14 @@ const PILOT_SCENARIO_PRESETS: PilotScenarioPreset[] = [
       'Missing explicit contemporaneous member consent verification (Question 0).',
       'Checklist entries lack corroborating clinical-narrative description required for retrospective audit defense.'
     ],
-    correctiveAction: 'CCX background compiler prompts validation of duration, structures the housing-asthma correlation, and commits the consent record, satisfying NYS DOH and OMIG audit requirements, producing a reviewed, structured record ready for the organization\'s own claim submission process.'
+    correctiveAction: 'During retrospective review, CCX flags the missing duration and consent documentation, structures the housing-asthma correlation from the available narrative, and produces a reviewed, evidence-referenced finding the organization\'s compliance team can act on before their next OMIG review.'
   },
   {
     id: 'fully_standardized',
     name: 'Fully Standardized CCX Record',
     badge: 'Low Risk Compliant',
     badgeColor: 'bg-gold/10 text-gold border-gold/20',
-    description: 'A complete, standards-compliant record compiled, validated, and securely sealed on the day of service.',
+    description: 'A complete, standards-compliant record identified during retrospective review, validated, and securely sealed with a reproducible audit trail.',
     rawNote: 'LOINC 96780-2 Screening completed. Patient has specialized transport barriers. ICD-10 Z59.48. Checked HIE. Consent verified (Question 0). Duration: 15 mins.',
     riskLevel: 'LOW',
     gaps: [
@@ -144,7 +144,7 @@ interface FAQItem {
 const FAQ_ITEMS: FAQItem[] = [
   {
     question: "Does CCX replace our current Electronic Health Record (EHR) or referral platforms?",
-    answer: "No. CCX is designed strictly as a documentation integrity and retrospective analysis platform. It runs asynchronously in the background, ingesting data from existing systems via secure APIs and ADT feeds, and producing structured narratives. Your existing EHRs and referral systems remain the authoritative sources of record."
+    answer: "No. CCX is a retrospective documentation-integrity and audit-exposure analysis engine. It ingests an export of existing records — not a live connection to your EHR or referral platform — and produces a structured, reproducible evidence package. Your existing EHRs and SCN referral systems remain the authoritative, unmodified sources of record."
   },
   {
     question: "How long does implementation take?",
@@ -152,15 +152,15 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: "Does this require frontline staff or CBO caseworkers to learn a new tool?",
-    answer: "No. Caseworkers continue using their existing, familiar intake forms and case tools normally. CCX intercepts these existing inputs in the background to build the contemporaneous clinical narratives, eliminating duplicate data entry and caseworker administrative burnout."
+    answer: "No. Caseworkers continue using their existing, familiar intake forms and case tools exactly as they do today. CCX reviews the resulting records retrospectively, on a schedule your compliance team controls, and requires no new login, tool, or workflow change for frontline staff."
   },
   {
     question: "Who validates the accuracy of the compiled narratives?",
-    answer: "CCX maintains strict human-in-the-loop controls. Human review is required for findings involving a safety indicator; other records are processed automatically and logged for review."
+    answer: "CCX maintains strict human-in-the-loop controls. Every finding is presented as a recommendation for your compliance team to confirm; CCX surfaces evidence and flags gaps, but does not make final compliance or billing determinations on its own."
   },
   {
     question: "How are CCX implementation fees funded?",
-    answer: "Under NYS Medicaid 1115 Waiver capacity-building provisions, implementations may qualify for approved NYS capacity-building and technology development funding, offering a path to support compliant technology adoption without depleting operational budgets."
+    answer: "CBO capacity-building funds under the NYHER 1115 Waiver are restricted to not-for-profit 501(c)(3)/501(c)(4) organizations and are not available to for-profit vendors like CCX. Pilot engagements are typically structured as a compliance and process-improvement service funded from an SCN Lead Entity's own administrative and operations budget, not a software license paid from CBO capacity-building funds."
   }
 ];
 
@@ -476,22 +476,22 @@ export default function App() {
               </h1>
 
               <p className="text-[18px] font-normal text-slate-600 leading-[30px] max-w-[640px] mt-6">
-                Community Claims Exchange (CCX) structures existing social care documentation into standardized, audit-ready records without changing frontline workflows.
+                OMIG's own April 2025 training materials name incomplete audit documentation as one of the most frequently identified issues in current compliance reviews. Community Claims Exchange (CCX) closes that exact gap: it retrospectively audits exported HRSN documentation across your CBO network and quantifies OMIG-style exposure, without requiring any change to how frontline staff currently document care.
               </p>
 
               {/* THREE CLINICAL BULLET STATEMENTS */}
               <div className="space-y-2 py-2 text-slate-700 font-sans text-[16px] font-normal leading-[28px] mt-3">
                 <div className="flex items-center gap-2.5">
                   <span className="text-gold font-bold">✓</span>
-                  <span>One encounter.</span>
+                  <span>One network export.</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <span className="text-gold font-bold">✓</span>
-                  <span>One standardized documentation package.</span>
+                  <span>One reproducible exposure analysis.</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <span className="text-gold font-bold">✓</span>
-                  <span>Multiple NY Medicaid and SCN downstream uses.</span>
+                  <span>One audit-ready dossier your compliance team can use directly.</span>
                 </div>
               </div>
 
@@ -661,7 +661,7 @@ export default function App() {
               Clinical Note Standardization
             </h2>
             <p className="text-[16px] font-normal text-slate-600 leading-[28px]">
-              Evaluate how CCX parses raw, unformatted casework checklist scribbles and structures them into fully formatted clinical evidence records contemporaneous with the point of care.
+              Evaluate how CCX parses raw, unformatted casework checklist scribbles from a retrospective export and structures them into fully formatted, reproducible evidence records ready for audit review.
             </p>
           </div>
 
@@ -794,7 +794,7 @@ export default function App() {
                 <div className="w-14 h-14 bg-gold rounded-full flex items-center justify-center text-white text-base font-bold shadow-md">
                   1
                 </div>
-                <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Frontline Point of Care</h3>
+                <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Frontline Documentation</h3>
                 <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
                   Staff continue using their existing systems normally without any new software or interface training.
                 </p>
@@ -893,25 +893,25 @@ export default function App() {
                 <div className="space-y-1">
                   <h4 className="text-[16px] font-semibold text-navy">Structure raw narrative text</h4>
                   <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                    CCX converts free-text casework notes into standard LOINC codes and structured notes contemporaneous with care.
+                    CCX converts free-text casework notes into standard LOINC codes and structured, reproducible evidence records during retrospective review.
                   </p>
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-[16px] font-semibold text-navy">Verify duration compliance</h4>
                   <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                    The system monitors and logs minimum encounter thresholds required to validate claim eligibility.
+                    During retrospective review, CCX flags records that fall short of the minimum encounter-duration thresholds required to validate claim eligibility.
                   </p>
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-[16px] font-semibold text-navy">Route safety-relevant findings for review</h4>
                   <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                    CCX routes findings involving a safety indicator to a licensed-provider queue before finalization.
+                    Every finding CCX surfaces is routed to your compliance team for confirmation before it is treated as final; findings involving a safety indicator are additionally escalated to a licensed-provider queue.
                   </p>
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-[16px] font-semibold text-navy">Integrate asynchronously</h4>
                   <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                    Data is compiled asynchronously via read-only API feeds with zero footprint in CBO software.
+                    Data is ingested from scheduled exports your organization controls, with zero footprint in CBO or SCN platform software — no live connection or API access to any third-party system is required.
                   </p>
                 </div>
               </div>
@@ -975,7 +975,7 @@ export default function App() {
                         status: "Official",
                         source: "NYS Department of Health"
                       };
-                    } else if (normLabel.includes("capacity building funding")) {
+                    } else if (normLabel.includes("scn regional infrastructure allocation")) {
                       return {
                         status: "Illustrative Estimate",
                         source: "NYS 1115 Waiver Documentation",
@@ -1197,7 +1197,7 @@ export default function App() {
                 <span className="text-[10px] font-sans font-bold text-gold uppercase tracking-wider block">Medicaid Compliance</span>
                 <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Ensure Audit Defensibility</h3>
                 <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                  Secure point-of-care evidence packages compiled on the day of care designed to align with OMIG guidance.
+                  Secure, reproducible evidence packages compiled through retrospective network review, structured to align with OMIG's own audit format.
                 </p>
               </div>
               <div className="pt-3 border-t border-navy/[0.04] mt-3 flex items-center gap-2 text-[10px] font-semibold text-gold">
@@ -1505,10 +1505,10 @@ export default function App() {
                   <div className="space-y-4 text-left">
                     <div className="space-y-1">
                       <span className="block font-sans text-[10px] font-bold text-gold-text uppercase tracking-wider">
-                        Continuous Ingestion Frequency
+                        Retrospective Ingestion Cadence
                       </span>
                       <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                        Ingestion and structure analysis occurs in real-time under sub-second execution, supporting zero batch delay and complete contemporaneity.
+                        Ingestion runs on a scheduled, batch basis against exported records your organization controls — not a live or continuous connection to any production system.
                       </p>
                     </div>
 
@@ -1526,7 +1526,7 @@ export default function App() {
                         Audit-Defensible Sign-Off
                       </span>
                       <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                        Automatic compilation of human-authorized supervisor signatures contemporaneous with care, supporting compliant retrospective analysis for OMIG alignment.
+                        Compilation of human-authorized supervisor signatures identified during retrospective review, supporting audit-ready documentation aligned with OMIG's own review format.
                       </p>
                     </div>
                   </div>
@@ -1599,7 +1599,7 @@ export default function App() {
               Request an Exposure Assessment
             </h2>
             <p className="text-[16px] font-normal text-slate-600 leading-[28px]">
-              Schedule a private consultation to compile a de-identified, county-level encounter exposure profile and custom implementation blueprint for your regional SCN network.
+              Request a no-cost sample exposure analysis on de-identified data from your own network — no commitment required. It is calculated using the same OMIG extrapolation methodology upheld by New York courts; a comparable 150-claim sample produced a $1,102,553 recovery in 2021 (Matter of Fast Help Ambulette).
             </p>
           </div>
 

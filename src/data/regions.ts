@@ -23,7 +23,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         method_note: "Verified from official NYS DOH regional service area rosters"
       },
       {
-        label: "Capacity Building Funding (CCX Derived)",
+        label: "SCN Regional Infrastructure Allocation (CCX Derived)",
         value: "$25M–$30M",
         provenance: "CCX Derived",
         confidence: "Medium",
@@ -45,12 +45,12 @@ export const SCN_REGIONS: Record<string, Region> = {
       },
       {
         type: "Implication",
-        text: "Regional care systems require structured documentation to support point-of-care audit readiness.",
+        text: "Regional care systems generate documentation that must withstand retrospective OMIG audit review.",
         confidence: "Medium"
       },
       {
         type: "CCX Capability Mapping",
-        text: "[CCX Derived] Structured data mapping processes are designed to align point-of-care inputs with compliance guidelines.",
+        text: "[CCX Derived] Retrospective structured-data mapping processes are designed to align exported documentation with compliance guidelines.",
         confidence: "High"
       },
       {
@@ -92,7 +92,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$36.9M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -123,7 +123,7 @@ export const SCN_REGIONS: Record<string, Region> = {
       },
       {
         type: "CCX Capability Mapping",
-        text: "Documentation standardization guides screeners through point-of-care requirements, ensuring a compliant note is reliably drafted regardless of CBO digital literacy.",
+        text: "Retrospective documentation review identifies gaps against compliance requirements, regardless of the originating CBO's digital literacy or note-taking format.",
         confidence: "High"
       },
       {
@@ -176,7 +176,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$44.9M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -258,7 +258,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$54.5M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -289,7 +289,7 @@ export const SCN_REGIONS: Record<string, Region> = {
       },
       {
         type: "CCX Capability Mapping",
-        text: "CCX delivers structured point-of-care intake tools that reduce note drafting overhead by 6 minutes per encounter, protecting workers from burnout.",
+        text: "CCX reviews exported encounter records retrospectively, surfacing documentation gaps for compliance teams without adding any new tool or step to caseworkers' existing intake process.",
         confidence: "High"
       },
       {
@@ -337,7 +337,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$50.8M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -422,7 +422,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$46.2M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -508,7 +508,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$55.4M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -587,7 +587,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$22.5M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -659,7 +659,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$38.6M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -685,7 +685,7 @@ export const SCN_REGIONS: Record<string, Region> = {
       },
       {
         type: "Implication",
-        text: "Geographic dispersion makes real-time status tracking of distributed community partners and hospitals highly manual.",
+        text: "Geographic dispersion makes dynamic status tracking of distributed community partners and hospitals highly manual.",
         confidence: "Medium"
       },
       {
@@ -741,7 +741,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$22.6M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -772,7 +772,7 @@ export const SCN_REGIONS: Record<string, Region> = {
       },
       {
         type: "CCX Capability Mapping",
-        text: "By capturing complete documentation at the point of care, CCX prevents claims rejections even when physical follow-ups are delayed.",
+        text: "By retrospectively identifying incomplete documentation before OMIG does, CCX reduces the risk of claims rejection even when physical follow-ups are delayed.",
         confidence: "High"
       },
       {
@@ -822,7 +822,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$31.4M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -890,7 +890,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$42.2M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -970,7 +970,7 @@ export const SCN_REGIONS: Record<string, Region> = {
         confidence: "High"
       },
       {
-        label: "Capacity Building Funding",
+        label: "SCN Regional Infrastructure Allocation",
         value: "$24.8M",
         provenance: "Official NYS Data",
         confidence: "High"
@@ -1001,7 +1001,7 @@ export const SCN_REGIONS: Record<string, Region> = {
       },
       {
         type: "CCX Capability Mapping",
-        text: "Supports point-of-care documentation quality through offline-resilient local caches that sync securely upon connection.",
+        text: "Supports retrospective documentation review across geographically remote CBOs, regardless of local connectivity at the time records were originally created.",
         confidence: "High"
       },
       {

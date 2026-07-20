@@ -256,9 +256,9 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
           {/* Four Principles Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
             <div className="space-y-1.5 p-5 bg-white border border-[#E2E8F0] rounded-xl">
-              <span className="block font-sans font-bold text-xs text-navy uppercase tracking-wider">Contemporaneity</span>
+              <span className="block font-sans font-bold text-xs text-navy uppercase tracking-wider">Reproducibility</span>
               <p className="text-slate-600 text-xs leading-relaxed">
-                Documentation workflows designed around point-of-care capture and validation.
+                Retrospective documentation review structured around deterministic capture and validation of exported records.
               </p>
             </div>
             <div className="space-y-1.5 p-5 bg-white border border-[#E2E8F0] rounded-xl">
