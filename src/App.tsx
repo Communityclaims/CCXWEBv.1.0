@@ -51,7 +51,7 @@ const PILOT_SCENARIO_PRESETS: PilotScenarioPreset[] = [
     riskLevel: 'HIGH',
     gaps: [
       'Missing explicit ICD-10 SDOH classification codes (e.g., Z59.41 Food Insecurity).',
-      'Missing contemporaneous digital member consent verification (Question 0).',
+      'Missing contemporaneous digital member consent verification.',
       'Lacks structured screening questionnaire references (e.g., LOINC 96777-8).',
       'Lacks secure proof of contemporaneous signature and entry-day lock.'
     ],
@@ -67,7 +67,7 @@ const PILOT_SCENARIO_PRESETS: PilotScenarioPreset[] = [
     riskLevel: 'MODERATE',
     gaps: [
       'Missing documented encounter duration exceeding the clinical billing threshold.',
-      'Missing explicit contemporaneous member consent verification (Question 0).',
+      'Missing explicit contemporaneous member consent verification.',
       'Checklist entries lack corroborating clinical-narrative description required for retrospective audit defense.'
     ],
     correctiveAction: 'During retrospective review, CCX flags the missing duration and consent documentation, structures the housing-asthma correlation from the available narrative, and produces a reviewed, evidence-referenced finding the organization\'s compliance team can act on before their next OMIG review.'
@@ -78,7 +78,7 @@ const PILOT_SCENARIO_PRESETS: PilotScenarioPreset[] = [
     badge: 'Low Risk Compliant',
     badgeColor: 'bg-gold/10 text-gold border-gold/20',
     description: 'A complete, standards-compliant record identified during retrospective review, validated, and securely sealed with a reproducible audit trail.',
-    rawNote: 'LOINC 96780-2 Screening completed. Patient has specialized transport barriers. ICD-10 Z59.48. Checked HIE. Consent verified (Question 0). Duration: 15 mins.',
+    rawNote: 'LOINC 96780-2 Screening completed. Patient has specialized transport barriers. ICD-10 Z59.48. Checked HIE. Consent verified. Duration: 15 mins.',
     riskLevel: 'LOW',
     gaps: [
       'None. Record is structured to align with current OMIG Audit Handbook guidance, billing compliance requirements, and applicable 6-to-10-year record retention mandates.'
@@ -108,8 +108,8 @@ const PROOF_SCENARIOS: ProofScenario[] = [
     structured: {
       zCode: 'Z59.41 (Food insecurity)',
       duration: '12 Minutes (Exceeds clinical billing threshold)',
-      narrative: 'LOINC 96777-8 Screening completed. Patient presents with acute nutritional deficit due to expired SNAP assistance and physical geographic food desert. Dispatched emergency referral to local pantry.',
-      consent: 'Verified (Question 0 - Contemporaneous Patient Sign-off)'
+      narrative: 'Screened using the AHC HRSN Tool (LOINC 96777-8) — positive for food insecurity (ICD-10 Z59.41). Patient presents with acute nutritional deficit due to expired SNAP assistance and physical geographic food desert. Dispatched emergency referral to local pantry.',
+      consent: 'Verified (Contemporaneous Patient Sign-off)'
     }
   },
   {
@@ -120,7 +120,7 @@ const PROOF_SCENARIOS: ProofScenario[] = [
       zCode: 'Z59.1 (Inadequate housing)',
       duration: '18 Minutes (Exceeds clinical billing threshold)',
       narrative: 'LOINC 97023-6 Screening completed. Patient reports mold exposure and structural water damage. Documented direct correlation with pediatric asthma exacerbation. Handed off to legal advocate.',
-      consent: 'Verified (Question 0 - Contemporaneous Patient Sign-off)'
+      consent: 'Verified (Contemporaneous Patient Sign-off)'
     }
   },
   {
@@ -131,7 +131,7 @@ const PROOF_SCENARIOS: ProofScenario[] = [
       zCode: 'Z59.48 (Transportation barriers)',
       duration: '10 Minutes (Exceeds clinical billing threshold)',
       narrative: 'LOINC 96780-2 Screening completed. Patient has specialized accessibility needs (wheelchair) and is isolated by municipal transit reductions. Initiated enrollment with specialized transport van.',
-      consent: 'Verified (Question 0 - Contemporaneous Patient Sign-off)'
+      consent: 'Verified (Contemporaneous Patient Sign-off)'
     }
   }
 ];
@@ -148,7 +148,7 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: "How long does implementation take?",
-    answer: "Because CCX does not require any workflow redesign or 'rip-and-replace' deployment, implementation is designed to avoid workflow redesign. CCX is designed to connect to your existing systems using standard OAuth and HL7 standards."
+    answer: "Because CCX does not require any workflow redesign or 'rip-and-replace' deployment, implementation is designed to avoid workflow redesign. CCX is designed to connect to your existing systems."
   },
   {
     question: "Does this require frontline staff or CBO caseworkers to learn a new tool?",
@@ -160,7 +160,7 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: "How are CCX implementation fees funded?",
-    answer: "CBO capacity-building funds under the NYHER 1115 Waiver are restricted to not-for-profit 501(c)(3)/501(c)(4) organizations and are not available to for-profit vendors like CCX. Pilot engagements are typically structured as a compliance and process-improvement service funded from an SCN Lead Entity's own administrative and operations budget, not a software license paid from CBO capacity-building funds."
+    answer: "Flat-fee, always — never a percentage of claims billed or collected, which New York regulation (18 NYCRR 504.9(a)(1)) prohibits for services like this."
   }
 ];
 
@@ -333,7 +333,7 @@ export default function App() {
           score: 34,
           gaps: [
             `Detected unstructured formatting in approximately 84% of rows inside "${uploadedFileName}".`,
-            'Missing explicit contemporaneous patient consent (Question 0) in 72% of entries.',
+            'Missing explicit contemporaneous patient consent in 72% of entries.',
             'Incomplete encounter duration logs (failing the 8-minute clinical billing threshold) in 41% of records.',
             'System discrepancy: Checklist checkboxes lack supporting human clinical-narrative notes required for retrospective audits.'
           ],
@@ -476,7 +476,7 @@ export default function App() {
               </h1>
 
               <p className="text-[18px] font-normal text-slate-600 leading-[30px] max-w-[640px] mt-6">
-                OMIG's own April 2025 training materials name incomplete audit documentation as one of the most frequently identified issues in current compliance reviews. Community Claims Exchange (CCX) closes that exact gap: it retrospectively audits exported HRSN documentation across your CBO network and quantifies OMIG-style exposure, without requiring any change to how frontline staff currently document care.
+                OMIG's 2026 Work Plan doubles Compliance Program Reviews and extends the review window from three months to twelve. Under OMIG's current regulations, having an effective compliance program is a condition of payment, not paperwork. Community Claims Exchange (CCX) closes that exact gap: it retrospectively audits exported HRSN documentation across your CBO network and quantifies OMIG-style exposure, without requiring any change to how frontline staff currently document care.
               </p>
 
               {/* THREE CLINICAL BULLET STATEMENTS */}
@@ -595,8 +595,8 @@ export default function App() {
             </p>
           </div>
 
-          {/* 4-Column Enterprise Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* 3-Column Enterprise Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1 */}
             <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/30 transition-colors">
               <div className="space-y-3">
@@ -611,17 +611,6 @@ export default function App() {
             {/* Card 2 */}
             <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/30 transition-colors">
               <div className="space-y-3">
-                <MapPin className="w-6 h-6 text-gold" />
-                <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">HIE Clinical Feeds</h3>
-                <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                  Structured output is designed to support regional health information exchange integration.
-                </p>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/30 transition-colors">
-              <div className="space-y-3">
                 <ShieldCheck className="w-6 h-6 text-gold" />
                 <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Clinical Quality Indicators</h3>
                 <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
@@ -630,13 +619,13 @@ export default function App() {
               </div>
             </div>
 
-            {/* Card 4 */}
+            {/* Card 3 */}
             <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/30 transition-colors">
               <div className="space-y-3">
                 <Send className="w-6 h-6 text-gold" />
-                <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Claims-Attachment Support</h3>
+                <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Billing Team Reference Material</h3>
                 <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                  Standardized clinical evidence secures billing justification for managed care claims.
+                  Structured documentation your own billing staff can use to support a claim they are already filing. CCX never files, submits, or transmits anything on your behalf.
                 </p>
               </div>
             </div>
@@ -753,7 +742,7 @@ export default function App() {
 
                     <div>
                       <span className="block text-[8.5px] font-sans font-bold text-white/45 uppercase tracking-wide mb-1">
-                        Consent Log (Question 0)
+                        Consent Verified
                       </span>
                       <p className="font-sans text-gold text-xs font-bold">
                         {currentScenario.structured.consent}
@@ -1227,7 +1216,7 @@ export default function App() {
                 <span className="text-[10px] font-sans font-bold text-gold uppercase tracking-wider block">CIO &amp; IT Director</span>
                 <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Minimal Integration Footprint</h3>
                 <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                  Designed to integrate asynchronously through read-only HL7 and FHIR feeds without changing your existing EHR setups.
+                  Designed to integrate asynchronously without changing your existing EHR setups.
                 </p>
               </div>
               <div className="pt-3 border-t border-navy/[0.04] mt-3 flex items-center gap-2 text-[10px] font-semibold text-gold">
@@ -1407,7 +1396,7 @@ export default function App() {
                         )}
                       </button>
                        <p className="text-[10px] text-slate-400 mt-3 leading-relaxed">
-                        <strong>Disclaimer:</strong> This assessment tool and its results are for advisory, simulation, and informational purposes only. Uploaded data is processed locally in your browser. Absolutely no Protected Health Information (PHI) should be uploaded. CCX is not a certified auditing agency, has no formal association with the FDA, and is not certified by OMIG. Use of this tool does not guarantee Medicaid reimbursement, 100% compliance, or protection from retroactive audits. All presets and uploads are fictionalized for training and demonstration.
+                        <strong>Disclaimer:</strong> This assessment tool and its results are for advisory, simulation, and informational purposes only. Uploaded data is processed locally in your browser. Absolutely no Protected Health Information (PHI) should be uploaded. CCX is not a certified auditing agency and is not certified by OMIG. Use of this tool does not guarantee Medicaid reimbursement, 100% compliance, or protection from retroactive audits. All presets and uploads are fictionalized for training and demonstration.
                       </p>
                     </div>
                   </form>
@@ -1599,7 +1588,7 @@ export default function App() {
               Request an Exposure Assessment
             </h2>
             <p className="text-[16px] font-normal text-slate-600 leading-[28px]">
-              Request a no-cost sample exposure analysis on de-identified data from your own network — no commitment required. It is calculated using the same OMIG extrapolation methodology upheld by New York courts; a comparable 150-claim sample produced a $1,102,553 recovery in 2021 (Matter of Fast Help Ambulette).
+              Request a no-cost sample exposure analysis on de-identified data from your own network — no commitment required. In one comparable case (Matter of Fast Help Ambulette, Inc. v. NYS DOH, 2021), a 150-claim audit sample led to a full-universe extrapolated recovery under the same methodology OMIG uses today.
             </p>
           </div>
 

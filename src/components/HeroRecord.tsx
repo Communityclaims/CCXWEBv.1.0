@@ -65,7 +65,7 @@ export default function HeroRecord() {
                 <span className="text-white/45 block text-[9px] uppercase font-bold tracking-tight">Consent Status</span>
                 <span className="text-gold font-bold flex items-center gap-1 mt-0.5">
                   <Check className="w-3 h-3 text-gold stroke-[3px]" />
-                  Verified (Q0)
+                  Consent Verified
                 </span>
               </div>
             </div>
@@ -73,7 +73,7 @@ export default function HeroRecord() {
             <div className="pt-3 border-t border-white/10 text-xs">
               <span className="text-white/45 block text-[9px] uppercase font-bold tracking-tight mb-1">Standardized Narrative Output</span>
               <p className="font-sans text-[11.5px] text-white/90 leading-relaxed bg-white/5 p-3 rounded-lg border border-white/10">
-                LOINC 96777-8 Screening completed. Patient has food insecurity (Z59.41) with expired assistance. HIE consent verified. Referred to emergency food pantry. Duration: 15 minutes.
+                Screened using the AHC HRSN Tool (LOINC 96777-8) — positive for food insecurity (ICD-10 Z59.41) with expired assistance. HIE consent verified. Referred to emergency food pantry. Duration: 15 minutes.
               </p>
             </div>
           </div>
