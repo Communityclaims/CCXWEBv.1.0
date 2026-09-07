@@ -107,9 +107,9 @@ const PROOF_SCENARIOS: ProofScenario[] = [
     raw: 'Patient came in today, SNAP expired last week. No grocery store in walking distance. Set up emergency food pantry referral.',
     structured: {
       zCode: 'Z59.41 (Food insecurity)',
-      duration: '12 Minutes (Exceeds clinical billing threshold)',
-      narrative: 'Screened using the AHC HRSN Tool (LOINC 96777-8) — positive for food insecurity (ICD-10 Z59.41). Patient presents with acute nutritional deficit due to expired SNAP assistance and physical geographic food desert. Dispatched emergency referral to local pantry.',
-      consent: 'Verified (Contemporaneous Patient Sign-off)'
+      duration: '12 Minutes (Exceeds billing-eligible duration threshold)',
+      narrative: 'Screened using the AHC HRSN Tool (LOINC 96777-8) — positive for food insecurity (ICD-10 Z59.41). Member presents with acute nutritional deficit due to expired SNAP assistance and physical geographic food desert. Dispatched emergency referral to local pantry.',
+      consent: 'Verified (Contemporaneous Member Sign-off)'
     }
   },
   {
@@ -118,9 +118,9 @@ const PROOF_SCENARIOS: ProofScenario[] = [
     raw: 'Found water damage and visible mold in bedrooms. Landlord has ignored requests for repair. Member\'s child has active asthma. Referral to legal aid.',
     structured: {
       zCode: 'Z59.1 (Inadequate housing)',
-      duration: '18 Minutes (Exceeds clinical billing threshold)',
-      narrative: 'LOINC 97023-6 Screening completed. Patient reports mold exposure and structural water damage. Documented direct correlation with pediatric asthma exacerbation. Handed off to legal advocate.',
-      consent: 'Verified (Contemporaneous Patient Sign-off)'
+      duration: '18 Minutes (Exceeds billing-eligible duration threshold)',
+      narrative: 'LOINC 97023-6 Screening completed. Member reports mold exposure and structural water damage. Documented direct correlation with pediatric asthma exacerbation. Handed off to legal advocate.',
+      consent: 'Verified (Contemporaneous Member Sign-off)'
     }
   },
   {
@@ -169,7 +169,7 @@ export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'compliance-trust' | 'resources'>('home');
   
   // Section 4 (PROOF) state
-  const [selectedScenarioId, setSelectedScenarioId] = useState<string>('food');
+  const [selectedScenarioId, setSelectedScenarioId] = useState<string>('housing');
   
   // SCN Map state
   const [selectedRegionKey, setSelectedRegionKey] = useState<string | null>(null);
@@ -630,6 +630,50 @@ export default function App() {
               </div>
             </div>
           </div>
+
+          <div className="pt-16 border-t border-[#0F172A]/[0.05] space-y-12">
+            <div className="space-y-3 max-w-[680px]">
+              <h3 className="font-sans font-bold text-[28px] text-navy tracking-tight leading-tight">
+                ON THE ROADMAP
+              </h3>
+              <p className="text-[16px] font-normal text-slate-600 leading-[28px]">
+                Capabilities in active design, not yet in production.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col">
+                <h4 className="font-sans font-semibold text-[18px] text-navy tracking-tight leading-snug">Pre-Submission Completeness Checks</h4>
+                <p className="text-[15px] font-normal text-slate-500 leading-[24px]">
+                  Flagging a documentation gap — a screening that would fall under the reimbursable duration threshold, a missing consent record — before submission, not only during retrospective review.
+                </p>
+              </div>
+              <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col">
+                <h4 className="font-sans font-semibold text-[18px] text-navy tracking-tight leading-snug">Denial Pattern Analytics</h4>
+                <p className="text-[15px] font-normal text-slate-500 leading-[24px]">
+                  Network-wide visibility into which documentation gaps are driving denials most often, and where in the network they’re concentrated.
+                </p>
+              </div>
+              <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col">
+                <h4 className="font-sans font-semibold text-[18px] text-navy tracking-tight leading-snug">Self-Service Exposure Modeling</h4>
+                <p className="text-[15px] font-normal text-slate-500 leading-[24px]">
+                  Applying the same sample-extrapolation approach OMIG uses in its own reviews to your own data, so you can see your own exposure estimate before OMIG calculates one for you.
+                </p>
+              </div>
+              <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col">
+                <h4 className="font-sans font-semibold text-[18px] text-navy tracking-tight leading-snug">Structured Reporting Export</h4>
+                <p className="text-[15px] font-normal text-slate-500 leading-[24px]">
+                  Screening data exported in a format built for DOH and funder reporting, not only audit defense.
+                </p>
+              </div>
+              <div className="bg-[#FAF9F6] p-6 rounded-xl border border-[#0F172A]/[0.06] shadow-xs space-y-3 flex flex-col">
+                <h4 className="font-sans font-semibold text-[18px] text-navy tracking-tight leading-snug">Network Risk Visibility</h4>
+                <p className="text-[15px] font-normal text-slate-500 leading-[24px]">
+                  Per-CBO visibility for lead entities managing documentation risk across a subcontracted network.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -647,7 +691,7 @@ export default function App() {
               </span>
             </div>
             <h2 className="font-sans font-bold text-[36px] text-navy tracking-tight leading-tight">
-              Clinical Note Standardization
+              Casework Entry Standardization
             </h2>
             <p className="text-[16px] font-normal text-slate-600 leading-[28px]">
               Evaluate how CCX parses raw, unformatted casework checklist scribbles from a retrospective export and structures them into fully formatted, reproducible evidence records ready for audit review.
@@ -815,6 +859,7 @@ export default function App() {
         </div>
       </section>
 
+
       {/* ==================== 6. BOUNDARIES ==================== */}
       <section id="system-boundaries" className="py-28 md:py-36 bg-off-white border-b border-[#0F172A]/[0.05]">
         <div className="max-w-[1120px] mx-auto px-6 text-left space-y-12">
@@ -883,6 +928,12 @@ export default function App() {
                   <h4 className="text-[16px] font-semibold text-navy">Structure raw narrative text</h4>
                   <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
                     CCX converts free-text casework notes into standard LOINC codes and structured, reproducible evidence records during retrospective review.
+                  </p>
+                </div>
+                <div className="space-y-1">
+                  <h4 className="text-[16px] font-semibold text-navy">Never introduce new facts</h4>
+                  <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
+                    Every generated code, duration flag, or narrative maps back to a specific span of the original entry. CCX restates and structures what the source record already contains; it does not infer, assume, or add anything the frontline worker didn’t write.
                   </p>
                 </div>
                 <div className="space-y-1">
@@ -1198,8 +1249,8 @@ export default function App() {
             {/* Card 3: CMO */}
             <div className="bg-[#FAF9F6] border border-[#0F172A]/[0.06] rounded-xl p-5 flex flex-col justify-between shadow-xs hover:border-gold/30 transition-colors">
               <div className="space-y-3">
-                <span className="text-[10px] font-sans font-bold text-gold uppercase tracking-wider block">Chief Medical Officer</span>
-                <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Standardize Clinical Terminology</h3>
+                <span className="text-[10px] font-sans font-bold text-gold uppercase tracking-wider block">CLINICAL & QUALITY LEADERSHIP</span>
+                <h3 className="font-sans font-semibold text-[20px] text-navy tracking-tight leading-snug">Standardize Documentation Terminology</h3>
                 <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
                   Map frontline encounter documentation directly to LOINC and ICD-10 SDOH taxonomies automatically.
                 </p>
@@ -1588,7 +1639,7 @@ export default function App() {
               Request an Exposure Assessment
             </h2>
             <p className="text-[16px] font-normal text-slate-600 leading-[28px]">
-              Request a no-cost sample exposure analysis on de-identified data from your own network — no commitment required. In one comparable case (Matter of Fast Help Ambulette, Inc. v. NYS DOH, 2021), a 150-claim audit sample led to a full-universe extrapolated recovery under the same methodology OMIG uses today.
+              Request a no-cost sample exposure analysis on de-identified data from your own network — no commitment required. OMIG’s extrapolation methodology can turn a small sample into a large recovery: in Matter of Fast Help Ambulette, Inc. v. NYS DOH (2021), a 150-claim sample that found $3,355 in actual overpayments was extrapolated into a $1.1M recovery demand against the full claim population. That case involved a transportation vendor, not an HRSN network — the relevance here is the extrapolation math, not the provider type.
             </p>
           </div>
 

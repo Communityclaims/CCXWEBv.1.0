@@ -142,20 +142,17 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
               </button>
             </div>
             <p className="font-mono text-[10px] text-white/35 leading-relaxed">
-              NY GBL §390-f (S7263) · OMIG Disclaimer Applies
+              OMIG Disclaimer Applies
               <br />
               HIPAA BAA Standard
               <br />
-              Secure Read-Only Memory Pipeline
+              Read-Only Data Handling
             </p>
           </div>
         </div>
 
         {/* Back to top button */}
-        <div className="flex justify-between items-center pt-8 border-t border-white/5">
-          <div className="text-[10px] text-white/20 font-mono">
-            CCX SYSTEM ID: 3f68f676
-          </div>
+        <div className="flex justify-end items-center pt-8 border-t border-white/5">
           <button
             onClick={handleScrollToTop}
             className="font-sans text-xs text-gold hover:text-gold-light font-bold cursor-pointer transition-colors duration-150"
