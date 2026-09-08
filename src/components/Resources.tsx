@@ -64,7 +64,7 @@ const RESOURCES_FAQ = [
 
 export default function Resources({ onViewChange }: ResourcesProps) {
   return (
-    <div className="bg-[#FAF8F5] py-16 md:py-24">
+    <div id="resources" className="bg-[#FAF8F5] py-16 md:py-24">
       <div className="max-w-[1120px] mx-auto px-6 space-y-16">
 
         {/* Navigation Breadcrumb */}

@@ -22,6 +22,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
       onViewChange('compliance-trust');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (id === 'resources') {
+      window.location.hash = 'resources';
       onViewChange('resources');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (id === 'top') {

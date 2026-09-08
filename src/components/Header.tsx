@@ -24,6 +24,7 @@ export default function Header({ activeSection, onSectionChange, currentView, on
     setMobileMenuOpen(false);
 
     if (id === 'resources') {
+      window.location.hash = 'resources';
       onViewChange('resources');
       return;
     }

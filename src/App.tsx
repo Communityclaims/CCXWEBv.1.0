@@ -104,7 +104,7 @@ const PROOF_SCENARIOS: ProofScenario[] = [
   {
     id: 'food',
     name: 'Food Insecurity',
-    raw: 'Patient came in today, SNAP expired last week. No grocery store in walking distance. Set up emergency food pantry referral.',
+    raw: 'Member came in today, SNAP expired last week. No grocery store in walking distance. Set up emergency food pantry referral. Verbal consent obtained. 12 mins.',
     structured: {
       zCode: 'Z59.41 (Food insecurity)',
       duration: '12 Minutes (Exceeds billing-eligible duration threshold)',
@@ -115,7 +115,7 @@ const PROOF_SCENARIOS: ProofScenario[] = [
   {
     id: 'housing',
     name: 'Housing Instability',
-    raw: 'Found water damage and visible mold in bedrooms. Landlord has ignored requests for repair. Member\'s child has active asthma. Referral to legal aid.',
+    raw: 'Found water damage and visible mold in bedrooms. Landlord has ignored requests for repair. Member\'s child has active asthma. Referral to legal aid. Verbal consent obtained. 18 mins.',
     structured: {
       zCode: 'Z59.1 (Inadequate housing)',
       duration: '18 Minutes (Exceeds billing-eligible duration threshold)',
@@ -164,9 +164,19 @@ const FAQ_ITEMS: FAQItem[] = [
   }
 ];
 
+// Helper to initialize view from URL hash if present
+const getInitialView = (): 'home' | 'compliance-trust' | 'resources' => {
+  if (typeof window !== 'undefined') {
+    const hash = window.location.hash.replace(/^#/, '');
+    if (hash === 'resources') return 'resources';
+    if (hash === 'compliance-trust') return 'compliance-trust';
+  }
+  return 'home';
+};
+
 export default function App() {
   const [activeSection, setActiveSection] = useState<string>('top');
-  const [currentView, setCurrentView] = useState<'home' | 'compliance-trust' | 'resources'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'compliance-trust' | 'resources'>(getInitialView);
   
   // Section 4 (PROOF) state
   const [selectedScenarioId, setSelectedScenarioId] = useState<string>('housing');
@@ -243,6 +253,51 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Listen for hash changes to support direct URL fragment routing (e.g., #resources)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace(/^#/, '');
+      if (hash === 'resources') {
+        setCurrentView('resources');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (hash === 'compliance-trust') {
+        setCurrentView('compliance-trust');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else {
+        setCurrentView('home');
+        if (hash) {
+          setTimeout(() => {
+            const element = document.getElementById(hash);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 100);
+        }
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleViewChange = (view: 'home' | 'compliance-trust' | 'resources') => {
+    setCurrentView(view);
+    if (view === 'resources') {
+      if (window.location.hash !== '#resources') {
+        window.location.hash = 'resources';
+      }
+    } else if (view === 'compliance-trust') {
+      if (window.location.hash !== '#compliance-trust') {
+        window.location.hash = 'compliance-trust';
+      }
+    } else {
+      if (window.location.hash === '#resources' || window.location.hash === '#compliance-trust') {
+        history.pushState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
 
   // Handle Preset Selection
   const handlePresetSelect = (id: string) => {
@@ -435,25 +490,16 @@ export default function App() {
         activeSection={activeSection} 
         onSectionChange={setActiveSection}
         currentView={currentView}
-        onViewChange={(view) => {
-          setCurrentView(view);
-          window.scrollTo({ top: 0, behavior: 'instant' });
-        }}
+        onViewChange={handleViewChange}
       />
 
       {currentView === 'compliance-trust' ? (
         <main id="main-content" className="focus:outline-none" tabIndex={-1}>
-          <ComplianceTrustCenter onViewChange={(view) => {
-            setCurrentView(view);
-            window.scrollTo({ top: 0, behavior: 'instant' });
-          }} />
+          <ComplianceTrustCenter onViewChange={handleViewChange} />
         </main>
       ) : currentView === 'resources' ? (
-        <main id="main-content" className="focus:outline-none" tabIndex={-1}>
-          <Resources onViewChange={(view) => {
-            setCurrentView(view);
-            window.scrollTo({ top: 0, behavior: 'instant' });
-          }} />
+        <main id="resources" className="focus:outline-none" tabIndex={-1}>
+          <Resources onViewChange={handleViewChange} />
         </main>
       ) : (
         <main id="main-content" className="focus:outline-none" tabIndex={-1}>
@@ -1767,10 +1813,7 @@ export default function App() {
       {/* FOOTER */}
       <Footer 
         currentView={currentView}
-        onViewChange={(view) => {
-          setCurrentView(view);
-          window.scrollTo({ top: 0, behavior: 'instant' });
-        }}
+        onViewChange={handleViewChange}
       />
     </div>
   );
