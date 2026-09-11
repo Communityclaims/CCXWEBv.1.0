@@ -33,6 +33,12 @@ const REGULATORY_REFERENCES: RegulatoryReference[] = [
     url: 'https://omig.ny.gov/provider-resources/self-disclosure'
   },
   {
+    title: 'Compliance Program Review Protocols & Annual Work Plan',
+    org: 'NYS Office of the Medicaid Inspector General (OMIG)',
+    purpose: 'Details mandatory Compliance Program Review (CPR) lookback periods (12 months), annual targets (200 reviews), and 18 NYCRR Part 521 compliance mandates.',
+    url: 'https://omig.ny.gov/compliance/compliance-program-review'
+  },
+  {
     title: 'Health-Related Social Needs (HRSN) in Medicaid',
     org: 'Centers for Medicare & Medicaid Services',
     purpose: 'Current federal guidance on HRSN coverage authorities.',
@@ -53,6 +59,10 @@ const RESOURCES_FAQ = [
     answer: 'No. CCX is an independent documentation infrastructure company. The references on this page link to official government sources so you can read the underlying requirements directly; they are not CCX materials and CCX does not speak on behalf of any regulator.'
   },
   {
+    question: 'What is CCX’s corporate status, team background, and stage?',
+    answer: 'Community Claims Exchange, Inc. is a Delaware C-Corporation operating since 2024, built by a specialized team with revenue cycle management (RCM), Medicaid audit defense, and healthcare compliance backgrounds. We are an early-stage, founder-led company working toward formal SOC 2 Type II certification and BAA-readiness. The platform is actively developed, with repository and data model access available on request during due-diligence or technical evaluation conversations.'
+  },
+  {
     question: 'How current are these references?',
     answer: 'Regulatory guidance in this area changes; CMS itself rescinded prior HRSN framework guidance in March 2025. We link directly to the regulator’s own page rather than a cached copy so you always see their current version, and we note known status changes where relevant.'
   },
@@ -70,6 +80,7 @@ export default function Resources({ onViewChange }: ResourcesProps) {
         {/* Navigation Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 uppercase tracking-wider text-left">
           <button
+            type="button"
             onClick={() => onViewChange('home')}
             className="hover:text-gold transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B6420] focus-visible:rounded px-1"
           >
@@ -240,6 +251,7 @@ export default function Resources({ onViewChange }: ResourcesProps) {
             <p className="text-[14px] text-white/70 max-w-lg leading-relaxed">We’re happy to talk through where CCX does and doesn’t fit.</p>
           </div>
           <button
+            type="button"
             onClick={() => {
               onViewChange('home');
               setTimeout(() => {

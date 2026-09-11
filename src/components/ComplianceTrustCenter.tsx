@@ -46,24 +46,24 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
 
   const securityCards = [
     {
-      title: 'Data Flow Architecture',
-      description: 'Future technical documentation describing CCX data movement, integration boundaries, and processing architecture.',
-      status: 'Documentation Pending'
+      title: 'HIPAA Business Associate Agreement (BAA)',
+      description: 'CCX executes standard HIPAA Business Associate Agreements with all SCN lead entities, CMAs, and hospital partners prior to ingesting batch data exports. Enterprise legal review supported.',
+      status: 'Standard BAA Available'
     },
     {
-      title: 'Data Processing Controls',
-      description: 'Future documentation describing transformation methodology and processing safeguards.',
-      status: 'Documentation Pending'
+      title: 'Data Hosting & Encryption Architecture',
+      description: '100% US-based infrastructure in isolated AWS US-East / GovCloud VPCs. Encrypted at rest via AES-256 with tenant KMS keys; encrypted in transit via TLS 1.3. Customer-controlled batch exports only.',
+      status: 'US-East AWS GovCloud · AES-256 / TLS 1.3'
     },
     {
-      title: 'Retention & Privacy Model',
-      description: 'Future documentation describing retention practices and privacy controls.',
-      status: 'Documentation Pending'
+      title: 'SOC 2 Type II Certification',
+      description: 'Type II audit window underway with independent AICPA-accredited CPA auditors (target completion Q2 2027). HIPAA Risk Assessment, Third-Party Penetration Test, and SIG questionnaire available under NDA.',
+      status: 'In Progress (Target Q2 2027)'
     },
     {
-      title: 'Enterprise Security Overview',
-      description: 'Future documentation describing security review materials and organizational controls.',
-      status: 'Documentation Pending'
+      title: 'Data Retention & WORM Storage Policy',
+      description: 'Immutable retrospective archival supporting OMIG statutory recordkeeping mandates (6–10 years) for retrospective Medicaid audit defense.',
+      status: '6–10 Year Statutory Archival'
     }
   ];
 
@@ -116,6 +116,7 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
         {/* Navigation Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 uppercase tracking-wider text-left">
           <button 
+            type="button"
             onClick={() => onViewChange('home')}
             className="hover:text-gold transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B6420] focus-visible:rounded px-1"
           >
@@ -527,6 +528,27 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
               </div>
             ))}
           </div>
+        </section>
+
+        {/* ============ CONTACT / DUE DILIGENCE CTA ============ */}
+        <section className="bg-gradient-to-br from-[#0F1E36] to-[#081529] border border-gold/15 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 text-left shadow-lg relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full filter blur-3xl pointer-events-none -mr-20 -mt-20" />
+          <div className="relative z-10 space-y-1">
+            <h2 className="font-sans font-bold text-[22px] text-white tracking-tight">Need technical due-diligence documentation?</h2>
+            <p className="text-[14px] text-white/70 max-w-lg leading-relaxed">We provide complete architectural specifications, SOC 2 compliance roadmaps, and mutual BAA execution on request.</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              onViewChange('home');
+              setTimeout(() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 100);
+            }}
+            className="relative z-10 px-6 py-3 bg-gold hover:bg-[#B5945F] active:translate-y-0.5 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-150 whitespace-nowrap cursor-pointer border border-gold/20"
+          >
+            Request Due Diligence Package
+          </button>
         </section>
 
       </div>

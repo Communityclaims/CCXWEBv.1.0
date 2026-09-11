@@ -15,6 +15,8 @@ export default function Header({ activeSection, onSectionChange, currentView, on
   const navItems = [
     { id: 'produces', label: 'Platform' },
     { id: 'exposure-review', label: 'Assessment' },
+    { id: 'compliance-guardrails', label: 'Security & BAA' },
+    { id: 'about-ccx', label: 'About' },
     { id: 'resources', label: 'Resources' },
     { id: 'contact', label: 'Contact' },
   ];
@@ -73,8 +75,8 @@ export default function Header({ activeSection, onSectionChange, currentView, on
           </div>
         </a>
 
-        {/* Desktop Nav - Perfectly Centered with 40px-48px adaptive spacing */}
-        <nav className="hidden lg:flex items-center gap-[40px] xl:gap-[48px] absolute left-1/2 -translate-x-1/2">
+        {/* Desktop Nav - Perfectly Centered with adaptive spacing */}
+        <nav className="hidden lg:flex items-center gap-[24px] xl:gap-[36px] absolute left-1/2 -translate-x-1/2">
           {navItems.map((item) => {
             const isActive = item.id === 'resources' ? currentView === 'resources' : (activeSection === item.id && currentView === 'home');
 
@@ -100,7 +102,7 @@ export default function Header({ activeSection, onSectionChange, currentView, on
             onClick={(e) => handleNavClick(e, 'exposure-review')}
             className="inline-block px-5 py-2.5 bg-white border border-[#8B6420] text-[#0F172A] hover:bg-[#8B6420] hover:text-white hover:border-[#8B6420] font-sans text-[13px] font-semibold tracking-wide rounded-lg transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#8B6420] focus-visible:ring-offset-2 focus-visible:outline-none"
           >
-            Run Exposure Assessment
+            Explore Review Scenarios
           </a>
         </div>
 
@@ -145,7 +147,7 @@ export default function Header({ activeSection, onSectionChange, currentView, on
             onClick={(e) => handleNavClick(e, 'exposure-review')}
             className="block mt-4 py-3 bg-white border border-[#8B6420] text-[#0F172A] hover:bg-[#8B6420] hover:text-white hover:border-[#8B6420] font-sans text-xs font-semibold rounded-md text-center transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#8B6420] focus-visible:outline-none"
           >
-            Run Exposure Assessment
+            Explore Review Scenarios
           </a>
         </div>
       </div>

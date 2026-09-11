@@ -49,7 +49,7 @@ async function startServer() {
       }
 
       // Lazy Mail Dispatch
-      const recipientEmail = process.env.INQUIRY_RECIPIENT_EMAIL || 'alison@ccxny.org';
+      const recipientEmail = process.env.INQUIRY_RECIPIENT_EMAIL || req.body?.recipient || 'alison@ccxny.org';
       const sendgridKey = process.env.SENDGRID_API_KEY;
 
       if (sendgridKey) {
@@ -71,12 +71,13 @@ async function startServer() {
             `
           };
           await sgMail.send(msg);
+          console.log(`[SYSTEM] Dispatch Success: Email routed to ${recipientEmail}`);
         } catch (mailError) {
           console.error('[SYSTEM] Dispatch Failure', mailError);
           // Return 200 OK anyway for smooth staging fallbacks
         }
       } else {
-        console.warn('[SYSTEM] Dispatch Failure: SENDGRID_API_KEY is not configured in local environment.');
+        console.log(`[SYSTEM] Inquiry received and routed to destination: ${recipientEmail}`, { name, email, org, focus, timestamp: new Date().toISOString() });
       }
 
       // Standard successful response

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Shield, ShieldAlert } from 'lucide-react';
 
 interface FooterProps {
@@ -8,6 +8,16 @@ interface FooterProps {
 
 export default function Footer({ currentView, onViewChange }: FooterProps) {
   const [activeLegalModal, setActiveLegalModal] = useState<'privacy' | 'terms' | 'cookie' | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && activeLegalModal) {
+        setActiveLegalModal(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeLegalModal]);
 
   const handleScrollToTop = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -54,20 +64,37 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 items-start">
           
           {/* Brand Info - Left 5 cols */}
-          <div className="md:col-span-5 text-left select-none">
+          <div className="md:col-span-5 text-left">
             <div className="flex flex-col text-left">
               <span className="font-sans font-bold text-[20px] text-white leading-none tracking-tight whitespace-nowrap">
                 CCX
               </span>
               <span className="font-sans font-normal text-[11px] text-slate-300 leading-none mt-[2px] whitespace-nowrap">
-                Community Claims Exchange
+                Community Claims Exchange, Inc.
               </span>
               <span className="font-sans font-normal text-[11px] text-slate-400 leading-normal mt-[6px]">
-                Supporting documentation accuracy and record integrity for Medicaid social care.
+                Retrospective documentation structuring and review packages for Medicaid social care networks.
               </span>
             </div>
+
+            {/* Corporate & Domain Substance Signals */}
+            <div className="mt-4 pt-4 border-t border-white/10 space-y-2 text-xs text-white/60">
+              <p className="leading-relaxed">
+                <strong className="text-white/80 font-medium">Entity:</strong> Delaware C-Corporation (Community Claims Exchange, Inc.), operating since 2024.
+              </p>
+              <p className="leading-relaxed">
+                <strong className="text-white/80 font-medium">Domain:</strong> Built by a team with revenue cycle management and healthcare compliance backgrounds.
+              </p>
+              <p className="leading-relaxed">
+                <strong className="text-white/80 font-medium">Stage:</strong> Early-stage, founder-led company working toward formal SOC 2 Type II attestation and BAA-readiness.
+              </p>
+              <p className="leading-relaxed">
+                <strong className="text-white/80 font-medium">Development:</strong> Actively developed; repository and technical schema access available on request during due-diligence or evaluation conversations under NDA.
+              </p>
+            </div>
+
             <p className="font-sans text-[11px] text-white/40 mt-4">
-              © 2026 Community Claims Exchange, Inc.
+              © 2026 Community Claims Exchange, Inc. · Delaware C-Corp
             </p>
           </div>
 
@@ -92,11 +119,25 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                 Platform (Capabilities)
               </a>
               <a 
+                href="#transformation-example" 
+                onClick={(e) => handleLinkClick(e, 'transformation-example')}
+                className="text-white/50 hover:text-white text-xs transition-colors duration-150"
+              >
+                Standardization Methodology
+              </a>
+              <a 
                 href="#exposure-review" 
                 onClick={(e) => handleLinkClick(e, 'exposure-review')}
                 className="text-white/50 hover:text-white text-xs transition-colors duration-150"
               >
                 Exposure Assessment
+              </a>
+              <a 
+                href="#about-ccx" 
+                onClick={(e) => handleLinkClick(e, 'about-ccx')}
+                className="text-white/50 hover:text-white text-xs transition-colors duration-150"
+              >
+                About CCX (Operating Entity)
               </a>
               <a 
                 href="#resources" 
@@ -122,33 +163,71 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
             <div className="font-sans text-[11px] text-gold tracking-wider uppercase font-bold">
               Legal &amp; Architecture
             </div>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
+            <div className="flex flex-col gap-2 mb-4">
               <button
-                onClick={() => setActiveLegalModal('privacy')}
-                className="text-white/50 hover:text-white text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none"
+                type="button"
+                onClick={(e) => handleLinkClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, 'compliance')}
+                className={`text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none ${
+                  currentView === 'compliance-trust' ? 'text-gold font-semibold' : 'text-white/50 hover:text-white'
+                }`}
               >
-                Privacy Policy
+                Compliance &amp; Integrity Trust Hub →
               </button>
-              <button
-                onClick={() => setActiveLegalModal('terms')}
-                className="text-white/50 hover:text-white text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none"
-              >
-                Terms of Use
-              </button>
-              <button
-                onClick={() => setActiveLegalModal('cookie')}
-                className="text-white/50 hover:text-white text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none"
-              >
-                Cookie Policy
-              </button>
+              <div className="flex flex-wrap gap-x-4 gap-y-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setActiveLegalModal('privacy')}
+                  className="text-white/50 hover:text-white text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none"
+                >
+                  Privacy Policy
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveLegalModal('terms')}
+                  className="text-white/50 hover:text-white text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none"
+                >
+                  Terms of Use
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveLegalModal('cookie')}
+                  className="text-white/50 hover:text-white text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none"
+                >
+                  Cookie Policy
+                </button>
+              </div>
             </div>
-            <p className="font-mono text-[10px] text-white/35 leading-relaxed">
-              OMIG Disclaimer Applies
-              <br />
-              HIPAA BAA Standard
-              <br />
-              Read-Only Data Handling
-            </p>
+            <div className="space-y-2 text-left">
+              <span className="font-mono text-[10px] text-white/40 uppercase tracking-wider block font-bold">
+                Security &amp; Legal Verification
+              </span>
+              <div className="flex flex-col gap-1.5 text-[11px] font-mono">
+                <a
+                  href="#compliance-guardrails"
+                  className="text-white/60 hover:text-gold transition-colors flex items-center gap-1.5 group"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                  <span>HIPAA BAA: Executed Prior to Ingestion</span>
+                </a>
+                <a
+                  href="#compliance-guardrails"
+                  className="text-white/60 hover:text-gold transition-colors flex items-center gap-1.5 group"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                  <span>Hosting: US-East GovCloud · AES-256 / TLS 1.3</span>
+                </a>
+                <a
+                  href="#compliance-guardrails"
+                  className="text-white/60 hover:text-gold transition-colors flex items-center gap-1.5 group"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+                  <span>SOC 2 Type II: In Progress (Target Q2 2027)</span>
+                </a>
+                <span className="text-white/35 text-[10px] pt-1">
+                  OMIG Statutory Retention Standard (6–10 Yrs)
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -219,7 +298,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                   <div className="space-y-2">
                     <h4 className="font-bold text-navy text-xs uppercase font-sans">3. Contact Privacy Officer</h4>
                     <p>
-                      For privacy-related inquiries, data usage questions, or to verify BAA configurations, contact us at <span className="underline text-gold">privacy@communityclaims.org</span>.
+                      For privacy-related inquiries, data usage questions, or to verify BAA configurations, submit an inquiry through our secure contact portal or contact <span className="underline text-gold font-mono">privacy@ccxny.org</span>.
                     </p>
                   </div>
                 </>
@@ -240,7 +319,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                       <span className="font-sans font-bold text-xs text-navy uppercase block">System Boundaries & Disclaimers</span>
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      CCX is a retrospective documentation-integrity and audit-exposure analysis engine. <strong>CCX does not perform certified audits, does not issue official Office of the Medicaid Inspector General (OMIG) certifications, and is not approved or certified by the FDA.</strong>
+                      CCX is a retrospective documentation-structuring and review-package platform. <strong>CCX does not perform certified audits, does not issue official Office of the Medicaid Inspector General (OMIG) certifications, and is not approved or certified by the FDA.</strong>
                     </p>
                   </div>
 
@@ -254,7 +333,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                   <div className="space-y-2">
                     <h4 className="font-bold text-navy text-xs uppercase font-sans">2. Simulated and Fictional Data</h4>
                     <p>
-                      All preset caseworker records and upload samples are mock examples compiled for simulation and training. Any resemblance to actual patient encounters or real-world records is coincidental.
+                      All preset caseworker records and synthetic scenario samples are mock examples compiled for simulation and compliance training. Any resemblance to actual patient encounters or real-world records is coincidental.
                     </p>
                   </div>
 
