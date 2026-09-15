@@ -35,7 +35,7 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
         {/* Section Header */}
         <div className="space-y-4 max-w-[820px]">
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-[#8B6420]" />
+            <Building2 className="w-4 h-4 text-[#8B6420]" aria-hidden="true" />
             <span className="font-sans text-[12px] text-[#8B6420] uppercase font-semibold tracking-[0.08em]">
               Company &amp; Operating Substance
             </span>
@@ -162,7 +162,13 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-gold shrink-0 mt-1.5" />
                   <span>
-                    <strong className="text-navy font-semibold">Isolated US-East Hosting:</strong> Dedicated AWS GovCloud / US-East VPCs, AES-256 KMS encryption, and zero model training on PHI.
+                    <strong className="text-navy font-semibold">Deterministic Architecture (No ML/LLMs):</strong> Pure rules-based terminology mapping and literal string matching. Zero generative models or probabilistic neural networks in the clinical pipeline, eliminating hallucination and model drift risk entirely.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-2 h-2 rounded-full bg-gold shrink-0 mt-1.5" />
+                  <span>
+                    <strong className="text-navy font-semibold">Isolated US-East Hosting:</strong> Dedicated AWS GovCloud / US-East VPCs with AES-256 KMS encryption at rest and enforced TLS 1.3 in transit.
                   </span>
                 </li>
               </ul>
@@ -191,7 +197,7 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
               Evaluate the Evidence Engine Directly
             </h3>
             <p className="text-sm md:text-[15px] text-slate-300 leading-relaxed font-normal">
-              In a high-stakes Medicaid regulatory review, you cannot audit an executive’s resume or a founder’s bio. You audit the deterministic evidence trail. CCX relies on auditable, deterministic terminology rules that map raw casework narratives into standard LOINC and ICD-10 codes, explicitly flagging missing facts rather than hallucinating compliance.
+              In a high-stakes Medicaid regulatory review, you cannot audit an executive’s resume or a founder’s bio. You audit the deterministic evidence trail. CCX is a 100% deterministic, rules-based engine—not a probabilistic machine learning or generative AI model. We rely strictly on auditable terminology rules that map raw casework narratives into standard LOINC and ICD-10 codes, explicitly flagging missing facts rather than inferring or extrapolating compliance.
             </p>
           </div>
 
@@ -215,10 +221,10 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
                 02. Terminology Mapping
               </div>
               <h4 className="font-sans font-bold text-sm text-white">
-                LOINC &amp; ICD-10 Taxonomy
+                Deterministic LOINC &amp; ICD-10 Taxonomy
               </h4>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Extracts screening observations and maps narrative findings to standard LOINC instruments (e.g., 96778-6, 96779-4) and ICD-10 SDOH Z-codes (Z59.41, Z59.01) only when supported by source text.
+                Rules-based terminology matching maps observations to standard LOINC instruments (e.g., 96778-6, 96779-4) and ICD-10 SDOH Z-codes (Z59.41, Z59.01) only when supported by literal source text spans. No machine learning inference is performed.
               </p>
             </div>
 
@@ -227,10 +233,10 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
                 03. Strict Gap Flagging
               </div>
               <h4 className="font-sans font-bold text-sm text-white">
-                Surfacing Missing Proof
+                Deterministic Deficit Flagging
               </h4>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Never invents or hallucinates facts. If duration, screening instruments, or electronic HIE consent are missing, the system flags the deficit explicitly as an unverified gap.
+                Never invents or extrapolates facts. If duration, screening instruments, or electronic HIE consent are missing, deterministic rules flag the deficit explicitly as an unverified gap and withhold billing codes.
               </p>
             </div>
 
@@ -251,7 +257,7 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
           {/* Interactive Inspection CTA */}
           <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-xs text-slate-300">
-              <Search className="w-4 h-4 text-emerald-400 shrink-0" />
+              <Search className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
               <span>
                 Test this methodology live using real-world retrospective casework scenarios with interactive span highlights.
               </span>
@@ -259,10 +265,10 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
             <a
               href="#transformation-example"
               onClick={handleScrollToTransformation}
-              className="inline-flex items-center gap-2 bg-gold hover:bg-[#B5945F] text-white px-5 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors duration-150 shrink-0 cursor-pointer shadow-sm"
+              className="inline-flex items-center justify-center gap-2 bg-[#8B6420] hover:bg-[#73531A] text-white min-h-[44px] px-5 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors duration-150 shrink-0 cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1F3A]"
             >
               <span>Inspect Standardization Example</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </a>
           </div>
 

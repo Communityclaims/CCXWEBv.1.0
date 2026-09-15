@@ -166,8 +166,14 @@ export default function NysMap({ selectedRegion, onSelectRegion }: NysMapProps) 
         viewBox="0 0 786 466"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-auto block select-none focus:outline-none"
-        aria-label="Interactive Map of New York State Social Care Network regions"
+        role="region"
+        aria-labelledby="nys-map-title nys-map-desc"
       >
+        <title id="nys-map-title">Interactive Map of New York State Social Care Network Regions</title>
+        <desc id="nys-map-desc">
+          Geographic representation of New York State Medicaid 1115 waiver Social Care Networks and lead entities across Western NY, Finger Lakes, Southern Tier, Capital, Central NY, North Country, Mid-Hudson, Bronx, NYC Core, Staten Island, and Long Island.
+        </desc>
+
         {/* Region Paths */}
         {regionsPaths.map((pathItem) => {
           const isSelected = isRegionActiveInSvg(pathItem.id);
@@ -239,7 +245,7 @@ export default function NysMap({ selectedRegion, onSelectRegion }: NysMapProps) 
         </text>
 
         {/* HUD/Indicators Column for detailed selection */}
-        <text x="608" y="42" fontSize="9" fill="#55617A" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="600" letterSpacing="1.2">CAPITAL · CENTRAL · NORTH</text>
+        <text x="608" y="42" fontSize="9" fill="#1E293B" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="700" letterSpacing="1.2">CAPITAL · CENTRAL · NORTH</text>
 
         {/* Region 1: Capital */}
         <g 
@@ -259,7 +265,7 @@ export default function NysMap({ selectedRegion, onSelectRegion }: NysMapProps) 
         >
           <rect x="608" y="52" width="10" height="10" rx="2" fill={selectedRegion === 'capital' ? '#B8860B' : '#0B1F33'} className="transition-colors duration-150" />
           <text x="626" y="61" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'capital' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Capital Region</text>
-          <text x="626" y="72" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Highly Complex</text>
+          <text x="626" y="72" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Highly Complex</text>
         </g>
 
         {/* Region 7: Central NY */}
@@ -280,7 +286,7 @@ export default function NysMap({ selectedRegion, onSelectRegion }: NysMapProps) 
         >
           <rect x="608" y="82" width="10" height="10" rx="2" fill={selectedRegion === 'centralny' ? '#B8860B' : '#0B1F33'} className="transition-colors duration-150" />
           <text x="626" y="91" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'centralny' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Central NY</text>
-          <text x="626" y="102" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Highly Complex</text>
+          <text x="626" y="102" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Highly Complex</text>
         </g>
 
         {/* Region 9: North Country */}
@@ -301,11 +307,11 @@ export default function NysMap({ selectedRegion, onSelectRegion }: NysMapProps) 
         >
           <rect x="608" y="112" width="10" height="10" rx="2" fill={selectedRegion === 'northcountry' ? '#B8860B' : '#0B1F33'} className="transition-colors duration-150" />
           <text x="626" y="121" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'northcountry' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">North Country</text>
-          <text x="626" y="132" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Standard Env</text>
+          <text x="626" y="132" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Standard Env</text>
         </g>
 
         {/* HUD/Indicators for NYC (lines for clarity) */}
-        <text x="608" y="158" fontSize="9" fill="#55617A" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="600" letterSpacing="1.2">NEW YORK CITY BOROUGHS</text>
+        <text x="608" y="158" fontSize="9" fill="#1E293B" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="700" letterSpacing="1.2">NEW YORK CITY BOROUGHS</text>
 
         {/* Bronx */}
         <g 
@@ -323,57 +329,11 @@ export default function NysMap({ selectedRegion, onSelectRegion }: NysMapProps) 
             }
           }}
         >
-          <line x1="436.0" y1="416.0" x2="600.0" y2="182.0" stroke="#CBD5E1" strokeWidth="1" />
+          <line x1="436.0" y1="416.0" x2="600.0" y2="173.0" stroke="#CBD5E1" strokeWidth="1" />
           <circle cx="436.0" cy="416.0" r="2.5" fill="#0B1F33" />
           <rect x="608" y="168" width="10" height="10" rx="2" fill={selectedRegion === 'bronx' ? '#B8860B' : '#44607F'} className="transition-colors" />
           <text x="626" y="177" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'bronx' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">The Bronx (4A)</text>
-          <text x="626" y="188" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Highly Complex</text>
-        </g>
-
-        {/* Brooklyn */}
-        <g 
-          className="cursor-pointer group focus:outline-none" 
-          onClick={() => handleRegionClick('brooklyn')}
-          onMouseEnter={() => setHoveredRegionKey('brooklyn')}
-          onMouseLeave={() => setHoveredRegionKey(null)}
-          tabIndex={0}
-          role="button"
-          aria-label="Select Brooklyn region"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              handleRegionClick('brooklyn');
-            }
-          }}
-        >
-          <line x1="432.0" y1="430.0" x2="600.0" y2="212.0" stroke="#CBD5E1" strokeWidth="1" />
-          <circle cx="432.0" cy="430.0" r="2.5" fill="#0B1F33" />
-          <rect x="608" y="198" width="10" height="10" rx="2" fill={selectedRegion === 'brooklyn' ? '#B8860B' : '#1B3352'} className="transition-colors" />
-          <text x="626" y="207" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'brooklyn' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Brooklyn (4B)</text>
-          <text x="626" y="218" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Highly Complex</text>
-        </g>
-
-        {/* Queens */}
-        <g 
-          className="cursor-pointer group focus:outline-none" 
-          onClick={() => handleRegionClick('queens')}
-          onMouseEnter={() => setHoveredRegionKey('queens')}
-          onMouseLeave={() => setHoveredRegionKey(null)}
-          tabIndex={0}
-          role="button"
-          aria-label="Select Queens region"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              handleRegionClick('queens');
-            }
-          }}
-        >
-          <line x1="440.0" y1="434.0" x2="600.0" y2="242.0" stroke="#CBD5E1" strokeWidth="1" />
-          <circle cx="440.0" cy="434.0" r="2.5" fill="#0B1F33" />
-          <rect x="608" y="228" width="10" height="10" rx="2" fill={selectedRegion === 'queens' ? '#B8860B' : '#1B3352'} className="transition-colors" />
-          <text x="626" y="237" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'queens' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Queens (4C)</text>
-          <text x="626" y="248" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Standard Env</text>
+          <text x="626" y="188" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Highly Complex</text>
         </g>
 
         {/* Manhattan */}
@@ -392,38 +352,61 @@ export default function NysMap({ selectedRegion, onSelectRegion }: NysMapProps) 
             }
           }}
         >
-          <line x1="428.0" y1="425.0" x2="600.0" y2="272.0" stroke="#CBD5E1" strokeWidth="1" />
-          <circle cx="428.0" cy="425.0" r="2.5" fill="#0B1F33" />
-          <rect x="608" y="258" width="10" height="10" rx="2" fill={selectedRegion === 'manhattan' ? '#B8860B' : '#1B3352'} className="transition-colors" />
-          <text x="626" y="267" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'manhattan' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Manhattan (4D)</text>
-          <text x="626" y="278" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Standard Env</text>
+          <line x1="428.0" y1="422.0" x2="600.0" y2="203.0" stroke="#CBD5E1" strokeWidth="1" />
+          <circle cx="428.0" cy="422.0" r="2.5" fill="#0B1F33" />
+          <rect x="608" y="198" width="10" height="10" rx="2" fill={selectedRegion === 'manhattan' ? '#B8860B' : '#1B3352'} className="transition-colors" />
+          <text x="626" y="207" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'manhattan' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Manhattan (4D)</text>
+          <text x="626" y="218" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Standard Env</text>
         </g>
 
-        {/* Staten Island */}
+        {/* Queens */}
         <g 
           className="cursor-pointer group focus:outline-none" 
-          onClick={() => handleRegionClick('statenisland')}
-          onMouseEnter={() => setHoveredRegionKey('statenisland')}
+          onClick={() => handleRegionClick('queens')}
+          onMouseEnter={() => setHoveredRegionKey('queens')}
           onMouseLeave={() => setHoveredRegionKey(null)}
           tabIndex={0}
           role="button"
-          aria-label="Select Staten Island region"
+          aria-label="Select Queens region"
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              handleRegionClick('statenisland');
+              handleRegionClick('queens');
             }
           }}
         >
-          <line x1="412.0" y1="444.0" x2="600.0" y2="302.0" stroke="#CBD5E1" strokeWidth="1" />
-          <circle cx="412.0" cy="444.0" r="2.5" fill="#0B1F33" />
-          <rect x="608" y="288" width="10" height="10" rx="2" fill={selectedRegion === 'statenisland' ? '#B8860B' : '#8593A5'} className="transition-colors" />
-          <text x="626" y="297" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'statenisland' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Staten Island (4E)</text>
-          <text x="626" y="308" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Standard Env</text>
+          <line x1="444.0" y1="426.0" x2="600.0" y2="233.0" stroke="#CBD5E1" strokeWidth="1" />
+          <circle cx="444.0" cy="426.0" r="2.5" fill="#0B1F33" />
+          <rect x="608" y="228" width="10" height="10" rx="2" fill={selectedRegion === 'queens' ? '#B8860B' : '#1B3352'} className="transition-colors" />
+          <text x="626" y="237" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'queens' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Queens (4C)</text>
+          <text x="626" y="248" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Standard Env</text>
+        </g>
+
+        {/* Brooklyn */}
+        <g 
+          className="cursor-pointer group focus:outline-none" 
+          onClick={() => handleRegionClick('brooklyn')}
+          onMouseEnter={() => setHoveredRegionKey('brooklyn')}
+          onMouseLeave={() => setHoveredRegionKey(null)}
+          tabIndex={0}
+          role="button"
+          aria-label="Select Brooklyn region"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleRegionClick('brooklyn');
+            }
+          }}
+        >
+          <line x1="436.0" y1="436.0" x2="600.0" y2="263.0" stroke="#CBD5E1" strokeWidth="1" />
+          <circle cx="436.0" cy="436.0" r="2.5" fill="#0B1F33" />
+          <rect x="608" y="258" width="10" height="10" rx="2" fill={selectedRegion === 'brooklyn' ? '#B8860B' : '#1B3352'} className="transition-colors" />
+          <text x="626" y="267" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'brooklyn' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Brooklyn (4B)</text>
+          <text x="626" y="278" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Highly Complex</text>
         </g>
 
         {/* LONG ISLAND */}
-        <text x="608" y="338" fontSize="9" fill="#55617A" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="600" letterSpacing="1.2">LONG ISLAND · 1 SCN</text>
+        <text x="608" y="296" fontSize="9" fill="#1E293B" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="700" letterSpacing="1.2">LONG ISLAND · 1 SCN</text>
 
         <g 
           className="cursor-pointer group focus:outline-none" 
@@ -440,14 +423,40 @@ export default function NysMap({ selectedRegion, onSelectRegion }: NysMapProps) 
             }
           }}
         >
-          <line x1="495.0" y1="420.0" x2="600.0" y2="352.0" stroke="#CBD5E1" strokeWidth="1" />
+          <line x1="495.0" y1="420.0" x2="600.0" y2="311.0" stroke="#CBD5E1" strokeWidth="1" />
           <circle cx="495.0" cy="420.0" r="2.5" fill="#0B1F33" />
-          <rect x="608" y="348" width="10" height="10" rx="2" fill={selectedRegion === 'longisland' ? '#B8860B' : '#2D4A6B'} className="transition-colors" />
-          <text x="626" y="357" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'longisland' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Long Island (8)</text>
-          <text x="626" y="368" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#6B7280">SCN Region · Standard Env</text>
+          <rect x="608" y="306" width="10" height="10" rx="2" fill={selectedRegion === 'longisland' ? '#B8860B' : '#2D4A6B'} className="transition-colors" />
+          <text x="626" y="315" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'longisland' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Long Island (8)</text>
+          <text x="626" y="326" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Standard Env</text>
         </g>
 
-        <text x="8" y="460" fontSize="8.5" fill="#6B7280" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="500">
+        {/* STATEN ISLAND (Lowered and routed cleanly through southern waters to avoid any overlapping lines) */}
+        <text x="608" y="348" fontSize="9" fill="#1E293B" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="700" letterSpacing="1.2">STATEN ISLAND · 1 SCN</text>
+
+        <g 
+          className="cursor-pointer group focus:outline-none" 
+          onClick={() => handleRegionClick('statenisland')}
+          onMouseEnter={() => setHoveredRegionKey('statenisland')}
+          onMouseLeave={() => setHoveredRegionKey(null)}
+          tabIndex={0}
+          role="button"
+          aria-label="Select Staten Island region"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleRegionClick('statenisland');
+            }
+          }}
+        >
+          {/* Multi-segment leader line routed via open southern waters so it never intersects any other borough or line */}
+          <path d="M 412.0 444.0 L 412.0 455.0 L 560.0 455.0 L 600.0 363.0" stroke="#CBD5E1" strokeWidth="1" fill="none" />
+          <circle cx="412.0" cy="444.0" r="2.5" fill="#0B1F33" />
+          <rect x="608" y="358" width="10" height="10" rx="2" fill={selectedRegion === 'statenisland' ? '#B8860B' : '#8593A5'} className="transition-colors" />
+          <text x="626" y="367" fontSize="11" fontFamily="inherit" fill={selectedRegion === 'statenisland' ? '#B8860B' : '#0B1F33'} className="font-semibold group-hover:fill-[#B8860B] transition-colors">Staten Island (4E)</text>
+          <text x="626" y="378" fontSize="8.5" fontFamily="ui-monospace,SFMono-Regular,monospace" fill="#475569">SCN Region · Standard Env</text>
+        </g>
+
+        <text x="8" y="460" fontSize="8.5" fill="#475569" fontFamily="ui-monospace,SFMono-Regular,monospace" fontWeight="600">
           * Use Tab to navigate regions · Enter/Space to select · Hover to inspect details
         </text>
       </svg>

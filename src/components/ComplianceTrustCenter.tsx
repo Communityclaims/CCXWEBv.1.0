@@ -46,23 +46,23 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
 
   const securityCards = [
     {
-      title: 'HIPAA Business Associate Agreement (BAA)',
-      description: 'CCX executes standard HIPAA Business Associate Agreements with all SCN lead entities, CMAs, and hospital partners prior to ingesting batch data exports. Enterprise legal review supported.',
-      status: 'Standard BAA Available'
+      title: '(1) Will you sign our BAA? Can you sign customer agreements?',
+      description: 'Yes, unconditionally. CCX operates as a HIPAA Business Associate for all SCN Lead Entities, CMAs, and health systems. We execute customer enterprise BAAs or our pre-approved NY Medicaid 1115 BAA before any data ingestion.',
+      status: 'YES — Customer or Standard BAA'
     },
     {
-      title: 'Data Hosting & Encryption Architecture',
-      description: '100% US-based infrastructure in isolated AWS US-East / GovCloud VPCs. Encrypted at rest via AES-256 with tenant KMS keys; encrypted in transit via TLS 1.3. Customer-controlled batch exports only.',
-      status: 'US-East AWS GovCloud · AES-256 / TLS 1.3'
+      title: '(2) Where does data live, and is it encrypted at rest & in transit?',
+      description: '100% US-based in isolated AWS US-East / GovCloud VPCs. Encrypted at rest via AES-256 with tenant KMS keys; encrypted in transit via enforced TLS 1.3. Strictly zero foreign hosting, offshore engineering, or remote access.',
+      status: '100% US-Based · AES-256 / TLS 1.3'
     },
     {
-      title: 'SOC 2 Type II Certification',
-      description: 'Type II audit window underway with independent AICPA-accredited CPA auditors (target completion Q2 2027). HIPAA Risk Assessment, Third-Party Penetration Test, and SIG questionnaire available under NDA.',
-      status: 'In Progress (Target Q2 2027)'
+      title: '(3) Do you have a SOC 2 report or equivalent certification?',
+      description: 'In progress — not yet completed (Target: Q2 2027). Observation window active with an independent AICPA CPA firm. Interim HIPAA Risk Assessment, third-party penetration test, and completed SIG/CAIQ available under mutual NDA.',
+      status: 'In Progress · Target Q2 2027'
     },
     {
-      title: 'Data Retention & WORM Storage Policy',
-      description: 'Immutable retrospective archival supporting OMIG statutory recordkeeping mandates (6–10 years) for retrospective Medicaid audit defense.',
+      title: 'Data Retention & Immutable WORM Storage Policy',
+      description: 'Immutable retrospective archival supporting OMIG statutory recordkeeping mandates (6–10 years depending on entity type) for retrospective Medicaid audit defense. Scheduled batch exports only.',
       status: '6–10 Year Statutory Archival'
     }
   ];
@@ -215,12 +215,12 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
           </div>
         </section>
 
-        {/* SECTION 2: Documentation Integrity Model */}
+        {/* SECTION 2: Documentation Integrity Architecture */}
         <section className="space-y-8 text-left">
           <div className="border-b border-[#E2E8F0] pb-3 flex items-center gap-3">
             <Layers className="w-5 h-5 text-gold" />
             <h2 className="font-sans font-bold text-xs text-navy uppercase tracking-wider">
-              Documentation Integrity Model
+              Documentation Integrity Architecture
             </h2>
           </div>
 
@@ -228,8 +228,8 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
             {[
               { step: '1', title: 'Source Documentation', desc: 'Ingestion of raw, authorized narrative casework notes.' },
-              { step: '2', title: 'Structured Transformation', desc: 'Algorithmic filtering and structural alignment of input fields.' },
-              { step: '3', title: 'Terminology Mapping', desc: 'Standardized metadata mapping to LOINC / ICD-10 SDOH codes.' },
+              { step: '2', title: 'Deterministic Transformation', desc: 'Rules-based algorithmic filtering and structural alignment of input fields.' },
+              { step: '3', title: 'Deterministic Mapping', desc: 'Auditable metadata mapping to LOINC / ICD-10 SDOH codes.' },
               { step: '4', title: 'Human Validation', desc: 'Contemporaneous review and verification by authorized personnel.' },
               { step: '5', title: 'Review-Ready Record', desc: 'Secure packaging and export of finalized encounter documentation.' }
             ].map((node, idx) => (
@@ -340,6 +340,13 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
                   </div>
                   <span className="text-[13.5px] font-semibold text-slate-700">Override organizational policies</span>
                 </div>
+
+                <div className="flex items-center gap-3 p-3.5 bg-white border border-[#E2E8F0]/80 rounded-xl hover:border-red-200 transition-colors duration-150 shadow-[0_1px_2px_rgba(15,23,42,0.02)]">
+                  <div className="w-5 h-5 rounded-full bg-red-50 flex items-center justify-center text-red-500 shrink-0">
+                    <X className="w-3 h-3" />
+                  </div>
+                  <span className="text-[13.5px] font-semibold text-slate-700">Use machine learning or generative AI models</span>
+                </div>
               </div>
             </div>
 
@@ -356,6 +363,13 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
               </div>
 
               <div className="space-y-3">
+                <div className="flex items-center gap-3 p-3.5 bg-white border border-gold/10 rounded-xl hover:border-gold/30 transition-colors duration-150 shadow-[0_1px_2px_rgba(15,23,42,0.02)]">
+                  <div className="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+                    <Check className="w-3 h-3" />
+                  </div>
+                  <span className="text-[13.5px] font-semibold text-navy">Execute deterministic rules-based mapping</span>
+                </div>
+
                 <div className="flex items-center gap-3 p-3.5 bg-white border border-gold/10 rounded-xl hover:border-gold/30 transition-colors duration-150 shadow-[0_1px_2px_rgba(15,23,42,0.02)]">
                   <div className="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
                     <Check className="w-3 h-3" />
@@ -502,27 +516,27 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
             {externalRefs.map((ref, idx) => (
               <div key={idx} className="bg-white border border-[#0F172A]/[0.06] rounded-xl p-6 shadow-xs flex flex-col justify-between min-h-[200px] hover:border-gold/30 transition-colors">
                 <div className="space-y-2">
-                  <span className="text-[8px] font-mono text-slate-400 uppercase tracking-wider font-semibold block">
+                  <span className="text-[10px] font-mono text-slate-600 uppercase tracking-wider font-bold block">
                     Source: {ref.org}
                   </span>
-                  <h4 className="font-sans font-semibold text-[15px] text-navy tracking-tight leading-snug">
+                  <h3 className="font-sans font-semibold text-[15px] text-navy tracking-tight leading-snug">
                     {ref.title}
-                  </h4>
-                  <p className="text-slate-500 text-xs leading-relaxed">
+                  </h3>
+                  <p className="text-slate-600 text-xs leading-relaxed">
                     {ref.purpose}
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[#FAFAF8] mt-4 flex items-center justify-between text-[10px] font-semibold">
-                  <span className="text-slate-400 font-mono uppercase tracking-wider text-[9px]">External Reference</span>
+                  <span className="text-slate-600 font-mono uppercase tracking-wider text-[9px] font-bold">External Reference</span>
                   <a 
                     href={ref.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-gold hover:underline cursor-pointer focus-visible:ring-2 focus-visible:ring-[#8B6420] focus-visible:rounded px-1.5 py-0.5"
+                    className="inline-flex items-center gap-1 text-[#8B6420] font-bold hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B6420] focus-visible:rounded px-1.5 py-0.5"
                     aria-label={`View documentation for ${ref.title}, opens in new tab`}
                   >
                     <span>View Reference</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-3 h-3" aria-hidden="true" />
                   </a>
                 </div>
               </div>
@@ -532,10 +546,10 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
 
         {/* ============ CONTACT / DUE DILIGENCE CTA ============ */}
         <section className="bg-gradient-to-br from-[#0F1E36] to-[#081529] border border-gold/15 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 text-left shadow-lg relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full filter blur-3xl pointer-events-none -mr-20 -mt-20" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full filter blur-3xl pointer-events-none -mr-20 -mt-20" aria-hidden="true" />
           <div className="relative z-10 space-y-1">
             <h2 className="font-sans font-bold text-[22px] text-white tracking-tight">Need technical due-diligence documentation?</h2>
-            <p className="text-[14px] text-white/70 max-w-lg leading-relaxed">We provide complete architectural specifications, SOC 2 compliance roadmaps, and mutual BAA execution on request.</p>
+            <p className="text-[14px] text-slate-200 max-w-lg leading-relaxed">We provide complete architectural specifications, SOC 2 compliance roadmaps, and mutual BAA execution on request.</p>
           </div>
           <button
             type="button"
@@ -545,7 +559,7 @@ export default function ComplianceTrustCenter({ onViewChange }: ComplianceTrustC
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }, 100);
             }}
-            className="relative z-10 px-6 py-3 bg-gold hover:bg-[#B5945F] active:translate-y-0.5 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-150 whitespace-nowrap cursor-pointer border border-gold/20"
+            className="relative z-10 px-6 py-3 bg-[#8B6420] hover:bg-[#73531A] active:translate-y-0.5 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-150 whitespace-nowrap cursor-pointer border border-gold/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1E36]"
           >
             Request Due Diligence Package
           </button>

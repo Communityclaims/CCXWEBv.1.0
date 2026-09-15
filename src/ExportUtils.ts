@@ -83,7 +83,7 @@ export function generateDiagnosticBlueprintText(preset: ExportScenarioPreset): s
     '• Taxonomy Mapping     : ICD-10 SDOH Z-codes verified against contemporaneous source spans.',
     '• Duration Threshold   : Enforces NYHER 1115 manual billing minimums without synthetic inflation.',
     '• Consent Verification : Paper consents flagged; requires regional HIE electronic consent flags.',
-    '• Zero Hallucination   : Unsubstantiated fields withheld from final billing packages.',
+    '• Zero Inferred Facts : Deterministic rules withhold unsubstantiated fields from final billing packages.',
     '',
     '================================================================================',
     'Community Claims Exchange (CCX) · Medicaid Retrospective SCN Standardization',

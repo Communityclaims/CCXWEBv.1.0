@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronRight, ExternalLink, ArrowRight } from 'lucide-react';
 
 interface ResourcesProps {
-  onViewChange: (view: 'home' | 'compliance-trust' | 'resources') => void;
+  onViewChange: (view: 'home' | 'compliance-trust' | 'resources' | 'accessibility') => void;
 }
 
 interface RegulatoryReference {
@@ -258,7 +258,7 @@ export default function Resources({ onViewChange }: ResourcesProps) {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }, 100);
             }}
-            className="relative z-10 px-6 py-3 bg-gold hover:bg-[#B5945F] active:translate-y-0.5 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-150 whitespace-nowrap cursor-pointer border border-gold/20"
+            className="relative z-10 px-6 py-3 bg-[#8B6420] hover:bg-[#73531A] active:translate-y-0.5 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-150 whitespace-nowrap cursor-pointer border border-gold/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1E36]"
           >
             Contact Us
           </button>

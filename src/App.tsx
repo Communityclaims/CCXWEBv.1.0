@@ -28,6 +28,7 @@ import ComplianceTrustCenter from './components/ComplianceTrustCenter';
 import Resources from './components/Resources';
 import CitationPopover from './components/CitationPopover';
 import AboutCcx from './components/AboutCcx';
+import AccessibilityStatement from './components/AccessibilityStatement';
 
 import HeroRecord from './components/HeroRecord';
 import NysMap from './components/NysMap';
@@ -186,7 +187,7 @@ const PROOF_SCENARIOS: ProofScenario[] = [
       {
         id: 'consent',
         label: 'Consent Status',
-        value: 'Consent Status: NOT VERIFIED — source shows paper signature, no HIE consent flag',
+        value: 'Consent Status: NOT VERIFIED — no HIE consent flag found in source record',
         status: 'gap',
         statusText: 'FLAGGED GAP',
         sourceSpan: 'Consent form signed on paper.',
@@ -197,7 +198,7 @@ const PROOF_SCENARIOS: ProofScenario[] = [
       restatedText: 'Casework encounter with Ms. Davis. Family of 3 has no food left in house, skipped dinner last night (mapped to ICD-10 Z59.41 Food Insecurity). Dispatched referral to food pantry. Contemporaneous duration documented: 15 minutes.',
       flaggedGaps: [
         'Screening Instrument: NOT DOCUMENTED — source note is a caseworker narrative without screening tool administration; LOINC 96777-8 withheld for review.',
-        'Consent Status: NOT VERIFIED — source shows paper signature ("Consent form signed on paper"); no verified electronic HIE consent flag present.'
+        'Consent Status: NOT VERIFIED — source shows paper signature ("Consent form signed on paper"); no verified electronic HIE consent flag present in source record.'
       ]
     },
     confirmedCount: 3,
@@ -206,15 +207,13 @@ const PROOF_SCENARIOS: ProofScenario[] = [
   {
     id: 'housing',
     name: 'Example 2: Housing Instability',
-    raw: 'Found water damage and visible mold in bedrooms. Landlord has ignored requests for repair. Member\'s child has active asthma. Referral to legal aid. Verbal consent obtained. 18 mins.',
+    raw: 'Found water damage and visible mold in bedrooms. Landlord has ignored requests for repair. Member\'s child has active asthma. Referral to legal aid. Verbal consent obtained.',
     highlightedSpans: [
       { text: 'Found water damage and visible mold in bedrooms.', fieldId: 'diagnosis', type: 'confirmed', label: 'ICD-10 Z59.1' },
       { text: ' Landlord has ignored requests for repair. Member\'s child has active asthma. ', type: 'plain' },
       { text: 'Referral to legal aid.', fieldId: 'referral', type: 'confirmed', label: 'Intervention' },
       { text: ' ', type: 'plain' },
-      { text: 'Verbal consent obtained.', fieldId: 'consent', type: 'gap-source', label: 'Verbal only (No HIE flag)' },
-      { text: ' ', type: 'plain' },
-      { text: '18 mins.', fieldId: 'duration', type: 'confirmed', label: 'Duration (18m)' }
+      { text: 'Verbal consent obtained.', fieldId: 'consent', type: 'gap-source', label: 'Verbal only (No HIE flag)' }
     ],
     fields: [
       {
@@ -227,22 +226,22 @@ const PROOF_SCENARIOS: ProofScenario[] = [
         complianceNote: 'Grounded directly in documented structural water damage and mold exposure.'
       },
       {
-        id: 'duration',
-        label: 'Encounter Duration',
-        value: '18 Minutes (Meets clinical billing threshold)',
-        status: 'confirmed',
-        statusText: 'CONFIRMED',
-        sourceSpan: '18 mins.',
-        complianceNote: 'Contemporaneous encounter duration documented verbatim; satisfies minimum billing duration.'
-      },
-      {
         id: 'referral',
         label: 'Documented Intervention',
-        value: 'Legal Aid Referral Hand-off',
+        value: 'Legal Aid Referral Dispatched',
         status: 'confirmed',
         statusText: 'CONFIRMED',
         sourceSpan: 'Referral to legal aid.',
         complianceNote: 'Legal advocacy referral logged verbatim in frontline casework note.'
+      },
+      {
+        id: 'duration',
+        label: 'Encounter Duration',
+        value: 'Encounter Duration: NOT DOCUMENTED — flag for compliance review',
+        status: 'gap',
+        statusText: 'FLAGGED GAP',
+        sourceSpan: null,
+        complianceNote: 'Source note contains no duration or timestamps. Minimum clinical billing threshold cannot be verified. Flagged for compliance review.'
       },
       {
         id: 'screening',
@@ -251,33 +250,34 @@ const PROOF_SCENARIOS: ProofScenario[] = [
         status: 'gap',
         statusText: 'FLAGGED GAP',
         sourceSpan: null,
-        complianceNote: 'No screening instrument mentioned in source note. CCX withholds LOINC 97023-6 housing screening code without documented administration.'
+        complianceNote: 'No screening instrument mentioned in source note. CCX withholds LOINC codes without documented tool administration.'
       },
       {
         id: 'consent',
         label: 'Consent Status',
-        value: 'Consent Status: NOT VERIFIED — verbal consent only, no HIE consent flag',
+        value: 'Consent Status: NOT VERIFIED — no HIE consent flag found in source record',
         status: 'gap',
         statusText: 'FLAGGED GAP',
         sourceSpan: 'Verbal consent obtained.',
-        complianceNote: 'Source notes verbal consent only; verbal consent is not an electronic HIE consent flag. Flagged for compliance review.'
+        complianceNote: 'Source note states verbal consent only; verbal consent is not an electronic HIE consent flag. Flagged for compliance review.'
       }
     ],
     narrative: {
-      restatedText: 'Casework observation: Inadequate housing documented from source entry ("Found water damage and visible mold in bedrooms"; member\'s child with active asthma; mapped to ICD-10 Z59.1 Inadequate Housing). Dispatched intervention ("Referral to legal aid"). Contemporaneous duration documented: 18 minutes.',
+      restatedText: 'Casework observation: Inadequate housing documented from source entry ("Found water damage and visible mold in bedrooms"; member\'s child with active asthma; mapped to ICD-10 Z59.1 Inadequate Housing). Dispatched intervention ("Referral to legal aid").',
       flaggedGaps: [
-        'Screening Instrument: NOT DOCUMENTED — no screening tool administered in source note; LOINC 97023-6 code withheld for review.',
-        'Consent Status: NOT VERIFIED — verbal consent only ("Verbal consent obtained"); contemporaneous electronic HIE consent flag missing.'
+        'Encounter Duration: NOT DOCUMENTED — no duration stated in source entry; minimum clinical billing threshold cannot be verified.',
+        'Screening Instrument: NOT DOCUMENTED — no screening tool administered in source note; LOINC codes withheld for review.',
+        'Consent Status: NOT VERIFIED — verbal consent only ("Verbal consent obtained"); no contemporaneous HIE consent flag found in source record.'
       ]
     },
-    confirmedCount: 3,
-    gapCount: 2
+    confirmedCount: 2,
+    gapCount: 3
   }
 ];
 
 interface FAQItem {
   question: string;
-  answer: string;
+  answer: React.ReactNode;
 }
 
 const FAQ_ITEMS: FAQItem[] = [
@@ -303,31 +303,76 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: "Will CCX sign our organization's Business Associate Agreement (BAA)?",
-    answer: "Yes, without exception. CCX operates as a HIPAA Business Associate for all SCN Lead Entities, Care Management Agencies (CMAs), and health system partners. We sign standard BAAs prior to ingesting any retrospective data exports, and can execute our pre-approved NY Medicaid 1115 BAA or sign your institution's custom enterprise agreement."
+    answer: (
+      <span>
+        Yes, unconditionally prior to ingesting any data—either executing our pre-approved NY Medicaid 1115 BAA or signing your organization&apos;s custom enterprise BAA.{' '}
+        <a
+          href="#compliance-guardrails"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('compliance-guardrails')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="text-navy font-semibold underline decoration-gold/60 hover:text-gold transition-colors inline-flex items-center gap-0.5"
+        >
+          Review full BAA terms &amp; breach notification obligations in Section 10 &rarr;
+        </a>
+      </span>
+    )
   },
   {
     question: "Where is client documentation hosted, and is it encrypted at rest and in transit?",
-    answer: "All client data resides exclusively in 100% US-based, HIPAA-compliant cloud regions (AWS US-East / GovCloud isolated VPCs). Data is encrypted at rest using AES-256 with tenant-isolated customer keys and encrypted in transit via enforced TLS 1.3. There is zero offshore hosting, foreign processing, or non-US personnel access."
+    answer: (
+      <span>
+        100% US-based in isolated AWS US-East / GovCloud VPCs, encrypted via AES-256 (KMS) at rest and enforced TLS 1.3 in transit with zero offshore access.{' '}
+        <a
+          href="#compliance-guardrails"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('compliance-guardrails')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="text-navy font-semibold underline decoration-gold/60 hover:text-gold transition-colors inline-flex items-center gap-0.5"
+        >
+          Review full hosting architecture &amp; cryptographic specs in Section 10 &rarr;
+        </a>
+      </span>
+    )
   },
   {
     question: "Does CCX have a SOC 2 report or equivalent security certification?",
-    answer: "Our SOC 2 Type II audit window is currently in progress with an independent AICPA-accredited CPA auditing firm, with target report delivery in Q2 2027. We do not claim completed certifications before formal attestation. In the interim, healthcare procurement and InfoSec teams can review our completed HIPAA Security Risk Assessment, third-party network penetration test summary, and Standardized Information Gathering (SIG) package under NDA."
+    answer: (
+      <span>
+        In progress with an independent AICPA CPA firm (target Q2 2027 delivery); completed HIPAA Risk Assessment, third-party pen test, and SIG questionnaire are available under NDA.{' '}
+        <a
+          href="#compliance-guardrails"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('compliance-guardrails')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="text-navy font-semibold underline decoration-gold/60 hover:text-gold transition-colors inline-flex items-center gap-0.5"
+        >
+          Review audit timeline &amp; interim diligence artifacts in Section 10 &rarr;
+        </a>
+      </span>
+    )
   }
 ];
 
+export type AppView = 'home' | 'compliance-trust' | 'resources' | 'accessibility';
+
 // Helper to initialize view from URL hash if present
-const getInitialView = (): 'home' | 'compliance-trust' | 'resources' => {
+const getInitialView = (): AppView => {
   if (typeof window !== 'undefined') {
     const hash = window.location.hash.replace(/^#/, '');
     if (hash === 'resources') return 'resources';
     if (hash === 'compliance-trust') return 'compliance-trust';
+    if (hash === 'accessibility') return 'accessibility';
   }
   return 'home';
 };
 
 export default function App() {
   const [activeSection, setActiveSection] = useState<string>('top');
-  const [currentView, setCurrentView] = useState<'home' | 'compliance-trust' | 'resources'>(getInitialView);
+  const [currentView, setCurrentView] = useState<AppView>(getInitialView);
   
   // Section 4 (PROOF) state
   const [selectedScenarioId, setSelectedScenarioId] = useState<string>('food');
@@ -408,6 +453,9 @@ export default function App() {
       } else if (hash === 'compliance-trust') {
         setCurrentView('compliance-trust');
         window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (hash === 'accessibility') {
+        setCurrentView('accessibility');
+        window.scrollTo({ top: 0, behavior: 'instant' });
       } else {
         setCurrentView('home');
         if (hash) {
@@ -425,18 +473,14 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const handleViewChange = (view: 'home' | 'compliance-trust' | 'resources') => {
+  const handleViewChange = (view: AppView) => {
     setCurrentView(view);
-    if (view === 'resources') {
-      if (window.location.hash !== '#resources') {
-        window.location.hash = 'resources';
-      }
-    } else if (view === 'compliance-trust') {
-      if (window.location.hash !== '#compliance-trust') {
-        window.location.hash = 'compliance-trust';
+    if (view === 'resources' || view === 'compliance-trust' || view === 'accessibility') {
+      if (window.location.hash !== '#' + view) {
+        window.location.hash = view;
       }
     } else {
-      if (window.location.hash === '#resources' || window.location.hash === '#compliance-trust') {
+      if (window.location.hash === '#resources' || window.location.hash === '#compliance-trust' || window.location.hash === '#accessibility') {
         history.pushState(null, '', window.location.pathname + window.location.search);
       }
     }
@@ -596,9 +640,11 @@ export default function App() {
           <ComplianceTrustCenter onViewChange={handleViewChange} />
         </main>
       ) : currentView === 'resources' ? (
-        <main id="resources" className="focus:outline-none" tabIndex={-1}>
+        <main id="main-content" className="focus:outline-none" tabIndex={-1}>
           <Resources onViewChange={handleViewChange} />
         </main>
+      ) : currentView === 'accessibility' ? (
+        <AccessibilityStatement onViewChange={handleViewChange} />
       ) : (
         <main id="main-content" className="focus:outline-none" tabIndex={-1}>
         {/* ==================== 1. HERO SECTION ==================== */}
@@ -1047,6 +1093,50 @@ export default function App() {
                       })}
                       &rdquo;
                     </div>
+
+                    {/* Active Link / Grounding Feedback Banner */}
+                    {activeProofField && (() => {
+                      const activeFieldObj = currentScenario.fields.find(f => f.id === activeProofField);
+                      if (!activeFieldObj) return null;
+                      const isConfirmed = activeFieldObj.status === 'confirmed';
+                      return (
+                        <div
+                          className={`mt-3 p-2.5 rounded-lg border text-xs flex items-start gap-2 animate-fadeIn transition-all ${
+                            isConfirmed
+                              ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
+                              : 'bg-amber-50 border-amber-300 text-amber-950'
+                          }`}
+                        >
+                          {isConfirmed ? (
+                            <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 stroke-[3px]" />
+                          ) : (
+                            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                          )}
+                          <div>
+                            <span className="font-bold block text-[11px] uppercase tracking-wide">
+                              {isConfirmed
+                                ? `Confirmed: ${activeFieldObj.label}`
+                                : `Flagged Gap: ${activeFieldObj.label}`}
+                            </span>
+                            <span className="text-[11.5px] leading-snug block mt-0.5">
+                              {isConfirmed ? (
+                                <>
+                                  Directly grounded in literal source text: <strong className="font-mono bg-emerald-100/80 px-1 py-0.2 rounded">&ldquo;{activeFieldObj.sourceSpan}&rdquo;</strong>
+                                </>
+                              ) : activeFieldObj.sourceSpan ? (
+                                <>
+                                  Source entry states <strong className="font-mono bg-amber-100/80 px-1 py-0.2 rounded">&ldquo;{activeFieldObj.sourceSpan}&rdquo;</strong>. Paper/verbal statements are not an electronic HIE consent flag. Flagged for compliance review.
+                                </>
+                              ) : (
+                                <>
+                                  Not documented in source note. CCX flags this gap for compliance review rather than fabricating a value or code.
+                                </>
+                              )}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
 
                   {/* Traceability Span Legend */}
@@ -1194,10 +1284,14 @@ export default function App() {
                               <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-400" />
                               <div>
                                 <span className="font-semibold block text-[9.5px] uppercase tracking-wider text-amber-400">
-                                  No Screening Tool Documented
+                                  {field.id === 'duration'
+                                    ? 'No Encounter Duration Documented'
+                                    : 'No Screening Tool Documented'}
                                 </span>
                                 <span>
-                                  Source note is a caseworker narrative; LOINC code withheld to prevent fabrication
+                                  {field.id === 'duration'
+                                    ? 'Source note contains no duration or timestamps; minimum clinical billing threshold cannot be verified'
+                                    : 'Source note is a caseworker narrative; LOINC code withheld to prevent fabrication'}
                                 </span>
                               </div>
                             </div>
@@ -1349,6 +1443,12 @@ export default function App() {
                     CCX is not an EHR and never replaces or alters existing caseworker intake interfaces.
                   </p>
                 </div>
+                <div className="space-y-1">
+                  <h4 className="text-[16px] font-semibold text-navy">Use machine learning or generative AI</h4>
+                  <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
+                    CCX is a 100% deterministic, rules-based engine. There are zero generative LLMs or neural networks in the clinical classification or transformation pipeline, eliminating probabilistic hallucination risk entirely.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -1363,9 +1463,9 @@ export default function App() {
               
               <div className="space-y-6 flex-1">
                 <div className="space-y-1">
-                  <h4 className="text-[16px] font-semibold text-navy">Structure raw narrative text</h4>
+                  <h4 className="text-[16px] font-semibold text-navy">Execute deterministic rules-based mapping</h4>
                   <p className="text-[16px] font-normal text-slate-500 leading-[26px]">
-                    CCX converts free-text casework notes into standard LOINC codes and structured, reproducible evidence records during retrospective review.
+                    CCX converts free-text casework notes into standard LOINC codes and structured, reproducible evidence records using auditable, deterministic terminology rules and literal text span matching during retrospective review.
                   </p>
                 </div>
                 <div className="space-y-1">
@@ -2237,58 +2337,30 @@ export default function App() {
                     </h4>
                   </div>
 
-                  {/* Core Procurement Prerequisite Q&A */}
-                  <div className="space-y-3.5 text-left border-b border-[#E2E8F0] pb-5">
-                    <span className="block font-mono text-[9px] font-bold text-[#8B6420] uppercase tracking-wider">
-                      Procurement &amp; Security Quick Clearance
-                    </span>
-
-                    {/* Q1: BAA */}
-                    <div className="p-3 bg-white rounded-xl border border-emerald-200/80 space-y-1.5 shadow-xs">
-                      <div className="flex items-center justify-between gap-1.5">
-                        <span className="font-sans text-[11px] font-bold text-navy">
-                          (1) Will you sign our BAA?
-                        </span>
-                        <span className="font-mono text-[8.5px] font-bold uppercase px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 shrink-0 flex items-center gap-1">
-                          <Check className="w-2.5 h-2.5 stroke-[3px]" />
-                          YES — Standard BAA
-                        </span>
-                      </div>
-                      <p className="text-[11.5px] text-slate-600 leading-relaxed">
-                        <strong className="text-navy">Yes, without exception.</strong> CCX executes standard HIPAA Business Associate Agreements before receiving any data. We sign our pre-approved NY Medicaid BAA or execute your institution&apos;s enterprise BAA.
-                      </p>
+                  {/* Procurement & Security Clearance Pointer */}
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200/80 text-left space-y-2 shadow-xs border-b border-[#E2E8F0]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[9.5px] font-bold text-[#8B6420] uppercase tracking-wider">
+                        Procurement Prerequisites Summary
+                      </span>
+                      <span className="font-mono text-[8.5px] text-emerald-800 font-bold bg-emerald-50 border border-emerald-300 px-1.5 py-0.5 rounded flex items-center gap-1">
+                        <Check className="w-2.5 h-2.5 stroke-[3px]" />
+                        BAA · US-East · SOC 2 In Prog
+                      </span>
                     </div>
-
-                    {/* Q2: Hosting & Encryption */}
-                    <div className="p-3 bg-white rounded-xl border border-blue-200/80 space-y-1.5 shadow-xs">
-                      <div className="flex items-center justify-between gap-1.5">
-                        <span className="font-sans text-[11px] font-bold text-navy">
-                          (2) Where does data live &amp; encryption?
-                        </span>
-                        <span className="font-mono text-[8.5px] font-bold uppercase px-1.5 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-300 shrink-0">
-                          US-East · AES-256
-                        </span>
-                      </div>
-                      <p className="text-[11.5px] text-slate-600 leading-relaxed">
-                        <strong className="text-navy">100% US-based HIPAA hosting (AWS US-East / GovCloud).</strong> Encrypted at rest using <strong className="text-navy">AES-256</strong> with tenant-isolated KMS keys; encrypted in transit via enforced <strong className="text-navy">TLS 1.3</strong>. Zero foreign hosting or offshore access.
-                      </p>
-                    </div>
-
-                    {/* Q3: SOC 2 Report */}
-                    <div className="p-3 bg-white rounded-xl border border-amber-200/90 space-y-1.5 shadow-xs">
-                      <div className="flex items-center justify-between gap-1.5">
-                        <span className="font-sans text-[11px] font-bold text-navy">
-                          (3) Do you have a SOC 2 report?
-                        </span>
-                        <span className="font-mono text-[8.5px] font-bold uppercase px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-300 shrink-0 flex items-center gap-1">
-                          <AlertTriangle className="w-2.5 h-2.5" />
-                          IN PROGRESS · Q2 2027
-                        </span>
-                      </div>
-                      <p className="text-[11.5px] text-slate-600 leading-relaxed">
-                        <strong className="text-navy">In progress — Type II audit period underway</strong> (target report: Q2 2027 with independent AICPA CPA firm). Under NDA, InfoSec teams can review our completed HIPAA Risk Assessment, Third-Party Penetration Test, and SIG questionnaire.
-                      </p>
-                    </div>
+                    <p className="text-[11.5px] text-slate-600 leading-relaxed">
+                      CCX executes customer BAAs unconditionally, hosts 100% in dedicated AWS US-East / GovCloud VPCs (AES-256 KMS / TLS 1.3), and operates under an active SOC 2 Type II audit window.
+                    </p>
+                    <a
+                      href="#compliance-guardrails"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        document.getElementById('compliance-guardrails')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-navy hover:text-gold transition-colors pt-0.5"
+                    >
+                      <span>Review Full Procurement Prerequisites &amp; Security Terms in Section 10 &rarr;</span>
+                    </a>
                   </div>
 
                   {/* Architecture & Ingestion Guardrails */}
@@ -2355,62 +2427,65 @@ export default function App() {
 
           {/* Core 3 Procurement Prerequisite Cards */}
           <div className="space-y-6">
-            <div className="border-b border-slate-200 pb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-2">
               <span className="font-mono text-[11px] font-bold text-navy uppercase tracking-wider">
                 Part I: Healthcare Compliance &amp; Security Procurement Prerequisites
+              </span>
+              <span className="text-[11px] font-semibold text-slate-500">
+                Authoritative Reviewer Clearance: BAA · Hosting &amp; Encryption · SOC 2
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-1">
               {/* Tile 1: BAA */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-xs hover:border-emerald-300 transition-colors">
+              <div className="bg-white border-2 border-emerald-100/80 hover:border-emerald-300 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-xs transition-colors">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider">Prerequisite 01</span>
+                    <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider">Procurement Question 01</span>
                     <span className="font-mono text-[9px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1">
                       <Check className="w-3 h-3 stroke-[3px]" />
-                      Yes — Standard BAA
+                      YES — Customer or Standard BAA
                     </span>
                   </div>
                   <h3 className="font-sans font-bold text-base text-navy">
-                    (1) Will you sign our Business Associate Agreement (BAA)?
+                    (1) Will you sign a BAA? Can you sign our organization's BAA?
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    <strong className="text-navy font-semibold">Yes, unconditionally.</strong> CCX operates as a HIPAA Business Associate for all SCN Lead Entities, Care Management Agencies (CMAs), and health system partners. We execute standard BAAs prior to ingesting any retrospective data exports.
+                    <strong className="text-navy font-semibold">Yes, unconditionally.</strong> CCX operates as a HIPAA Business Associate for all SCN Lead Entities, Care Management Agencies (CMAs), and health system partners. We sign your organization's standard enterprise BAA or execute our pre-approved NY Medicaid 1115 BAA template prior to ingesting any retrospective data exports.
                   </p>
                 </div>
                 <div className="pt-3 border-t border-slate-200/70 space-y-2 text-[11.5px] text-slate-600">
                   <div className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Pre-approved NY Medicaid 1115 BAA available for immediate execution</span>
+                    <span><strong>Customer BAA Accepted:</strong> We routinely execute customer-provided health system and SCN enterprise BAAs</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Willing to sign customer-provided health system enterprise BAAs</span>
+                    <span><strong>Standard 1115 Template:</strong> Pre-drafted NY Medicaid 1115 BAA available for immediate execution</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Strict HIPAA Omnibus Rule breach notification commitment (&le;24h)</span>
+                    <span><strong>Breach Notification SLA:</strong> Strict HIPAA Omnibus Rule breach notification commitment (&le;24 hours)</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Zero data ingested without an active, executed BAA in place</span>
+                    <span><strong>Hard Ingestion Gate:</strong> Zero patient or encounter data ingested without an active, executed BAA in place</span>
                   </div>
                 </div>
               </div>
 
               {/* Tile 2: Hosting & Encryption */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-xs hover:border-blue-300 transition-colors">
+              <div className="bg-white border-2 border-blue-100/80 hover:border-blue-300 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-xs transition-colors">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider">Prerequisite 02</span>
+                    <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider">Procurement Question 02</span>
                     <span className="font-mono text-[9px] font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-300 flex items-center gap-1">
                       <Lock className="w-3 h-3" />
-                      US-Based · AES-256 / TLS 1.3
+                      100% US-Based · AES-256 / TLS 1.3
                     </span>
                   </div>
                   <h3 className="font-sans font-bold text-base text-navy">
-                    (2) Where is data hosted, and is it encrypted at rest and in transit?
+                    (2) Where does data live / Where is data hosted? Is it encrypted at rest and in transit?
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
                     <strong className="text-navy font-semibold">100% US-based HIPAA-compliant infrastructure.</strong> Exclusively hosted in dedicated, tenant-isolated AWS US-East / GovCloud VPCs. Data is encrypted at rest via <strong className="text-navy">AES-256</strong> (with isolated tenant KMS keys) and in transit via enforced <strong className="text-navy">TLS 1.3</strong>.
@@ -2419,31 +2494,31 @@ export default function App() {
                 <div className="pt-3 border-t border-slate-200/70 space-y-2 text-[11.5px] text-slate-600">
                   <div className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                    <span>Dedicated tenant VPC isolation; zero cross-tenant data co-mingling</span>
+                    <span><strong>US Geographic Residency:</strong> Strictly US soil; zero offshore hosting, foreign engineering, or overseas access</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                    <span>Strictly zero foreign hosting, offshore engineering, or non-US access</span>
+                    <span><strong>Dedicated VPC Isolation:</strong> Separate tenant schemas and KMS keys; zero cross-tenant data co-mingling</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                    <span>Customer-controlled batch exports; no persistent EHR production hooks</span>
+                    <span><strong>Cryptographic Standards:</strong> AES-256 at rest (AWS KMS) and TLS 1.3 in transit; legacy ciphers blocked</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                    <span>Legacy protocols (TLS 1.0/1.1) disabled at all ingress firewalls</span>
+                    <span><strong>Batch Ingestion Boundary:</strong> Scheduled customer-controlled file exports only; no live inbound EHR sockets</span>
                   </div>
                 </div>
               </div>
 
               {/* Tile 3: SOC 2 */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-xs hover:border-amber-300 transition-colors">
+              <div className="bg-white border-2 border-amber-100/80 hover:border-amber-300 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-xs transition-colors">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider">Prerequisite 03</span>
+                    <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider">Procurement Question 03</span>
                     <span className="font-mono text-[9px] font-bold uppercase px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-300 flex items-center gap-1">
                       <AlertTriangle className="w-3 h-3 text-amber-600" />
-                      In Progress · Q2 2027 Target
+                      In Progress · Target Q2 2027
                     </span>
                   </div>
                   <h3 className="font-sans font-bold text-base text-navy">
@@ -2455,20 +2530,20 @@ export default function App() {
                 </div>
                 <div className="pt-3 border-t border-slate-200/70 space-y-2 text-[11.5px] text-slate-600">
                   <div className="flex items-start gap-2">
-                    <span className="text-amber-600 font-bold">•</span>
-                    <span>Completed HIPAA Security &amp; Privacy Risk Assessment (available under NDA)</span>
+                    <span className="text-amber-600 font-bold text-xs shrink-0 mt-0.5">✓</span>
+                    <span><strong>HIPAA Risk Assessment:</strong> Completed HIPAA Security &amp; Privacy Rule assessment available under mutual NDA</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-amber-600 font-bold">•</span>
-                    <span>Independent third-party network penetration test summary report</span>
+                    <span className="text-amber-600 font-bold text-xs shrink-0 mt-0.5">✓</span>
+                    <span><strong>Third-Party Pen Test:</strong> Independent network &amp; application penetration test executive summary report</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-amber-600 font-bold">•</span>
-                    <span>Standardized Information Gathering (SIG) questionnaire / CAIQ completed</span>
+                    <span className="text-amber-600 font-bold text-xs shrink-0 mt-0.5">✓</span>
+                    <span><strong>SIG / CAIQ Questionnaire:</strong> Completed Standardized Information Gathering security questionnaire</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-amber-600 font-bold">•</span>
-                    <span>Written Information Security Program (WISP) &amp; Incident Response Plan</span>
+                    <span className="text-amber-600 font-bold text-xs shrink-0 mt-0.5">✓</span>
+                    <span><strong>Formal Policies:</strong> Written Information Security Program (WISP) &amp; Incident Response Plan</span>
                   </div>
                 </div>
               </div>
