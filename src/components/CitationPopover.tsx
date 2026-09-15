@@ -77,7 +77,7 @@ export default function CitationPopover({
     setIsOpen(false);
   };
 
-  // Listen for global open-citation custom event to support remote footnote clicks
+  // Listen for global open-citation and toggle-citation custom events
   useEffect(() => {
     const handleOpenCustom = (e: Event) => {
       const customEvent = e as CustomEvent<{ id: string }>;
@@ -88,11 +88,30 @@ export default function CitationPopover({
       }
     };
 
+    const handleToggleCustom = (e: Event) => {
+      const customEvent = e as CustomEvent<{ id: string }>;
+      if (customEvent.detail?.id === id) {
+        clearCloseTimer();
+        setIsOpen((prev) => {
+          const next = !prev;
+          setIsPinned(next);
+          return next;
+        });
+      }
+    };
+
     window.addEventListener('open-citation', handleOpenCustom);
+    window.addEventListener('toggle-citation', handleToggleCustom);
     return () => {
       window.removeEventListener('open-citation', handleOpenCustom);
+      window.removeEventListener('toggle-citation', handleToggleCustom);
     };
   }, [id]);
+
+  // Broadcast state changes for external synchronized citation buttons
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('citation-state-changed', { detail: { id, isOpen } }));
+  }, [id, isOpen]);
 
   // Close on outside click
   useEffect(() => {
@@ -152,15 +171,17 @@ export default function CitationPopover({
         aria-expanded={isOpen}
         aria-haspopup="dialog"
         aria-controls={`popover-${id}`}
+        aria-describedby={`popover-${id}`}
         className="cursor-pointer group select-text inline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 rounded"
-        title="Click or hover to inspect the verified primary source citation"
+        title="Click or tap to inspect verified primary source citation"
       >
         <span className="decoration-gold underline decoration-dotted decoration-2 underline-offset-4 group-hover:decoration-navy group-hover:text-navy group-hover:bg-gold/10 rounded-sm px-0.5 transition-all">
           {children}
         </span>
         <sup
-          className="ml-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-mono font-bold text-[#8B6420] bg-gold/15 hover:bg-gold/25 border border-gold/40 rounded-md transition-colors cursor-pointer select-none align-super shadow-2xs group-hover:border-[#8B6420]"
+          className="ml-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-mono font-bold text-gold bg-gold/15 hover:bg-gold/25 border border-gold/40 rounded-md transition-colors cursor-pointer select-none align-super shadow-2xs group-hover:border-gold"
           aria-label={`Citation [${citationNumber}]: ${title}`}
+          aria-describedby={`popover-${id}`}
         >
           [{citationNumber}]
         </sup>
@@ -172,6 +193,7 @@ export default function CitationPopover({
           id={`popover-${id}`}
           role="dialog"
           aria-labelledby={`title-${id}`}
+          aria-describedby={`facts-${id}`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className={`absolute z-[100] top-full mt-2 w-[340px] sm:w-[440px] max-w-[calc(100vw-32px)] bg-white border border-slate-300 rounded-xl shadow-2xl p-4.5 text-left text-navy font-sans animate-fade-in ${alignmentClass}`}
@@ -186,7 +208,7 @@ export default function CitationPopover({
           <div className="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5 mb-3">
             <div className="flex items-center gap-1.5">
               <BookOpen className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span className="font-mono text-[9px] font-bold text-[#8B6420] uppercase tracking-wider bg-gold/10 px-2 py-0.5 rounded border border-gold/20">
+              <span className="font-mono text-[9px] font-bold text-gold uppercase tracking-wider bg-gold/10 px-2 py-0.5 rounded border border-gold/20">
                 {badge} · [{citationNumber}]
               </span>
             </div>
@@ -216,7 +238,7 @@ export default function CitationPopover({
           </div>
 
           {/* Key Facts / Verified details */}
-          <div className="space-y-2 mb-3.5 bg-[#FAF8F5] p-2.5 rounded-lg border border-slate-200/80">
+          <div id={`facts-${id}`} className="space-y-2 mb-3.5 bg-[#FAF8F5] p-2.5 rounded-lg border border-slate-200/80">
             <span className="font-mono text-[8.5px] font-bold text-slate-500 uppercase tracking-wider block">
               Verified Primary Document Findings:
             </span>

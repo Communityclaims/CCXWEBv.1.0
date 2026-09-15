@@ -6,8 +6,9 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   --color-navy: #0B1F3A;
-  --color-gold: #B8860B;
-  --color-gold-text: #8B6420;
+  --color-gold: #734F10;
+  --color-gold-text: #734F10;
+  --color-gold-light: #FCD34D;
   --color-off-white: #FAF8F5;
   --color-neutral-border: #E2E8F0;
   --color-trust-gray: #475569;
@@ -20,9 +21,9 @@
 
 /* Custom focus indicator (H7-04) */
 :focus-visible {
-  outline: 2px solid #B8860B;
+  outline: 2px solid #734F10;
   outline-offset: 3px;
-  box-shadow: 0 0 0 4px rgba(184, 134, 11, 0.4);
+  box-shadow: 0 0 0 4px rgba(115, 79, 16, 0.3);
 }
 
 /* Custom CCX animations */

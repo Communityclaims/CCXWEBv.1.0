@@ -157,7 +157,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
 
           {/* Quick Links - Middle 3 cols */}
           <div className="md:col-span-3 space-y-4 text-left">
-            <div className="font-sans text-[11px] text-gold tracking-wider uppercase font-bold">
+            <div className="font-sans text-[11px] text-amber-300 tracking-wider uppercase font-bold">
               Site Navigation
             </div>
             <div className="flex flex-col gap-3">
@@ -200,7 +200,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                 href="#resources" 
                 onClick={(e) => handleLinkClick(e, 'resources')}
                 className={`text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline ${
-                  currentView === 'resources' ? 'text-gold font-semibold' : 'text-slate-300 hover:text-white'
+                  currentView === 'resources' ? 'text-amber-300 font-semibold' : 'text-slate-300 hover:text-white'
                 }`}
               >
                 Resources &amp; Reference Library
@@ -210,14 +210,14 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                 onClick={(e) => handleLinkClick(e, 'contact')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                Request Assessment
+                Request a Documentation Exposure Assessment
               </a>
             </div>
           </div>
 
           {/* Legal Notices & System Info - Right 4 cols */}
           <div className="md:col-span-4 space-y-4 text-left">
-            <div className="font-sans text-[11px] text-gold tracking-wider uppercase font-bold">
+            <div className="font-sans text-[11px] text-amber-300 tracking-wider uppercase font-bold">
               Legal, Trust &amp; Accessibility
             </div>
             <div className="flex flex-col gap-2 mb-4">
@@ -225,7 +225,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                 type="button"
                 onClick={(e) => handleLinkClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, 'compliance')}
                 className={`text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none focus-visible:underline ${
-                  currentView === 'compliance-trust' ? 'text-gold font-semibold' : 'text-slate-300 hover:text-white'
+                  currentView === 'compliance-trust' ? 'text-amber-300 font-semibold' : 'text-slate-300 hover:text-white'
                 }`}
               >
                 Compliance &amp; Integrity Trust Hub →
@@ -235,7 +235,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                 type="button"
                 onClick={(e) => handleLinkClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, 'accessibility')}
                 className={`text-xs text-left transition-colors duration-150 cursor-pointer bg-transparent border-none p-0 outline-none focus-visible:underline font-medium ${
-                  currentView === 'accessibility' ? 'text-gold font-bold' : 'text-slate-200 hover:text-white'
+                  currentView === 'accessibility' ? 'text-amber-300 font-bold' : 'text-slate-200 hover:text-white'
                 }`}
               >
                 Accessibility Statement (NYS-P08-005 &amp; WCAG 2.2 AA) →
@@ -272,21 +272,21 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
               <div className="flex flex-col gap-1.5 text-[11px] font-mono">
                 <a
                   href="#compliance-guardrails"
-                  className="text-slate-300 hover:text-gold transition-colors flex items-center gap-1.5 group focus-visible:underline"
+                  className="text-slate-300 hover:text-amber-300 transition-colors flex items-center gap-1.5 group focus-visible:underline"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" aria-hidden="true" />
                   <span>HIPAA BAA: Executed Prior to Ingestion</span>
                 </a>
                 <a
                   href="#compliance-guardrails"
-                  className="text-slate-300 hover:text-gold transition-colors flex items-center gap-1.5 group focus-visible:underline"
+                  className="text-slate-300 hover:text-amber-300 transition-colors flex items-center gap-1.5 group focus-visible:underline"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" aria-hidden="true" />
                   <span>Hosting: US-East GovCloud · AES-256 / TLS 1.3</span>
                 </a>
                 <a
                   href="#compliance-guardrails"
-                  className="text-slate-300 hover:text-gold transition-colors flex items-center gap-1.5 group focus-visible:underline"
+                  className="text-slate-300 hover:text-amber-300 transition-colors flex items-center gap-1.5 group focus-visible:underline"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" aria-hidden="true" />
                   <span>SOC 2 Type II: In Progress (Target Q2 2027)</span>
@@ -303,7 +303,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
         <div className="flex justify-end items-center pt-8 border-t border-white/10">
           <button
             onClick={handleScrollToTop}
-            className="font-sans text-xs text-gold hover:text-gold-light font-bold cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold px-2 py-1 rounded"
+            className="font-sans text-xs text-amber-300 hover:text-white font-bold cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 px-2 py-1 rounded"
           >
             Back to Top ↑
           </button>

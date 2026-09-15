@@ -202,8 +202,8 @@ export default function AccessibilityStatement({ onViewChange }: AccessibilitySt
         {/* Section 4: Feedback & Barrier Reporting */}
         <section aria-labelledby="contact-heading" className="bg-[#0B1F3A] text-white rounded-2xl p-8 md:p-10 text-left space-y-6 shadow-xl">
           <div className="space-y-2 max-w-2xl">
-            <div className="flex items-center gap-2 text-gold text-xs font-mono font-bold uppercase tracking-wider">
-              <Mail className="w-4 h-4 text-gold" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-amber-300 text-xs font-mono font-bold uppercase tracking-wider">
+              <Mail className="w-4 h-4 text-amber-300" aria-hidden="true" />
               <span>Prompt Resolution Commitment</span>
             </div>
             <h2 id="contact-heading" className="font-sans font-bold text-[24px] md:text-[28px] text-white tracking-tight">
@@ -221,7 +221,7 @@ export default function AccessibilityStatement({ onViewChange }: AccessibilitySt
               </span>
               <a 
                 href="mailto:accessibility@ccxny.org?subject=NYS%20Accessibility%20Inquiry%20(NYS-P08-005)" 
-                className="text-gold hover:text-white font-bold text-base transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                className="text-amber-300 hover:text-white font-bold text-base transition-colors underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
               >
                 accessibility@ccxny.org
               </a>
@@ -247,7 +247,7 @@ export default function AccessibilityStatement({ onViewChange }: AccessibilitySt
             <button
               type="button"
               onClick={() => onViewChange('home')}
-              className="text-gold hover:text-white font-bold flex items-center gap-1 cursor-pointer transition-colors"
+              className="text-amber-300 hover:text-white font-bold flex items-center gap-1 cursor-pointer transition-colors"
             >
               <span>Return to Main Platform</span>
               <ChevronRight className="w-3.5 h-3.5" aria-hidden="true" />

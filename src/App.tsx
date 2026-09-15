@@ -404,6 +404,26 @@ export default function App() {
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [contactSubmitting, setContactSubmitting] = useState(false);
 
+  // Synchronized state for citation popovers and footnotes
+  const [isCitation1Open, setIsCitation1Open] = useState(false);
+  const [isCitation2Open, setIsCitation2Open] = useState(false);
+
+  useEffect(() => {
+    const handleStateChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ id: string; isOpen: boolean }>;
+      if (customEvent.detail?.id === 'hero-omig-workplan') {
+        setIsCitation1Open(customEvent.detail.isOpen);
+      } else if (customEvent.detail?.id === 'contact-fast-help-citation') {
+        setIsCitation2Open(customEvent.detail.isOpen);
+      }
+    };
+
+    window.addEventListener('citation-state-changed', handleStateChange);
+    return () => {
+      window.removeEventListener('citation-state-changed', handleStateChange);
+    };
+  }, []);
+
   // Scroll spy to update active navigation item
   useEffect(() => {
     const handleScroll = () => {
@@ -658,7 +678,7 @@ export default function App() {
             {/* LEFT COLUMN - EXECUTIVE COPING SUMMARY */}
             <div className="lg:col-span-7 text-left">
               <div className="flex flex-wrap items-center gap-2.5 mb-3">
-                <span className="text-[11.5px] font-sans font-semibold text-[#8B6420] tracking-[0.08em] uppercase">
+                <span className="text-[11.5px] font-sans font-semibold text-gold tracking-[0.08em] uppercase">
                   What Ships Today: Retrospective Structuring &amp; Review Packages
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200/80">
@@ -681,7 +701,7 @@ export default function App() {
                   sourceName="New York State Office of the Medicaid Inspector General (OMIG)"
                   details={[
                     "Review Lookback Window: Under OMIG's updated Compliance Program Review (CPR) protocol, effective for reviews initiated on or after July 1, 2025 and active through 2026, OMIG expanded the mandatory review lookback period from the historical 3 months to 12 consecutive months.",
-                    "Review Targets: In its Annual Work Plan, OMIG's Bureau of Compliance established an annual target of approximately 200 comprehensive compliance program effectiveness reviews (doubling the prior annual baseline of ~100 reviews).",
+                    "Review Targets: In its Annual Work Plan, OMIG's Bureau of Compliance established an annual target of approximately 200 comprehensive compliance program effectiveness reviews.",
                     "Statutory Payment Condition: Under NY Social Services Law § 363-d and Title 18 NYCRR § 521-1.1(c), maintenance of an effective compliance program satisfying all statutory elements is an explicit statutory condition of Medicaid payment, not mere paperwork."
                   ]}
                   links={[
@@ -699,7 +719,7 @@ export default function App() {
                     }
                   ]}
                 >
-                  OMIG's 2026 Work Plan doubles Compliance Program Reviews and extends the review window from three months to twelve.
+                  OMIG's 2026 Work Plan extends the review window from three months to twelve.
                 </CitationPopover>{' '}
                 Under OMIG's current regulations, having an effective compliance program is a condition of payment, not paperwork. Community Claims Exchange (CCX) ships retrospective documentation structuring today: it ingests exported casework notes, standardizes narrative entries into audit-ready review packages with LOINC and ICD-10 SDOH mapping, and flags missing documentation before state review—without requiring any changes to frontline workflows. Self-service exposure modeling, denial pattern analytics, and network-wide risk visibility are planned capabilities in active design on our roadmap.
               </div>
@@ -709,11 +729,16 @@ export default function App() {
                 <div className="flex flex-wrap items-center gap-2 text-slate-600">
                   <button
                     type="button"
+                    id="button-hero-omig-citation"
+                    aria-describedby="popover-hero-omig-workplan"
+                    aria-expanded={isCitation1Open}
+                    aria-controls="popover-hero-omig-workplan"
                     onClick={() => {
-                      window.dispatchEvent(new CustomEvent('open-citation', { detail: { id: 'hero-omig-workplan' } }));
+                      window.dispatchEvent(new CustomEvent('toggle-citation', { detail: { id: 'hero-omig-workplan' } }));
                     }}
-                    className="font-bold text-[#8B6420] hover:text-navy px-1.5 py-0.5 bg-gold/15 hover:bg-gold/25 border border-gold/40 rounded text-[10px] cursor-pointer transition-colors"
-                    title="Click or hover claim above to open full primary citation details"
+                    className="font-bold text-gold hover:text-navy px-1.5 py-0.5 bg-gold/15 hover:bg-gold/25 border border-gold/40 rounded text-[10px] cursor-pointer transition-colors"
+                    title="Click or tap to inspect verified primary source citation"
+                    aria-label="Citation [1]: NYS OMIG Annual Work Plan (Bureau of Compliance) & 18 NYCRR Part 521"
                   >
                     [1]
                   </button>
@@ -727,7 +752,7 @@ export default function App() {
                     href="https://omig.ny.gov/compliance/compliance-program-review"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[#8B6420] hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-sans font-medium transition-colors"
+                    className="inline-flex items-center gap-1 text-gold hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-sans font-medium transition-colors"
                     title="Primary OMIG Compliance Program Review Protocols & 12-Month Review Scope"
                   >
                     <span>Read OMIG Review Protocols</span>
@@ -738,7 +763,7 @@ export default function App() {
                     href="https://omig.ny.gov/information-resources/work-plan"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[#8B6420] hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-sans font-medium transition-colors"
+                    className="inline-flex items-center gap-1 text-gold hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-sans font-medium transition-colors"
                     title="Official NYS OMIG Annual Work Plan Portal"
                   >
                     <span>OMIG Work Plan Portal</span>
@@ -777,7 +802,7 @@ export default function App() {
                     e.preventDefault();
                     document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className="text-[#8B6420] hover:text-navy font-semibold text-[12px] underline underline-offset-2 shrink-0 self-start sm:self-auto"
+                  className="text-gold hover:text-navy font-semibold text-[12px] underline underline-offset-2 shrink-0 self-start sm:self-auto"
                 >
                   View Roadmap →
                 </a>
@@ -791,7 +816,7 @@ export default function App() {
                     e.preventDefault();
                     document.getElementById('exposure-review')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className="bg-gold hover:bg-[#B5945F] text-white px-6 py-3.5 rounded-lg font-sans text-[15.5px] font-semibold transition-colors duration-150 inline-block text-center cursor-pointer shadow-sm border border-transparent"
+                  className="bg-gold hover:bg-[#5E3E08] text-white px-6 py-3.5 rounded-lg font-sans text-[15.5px] font-semibold transition-colors duration-150 inline-block text-center cursor-pointer shadow-sm border border-transparent"
                 >
                   Explore Documentation Scenarios
                 </a>
@@ -1832,7 +1857,7 @@ export default function App() {
         <div className="max-w-[1120px] mx-auto px-6 space-y-12">
           
           <div className="space-y-3 max-w-[680px] text-left">
-            <span className="font-sans text-[12px] text-[#8B6420] uppercase font-semibold tracking-[0.08em]">
+            <span className="font-sans text-[12px] text-gold uppercase font-semibold tracking-[0.08em]">
               Compliance Diagnostics
             </span>
             <h2 className="font-sans font-bold text-[36px] text-navy tracking-tight leading-tight">
@@ -2316,7 +2341,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={handleDownloadTemplate}
-                        className="px-4 py-2 bg-gold hover:bg-[#B5945F] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0 shadow-xs"
+                        className="px-4 py-2 bg-gold hover:bg-[#5E3E08] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0 shadow-xs"
                       >
                         <Download className="w-3.5 h-3.5" />
                         <span>Download Template (.CSV)</span>
@@ -2630,7 +2655,7 @@ export default function App() {
               </button>
               <a
                 href="#contact"
-                className="w-full sm:w-auto px-5 py-2.5 bg-gold hover:bg-[#B5945F] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                className="w-full sm:w-auto px-5 py-2.5 bg-gold hover:bg-[#5E3E08] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
               >
                 <span>Request BAA &amp; Security Packet</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -2708,16 +2733,16 @@ export default function App() {
         }}
       />
 
-      {/* ==================== 12. REQUEST EXPOSURE ASSESSMENT BRIEFING ==================== */}
+      {/* ==================== 12. REQUEST DOCUMENTATION EXPOSURE ASSESSMENT BRIEFING ==================== */}
       <section id="contact" className="py-24 md:py-32 bg-off-white">
         <div className="max-w-[640px] mx-auto px-6 text-left space-y-8">
           
           <div className="space-y-3 text-center sm:text-left max-w-[680px]">
-            <span className="font-sans text-[12px] text-[#8B6420] uppercase font-semibold tracking-[0.08em] block">
+            <span className="font-sans text-[12px] text-gold uppercase font-semibold tracking-[0.08em] block">
               Secure Alignment
             </span>
             <h2 className="font-sans font-bold text-[36px] text-navy tracking-tight leading-tight">
-              Request an Exposure Assessment
+              Request a Documentation Exposure Assessment
             </h2>
             <div className="text-[16px] font-normal text-slate-600 leading-[28px]">
               Request a no-cost sample exposure analysis on de-identified data from your own network — no commitment required. OMIG’s extrapolation methodology can turn a small sample into a large recovery: in{' '}
@@ -2726,16 +2751,16 @@ export default function App() {
                 citationNumber={2}
                 badge="JUDICIAL PRECEDENT"
                 title="Matter of Fast Help Ambulette, Inc. v. NYS Dept. of Health"
-                subtitle="199 A.D.3d 1152, 157 N.Y.S.3d 575 (N.Y. App. Div. 3d Dept. 2021)"
-                sourceName="New York Supreme Court, Appellate Division, Third Department"
+                subtitle="198 AD3d 756, 2021 NY Slip Op 05560 (N.Y. App. Div. 2d Dept. 2021)"
+                sourceName="New York Supreme Court, Appellate Division, Second Department"
                 details={[
                   "Sample Disallowance: OMIG audited a 150-claim random sample from 15,420 total Medicaid claims and identified $3,355 in disallowed billing errors (missing contemporaneous logs and signature timing gaps).",
-                  "Statistical Extrapolation: Using ratio estimation across the full 15,420-claim population, OMIG extrapolated the $3,355 sample disallowance into an enforceable $1,130,865 repayment demand.",
+                  "Statistical Extrapolation: Using ratio estimation across the full 15,420-claim population, OMIG extrapolated the $3,355 sample disallowance into an enforceable $1,102,553 repayment demand.",
                   "Appellate Holding: The court affirmed OMIG's statutory authority under 18 NYCRR § 519.18 to extrapolate overpayments across the entire claim universe, even when the underlying sample errors appear minor."
                 ]}
                 links={[
                   {
-                    label: "View Appellate Division Decision (199 A.D.3d 1152)",
+                    label: "View Appellate Division Decision (198 AD3d 756)",
                     url: "https://casetext.com/case/matter-of-fast-help-ambulette-inc-v-new-york-state-dept-of-health"
                   }
                 ]}
@@ -2749,20 +2774,25 @@ export default function App() {
             <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-500 font-mono">
               <button
                 type="button"
+                id="button-contact-fast-help-citation"
+                aria-describedby="popover-contact-fast-help-citation"
+                aria-expanded={isCitation2Open}
+                aria-controls="popover-contact-fast-help-citation"
                 onClick={() => {
-                  window.dispatchEvent(new CustomEvent('open-citation', { detail: { id: 'contact-fast-help-citation' } }));
+                  window.dispatchEvent(new CustomEvent('toggle-citation', { detail: { id: 'contact-fast-help-citation' } }));
                 }}
-                className="font-bold text-[#8B6420] hover:text-navy px-1.5 py-0.5 bg-gold/15 hover:bg-gold/25 border border-gold/40 rounded text-[10px] cursor-pointer transition-colors"
-                title="Click or hover case above to open judicial precedent details"
+                className="font-bold text-gold hover:text-navy px-1.5 py-0.5 bg-gold/15 hover:bg-gold/25 border border-gold/40 rounded text-[10px] cursor-pointer transition-colors"
+                title="Click or tap to view judicial precedent details"
+                aria-label="Citation [2]: Matter of Fast Help Ambulette, Inc. v. NYS DOH, 198 AD3d 756"
               >
                 [2]
               </button>
-              <span>Case Citation: 199 A.D.3d 1152 (3d Dept. 2021); 18 NYCRR § 519.18 (Extrapolation).</span>
+              <span>Case Citation: 198 AD3d 756 (2d Dept. 2021); 18 NYCRR § 519.18 (Extrapolation).</span>
               <a
                 href="https://casetext.com/case/matter-of-fast-help-ambulette-inc-v-new-york-state-dept-of-health"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[#8B6420] hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-sans font-medium transition-colors"
+                className="inline-flex items-center gap-1 text-gold hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-sans font-medium transition-colors"
               >
                 <span>Read Court Opinion</span>
                 <ExternalLink className="w-3 h-3" />
@@ -2869,7 +2899,7 @@ export default function App() {
                 <button
                   type="submit"
                   disabled={contactSubmitting || !contactEmail}
-                  className="w-full py-3.5 bg-gold hover:bg-[#B5945F] active:translate-y-0.5 transition-all text-white text-[16px] font-semibold rounded-lg flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-gold/5 disabled:opacity-50"
+                  className="w-full py-3.5 bg-gold hover:bg-[#5E3E08] active:translate-y-0.5 transition-all text-white text-[16px] font-semibold rounded-lg flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-gold/5 disabled:opacity-50"
                 >
                   {contactSubmitting ? (
                     <>
@@ -2879,7 +2909,7 @@ export default function App() {
                   ) : (
                     <>
                       <Send className="w-3.5 h-3.5 text-white" />
-                      <span>Request Exposure Assessment</span>
+                      <span>Request a Documentation Exposure Assessment</span>
                     </>
                   )}
                 </button>
