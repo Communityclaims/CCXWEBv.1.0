@@ -23,8 +23,9 @@ export default function Header({ activeSection, onSectionChange, currentView, on
   }, [mobileMenuOpen]);
 
   const navItems = [
-    { id: 'produces', label: 'Platform' },
-    { id: 'exposure-review', label: 'Assessment' },
+    { id: 'problem', label: 'The Gap' },
+    { id: 'produces', label: 'What CCX Produces' },
+    { id: 'assessment', label: 'Assessment' },
     { id: 'compliance-guardrails', label: 'Security & BAA' },
     { id: 'about-ccx', label: 'About' },
     { id: 'resources', label: 'Resources' },
@@ -104,7 +105,7 @@ export default function Header({ activeSection, onSectionChange, currentView, on
         </a>
 
         {/* Desktop Nav - Perfectly Centered with adaptive spacing */}
-        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-[24px] xl:gap-[36px] absolute left-1/2 -translate-x-1/2">
+        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-[16px] xl:gap-[26px] absolute left-1/2 -translate-x-1/2">
           {navItems.map((item) => {
             const isActive = item.id === 'resources' ? currentView === 'resources' : (activeSection === item.id && currentView === 'home');
 
@@ -126,11 +127,11 @@ export default function Header({ activeSection, onSectionChange, currentView, on
         {/* Desktop CTA */}
         <div className="hidden lg:block shrink-0">
           <a
-            href="#exposure-review"
-            onClick={(e) => handleNavClick(e, 'exposure-review')}
+            href="#review-scenario"
+            onClick={(e) => handleNavClick(e, 'review-scenario')}
             className="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 bg-white border border-[#8B6420] text-[#0B1F3A] hover:bg-[#8B6420] hover:text-white hover:border-[#8B6420] font-sans text-[13px] font-semibold tracking-wide rounded-lg transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#8B6420] focus-visible:ring-offset-2 focus-visible:outline-none"
           >
-            Explore Review Scenarios
+            Explore Batch Audit Sampling
           </a>
         </div>
 
@@ -173,11 +174,11 @@ export default function Header({ activeSection, onSectionChange, currentView, on
             );
           })}
           <a
-            href="#exposure-review"
-            onClick={(e) => handleNavClick(e, 'exposure-review')}
+            href="#review-scenario"
+            onClick={(e) => handleNavClick(e, 'review-scenario')}
             className="block mt-4 py-3 bg-white border border-[#8B6420] text-[#0B1F3A] hover:bg-[#8B6420] hover:text-white hover:border-[#8B6420] font-sans text-xs font-semibold rounded-md text-center transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#8B6420] focus-visible:outline-none min-h-[44px] flex items-center justify-center"
           >
-            Explore Review Scenarios
+            Explore Batch Audit Sampling
           </a>
         </div>
       </div>

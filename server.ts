@@ -16,6 +16,7 @@ async function startServer() {
 
   // Rate/Size limit
   app.use(express.json({ limit: '10kb' }));
+  app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
   // Abstract endpoint POST /api/inquiry
   // Restrict method to POST for this route
@@ -29,13 +30,16 @@ async function startServer() {
 
   app.post('/api/inquiry', async (req, res) => {
     try {
-      const { name, email, org, focus, message } = req.body || {};
+      const { name, email, org, organization, focus, message, briefingRequirements, requirements } = req.body || {};
+      const resolvedOrg = org || organization || 'Independent SCN Partner';
+      const resolvedFocus = focus || 'Documentation Exposure Assessment';
+      const resolvedMessage = message || briefingRequirements || requirements || 'Request for documentation exposure assessment.';
 
       // Audit Integrity Validation
-      if (!name || !email || !focus || !message) {
+      if (!name || !email) {
         return res.status(400).json({ 
           status: "error", 
-          message: "Incomplete handshake payload. Audit integrity requires all fields." 
+          message: "Incomplete handshake payload. Name and work email are required." 
         });
       }
 
@@ -58,16 +62,16 @@ async function startServer() {
           const msg = {
             to: recipientEmail,
             from: 'system@ccxny.org',
-            subject: `CCX Technical Handshake: ${org || 'Independent Inquiry'}`,
-            text: `Name: ${name}\nEmail: ${email}\nOrganization: ${org || 'N/A'}\nFocus: ${focus}\n\nMessage:\n${message}`,
+            subject: `CCX Technical Handshake: ${resolvedOrg || 'Independent Inquiry'}`,
+            text: `Name: ${name}\nEmail: ${email}\nOrganization: ${resolvedOrg || 'N/A'}\nFocus: ${resolvedFocus}\n\nMessage:\n${resolvedMessage}`,
             html: `
               <h3>Technical Handshake Received</h3>
               <p><strong>Name:</strong> ${name}</p>
               <p><strong>Email:</strong> ${email}</p>
-              <p><strong>Organization:</strong> ${org || 'N/A'}</p>
-              <p><strong>Focus Role:</strong> ${focus}</p>
+              <p><strong>Organization:</strong> ${resolvedOrg || 'N/A'}</p>
+              <p><strong>Focus Role:</strong> ${resolvedFocus}</p>
               <p><strong>Message:</strong></p>
-              <p style="white-space: pre-wrap;">${message}</p>
+              <p style="white-space: pre-wrap;">${resolvedMessage}</p>
             `
           };
           await sgMail.send(msg);
@@ -77,7 +81,12 @@ async function startServer() {
           // Return 200 OK anyway for smooth staging fallbacks
         }
       } else {
-        console.log(`[SYSTEM] Inquiry received and routed to destination: ${recipientEmail}`, { name, email, org, focus, timestamp: new Date().toISOString() });
+        console.log(`[SYSTEM] Inquiry received and routed to destination: ${recipientEmail}`, { name, email, org: resolvedOrg, focus: resolvedFocus, timestamp: new Date().toISOString() });
+      }
+
+      // Check for native HTML form submission redirect fallback
+      if (req.headers['accept']?.includes('text/html') && !req.xhr && !req.headers['x-requested-with']) {
+        return res.redirect('/#contact?submitted=true');
       }
 
       // Standard successful response

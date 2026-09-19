@@ -6,7 +6,7 @@ interface ScenarioField {
   label: string;
   value: string;
   status: 'confirmed' | 'gap';
-  statusText: 'CONFIRMED' | 'FLAGGED GAP';
+  statusText: 'CONFIRMED' | 'FLAGGED';
   sourceSpan: string | null;
   complianceNote: string;
   subValue?: string;
@@ -34,8 +34,8 @@ export default function HeroRecord() {
   const scenarios: Record<'food' | 'housing', HeroScenarioData> = {
     food: {
       id: 'food',
-      name: 'Example 1: Food Insecurity',
-      badge: '3 Confirmed · 2 Flagged Gaps',
+      name: 'Example 1: Food',
+      badge: '3 Confirmed · 2 Flagged',
       confirmedCount: 3,
       gapCount: 2,
       renderSourceNote: (active, setActive) => (
@@ -138,62 +138,61 @@ export default function HeroRecord() {
       fields: [
         {
           id: 'diagnosis',
-          label: 'Classification (ICD-10)',
-          value: 'ICD-10 Z59.41 (Food Insecurity)',
+          label: 'Classification',
+          value: 'ICD-10 Z59.41 · Food Insecurity',
           status: 'confirmed',
           statusText: 'CONFIRMED',
-          sourceSpan: 'Family of 3 has no food left in house, skipped dinner last night',
-          complianceNote: 'Grounded directly in documented lack of food in household and skipped meals.'
+          sourceSpan: 'Family of 3 has no food left in house, skipped dinner last night.',
+          complianceNote: 'Supported by the documented lack of food in the household and skipped meals.'
         },
         {
           id: 'duration',
           label: 'Encounter Duration',
-          value: '15 Minutes',
-          subValue: '(Meets clinical billing threshold)',
+          value: '15 minutes',
           status: 'confirmed',
           statusText: 'CONFIRMED',
           sourceSpan: '15 mins.',
-          complianceNote: 'Contemporaneous encounter duration documented verbatim in casework note.'
+          complianceNote: 'Documented directly in the source note.'
         },
         {
           id: 'referral',
           label: 'Documented Intervention',
-          value: 'Food Pantry Referral Dispatched',
+          value: 'Food pantry referral',
           status: 'confirmed',
           statusText: 'CONFIRMED',
-          sourceSpan: 'Referred her to food pantry',
-          complianceNote: 'Community referral action documented verbatim in frontline note.'
+          sourceSpan: 'Referred her to food pantry.',
+          complianceNote: 'Documented directly in the source note.'
         },
         {
           id: 'screening',
           label: 'Screening Instrument',
-          value: 'Screening Instrument: NOT DOCUMENTED — flag for compliance review',
+          value: 'Not documented',
           status: 'gap',
-          statusText: 'FLAGGED GAP',
+          statusText: 'FLAGGED',
           sourceSpan: null,
-          complianceNote: 'Source note is a caseworker narrative; no screening tool (LOINC 96777-8 AHC HRSN) was administered. Code withheld from record.'
+          complianceNote: 'No screening instrument is identified in the source note. LOINC 96777-8 is withheld because administration is not documented.'
         },
         {
           id: 'consent',
           label: 'Consent Status',
-          value: 'Consent Status: NOT VERIFIED — no HIE consent flag found in source record',
+          value: 'Not verified',
           status: 'gap',
-          statusText: 'FLAGGED GAP',
-          sourceSpan: 'Consent form signed on paper',
-          complianceNote: 'Source shows paper signature ("Consent form signed on paper"); paper consent is not an electronic HIE consent flag. Flagged for review.'
+          statusText: 'FLAGGED',
+          sourceSpan: 'Consent form signed on paper.',
+          complianceNote: 'The source documents a paper signature. No electronic HIE consent flag is present in the supplied record.'
         }
       ],
       narrativeText:
-        'Frontline encounter with Ms. Davis. Household (family of 3) has no food left in house, skipped dinner last night (ICD-10 Z59.41 Food Insecurity). Referred to food pantry. Documented encounter duration: 15 minutes.',
+        'Frontline encounter with Ms. Davis. Family of 3 has no food left in the house and skipped meals, mapped to ICD-10 Z59.41 Food Insecurity. Food pantry referral documented. Encounter duration documented as 15 minutes.',
       flaggedGaps: [
-        'Screening Instrument: NOT DOCUMENTED — no screening tool administered in source note; LOINC 96777-8 withheld for review.',
-        'Consent Status: NOT VERIFIED — source shows paper signature ("Consent form signed on paper"); no verified electronic HIE consent flag found in source record.'
+        'Screening instrument not documented.',
+        'Electronic HIE consent not verified.'
       ]
     },
     housing: {
       id: 'housing',
       name: 'Example 2: Housing Instability',
-      badge: '2 Confirmed · 3 Flagged Gaps',
+      badge: '2 Confirmed · 3 Flagged',
       confirmedCount: 2,
       gapCount: 3,
       renderSourceNote: (active, setActive) => (
@@ -291,37 +290,37 @@ export default function HeroRecord() {
         {
           id: 'duration',
           label: 'Encounter Duration',
-          value: 'Encounter Duration: NOT DOCUMENTED — flag for compliance review',
+          value: 'Not documented',
           status: 'gap',
-          statusText: 'FLAGGED GAP',
+          statusText: 'FLAGGED',
           sourceSpan: null,
-          complianceNote: 'Source note contains no duration or timestamps. Minimum clinical billing threshold cannot be verified. Zero fabrication policy enforces audit gap flag.'
+          complianceNote: 'Source note contains no duration or timestamps. Minimum clinical billing threshold cannot be verified.'
         },
         {
           id: 'screening',
           label: 'Screening Instrument',
-          value: 'Screening Instrument: NOT DOCUMENTED — flag for compliance review',
+          value: 'Not documented',
           status: 'gap',
-          statusText: 'FLAGGED GAP',
+          statusText: 'FLAGGED',
           sourceSpan: null,
-          complianceNote: 'No screening instrument mentioned in source note. CCX withholds LOINC codes without documented administration.'
+          complianceNote: 'No screening instrument is identified in the source note. LOINC codes are withheld without documented administration.'
         },
         {
           id: 'consent',
           label: 'Consent Status',
-          value: 'Consent Status: NOT VERIFIED — no HIE consent flag found in source record',
+          value: 'Not verified',
           status: 'gap',
-          statusText: 'FLAGGED GAP',
+          statusText: 'FLAGGED',
           sourceSpan: 'Verbal consent obtained.',
-          complianceNote: 'Source notes verbal consent only ("Verbal consent obtained"); verbal consent is not an electronic HIE consent flag. Flagged for review.'
+          complianceNote: 'The source notes verbal consent only. No electronic HIE consent flag is present in the supplied record.'
         }
       ],
       narrativeText:
         'Casework observation: Inadequate housing documented from source entry ("Found water damage and visible mold in bedrooms"; member\'s child with active asthma; mapped to ICD-10 Z59.1 Inadequate Housing). Dispatched intervention ("Referral to legal aid").',
       flaggedGaps: [
-        'Encounter Duration: NOT DOCUMENTED — no duration stated in source entry; minimum clinical billing threshold cannot be verified.',
-        'Screening Instrument: NOT DOCUMENTED — no screening tool administered in source note; LOINC codes withheld for review.',
-        'Consent Status: NOT VERIFIED — verbal consent only ("Verbal consent obtained"); no contemporaneous HIE consent flag found in source record.'
+        'Encounter duration not documented.',
+        'Screening instrument not documented.',
+        'Electronic HIE consent not verified.'
       ]
     }
   };
@@ -331,6 +330,16 @@ export default function HeroRecord() {
   return (
     <div className="w-full lg:max-w-[560px] bg-white p-5 sm:p-7 rounded-2xl border border-navy/10 shadow-lg text-left relative overflow-hidden transition-all duration-300 hover:shadow-xl">
       <div className="space-y-5">
+        {/* SINGLE-RECORD SPAN-TRACING HEADER */}
+        <div className="space-y-1">
+          <span className="font-sans text-[11px] text-[#8B6420] uppercase font-semibold tracking-[0.08em] block">
+            SINGLE-RECORD SPAN TRACEABILITY
+          </span>
+          <h3 className="font-sans font-bold text-[20px] text-navy tracking-tight">
+            Casework Span-to-Field Verification
+          </h3>
+        </div>
+
         {/* Scenario Switcher Tabs */}
         <div className="flex items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
           <div role="tablist" aria-label="Example Scenarios" className="flex items-center gap-1.5 p-1 bg-slate-100/90 rounded-lg border border-slate-200/70 text-xs">
@@ -396,28 +405,31 @@ export default function HeroRecord() {
 
         {/* Tabpanel Content */}
         <div id="hero-scenario-panel" role="tabpanel" aria-labelledby={activeScenario === 'food' ? 'hero-tab-food' : 'hero-tab-housing'} className="space-y-5">
-        {/* Stage 1: Messy Documentation */}
+        {/* Stage 1: Source Note */}
         <div className="space-y-2 text-left">
           <div className="flex items-center justify-between">
-            <span className="font-sans text-[11px] text-slate-700 uppercase font-bold tracking-wider">
-              Messy Documentation (Source Note)
-            </span>
-            <span className="text-[10px] font-mono text-amber-800 font-bold uppercase bg-amber-50 border border-amber-300 px-2 py-0.5 rounded-md flex items-center gap-1">
-              <AlertCircle className="w-3 h-3 text-amber-700" aria-hidden="true" /> Read-Only Source Intake
-            </span>
+            <div>
+              <span className="font-sans text-[11px] text-slate-700 uppercase font-bold tracking-wider block">
+                SOURCE DOCUMENTATION
+              </span>
+              <span className="text-xs text-slate-500">
+                Existing casework note
+              </span>
+            </div>
           </div>
 
           <div className="bg-[#FAF8F5] border border-slate-200 rounded-xl p-4 text-[13px] leading-relaxed text-slate-800 font-sans relative">
             {current.renderSourceNote(activeField, setActiveField)}
 
-            {/* Note legend / gap callout */}
-            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200/70 text-[10.5px]">
+            {/* Note legend / Source Span Index */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 pt-2 border-t border-slate-200/70 text-[10.5px]">
               <span className="flex items-center gap-1 text-emerald-800 font-semibold">
-                <span className="w-2 h-2 rounded-full bg-emerald-600" aria-hidden="true" /> {current.confirmedCount} Confirmed Spans
+                <span className="w-2 h-2 rounded-full bg-emerald-600" aria-hidden="true" />
+                CONFIRMED: Supported directly by source documentation.
               </span>
-              <span className="text-slate-400" aria-hidden="true">•</span>
               <span className="flex items-center gap-1 text-amber-900 font-semibold">
-                <span className="w-2 h-2 rounded-full bg-amber-600" aria-hidden="true" /> {current.gapCount} Flagged Compliance Gaps
+                <span className="w-2 h-2 rounded-full bg-amber-600" aria-hidden="true" />
+                FLAGGED: Required or relevant information is not sufficiently documented in the source.
               </span>
             </div>
 
@@ -441,20 +453,20 @@ export default function HeroRecord() {
                   )}
                   <div>
                     <span className="font-bold block text-[11px] uppercase tracking-wide">
-                      {isConfirmed ? `Grounded: ${activeFieldObj.label}` : `Flagged Gap: ${activeFieldObj.label}`}
+                      {isConfirmed ? `CONFIRMED: ${activeFieldObj.label}` : `FLAGGED: ${activeFieldObj.label}`}
                     </span>
                     <span className="text-[11.5px] leading-snug block mt-0.5 font-sans">
                       {isConfirmed ? (
                         <>
-                          Directly grounded in literal text: &ldquo;{activeFieldObj.sourceSpan}&rdquo;
+                          Directly supported by source text: &ldquo;{activeFieldObj.sourceSpan}&rdquo;
                         </>
                       ) : activeFieldObj.sourceSpan ? (
                         <>
-                          Source states &ldquo;{activeFieldObj.sourceSpan}&rdquo; — not an electronic HIE consent flag. Flagged for review.
+                          Source text states &ldquo;{activeFieldObj.sourceSpan}&rdquo;. {activeFieldObj.complianceNote}
                         </>
                       ) : (
                         <>
-                          Not documented in source note. CCX flags this gap rather than fabricating a value.
+                          {activeFieldObj.complianceNote}
                         </>
                       )}
                     </span>
@@ -465,30 +477,37 @@ export default function HeroRecord() {
           </div>
         </div>
 
-        {/* Dynamic Transition Indicator */}
+        {/* Dynamic Transition Divider */}
         <div className="flex items-center justify-center gap-4 py-0.5">
           <div className="h-px bg-gradient-to-r from-transparent via-[#E2E8F0] to-transparent flex-1" />
           <div className="flex flex-col items-center gap-0.5 shrink-0">
-            <span className="text-[9.5px] font-mono font-bold text-[#8B6420] uppercase tracking-wider bg-gold/10 border border-gold/30 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-              CCX Strict Traceability Engine
+            <span className="text-[9.5px] font-mono font-semibold text-slate-500 uppercase tracking-wider bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full flex items-center gap-1">
+              Structured Review Compilation
             </span>
-            <ArrowDown className="w-3.5 h-3.5 text-[#8B6420] animate-bounce mt-0.5" aria-hidden="true" />
+            <ArrowDown className="w-3 h-3 text-slate-400 mt-0.5" aria-hidden="true" />
           </div>
           <div className="h-px bg-gradient-to-r from-transparent via-[#E2E8F0] to-transparent flex-1" />
         </div>
 
-        {/* Stage 2 & 3: Structured & Audit-Ready Record */}
+        {/* Stage 2 & 3: Structured Review Output */}
         <div className="space-y-2 text-left">
           <div className="flex items-center justify-between">
-            <span className="font-sans text-[11px] text-slate-700 uppercase font-bold tracking-wider">
-              Audit-Ready Record Output
-            </span>
-            <span className="text-[10px] font-sans text-[#8B6420] font-bold uppercase bg-gold/10 border border-gold/30 px-2 py-0.5 rounded-md flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#8B6420]" aria-hidden="true" /> Verbatim Traceability · Zero Inferred Facts
-            </span>
+            <div>
+              <span className="font-sans text-[11px] text-slate-700 uppercase font-bold tracking-wider block">
+                STRUCTURED REVIEW OUTPUT
+              </span>
+              <span className="text-xs text-slate-500">
+                CCX structures documented information and identifies missing evidence.
+              </span>
+            </div>
           </div>
 
           <div className="bg-[#0B1F3A] text-white rounded-xl p-4 sm:p-5 border border-white/10 space-y-3 shadow-md">
+            {/* Explanatory statement used once */}
+            <div className="bg-white/[0.04] border border-white/10 rounded-lg px-2.5 py-1.5 text-[11px] text-slate-300">
+              Every structured field is linked to supporting source text. Unsupported information remains unresolved for review.
+            </div>
+
             {current.fields.map((field) => {
               const isConfirmed = field.status === 'confirmed';
               const isActive = activeField === field.id;
@@ -531,11 +550,11 @@ export default function HeroRecord() {
                     >
                       {isConfirmed ? (
                         <>
-                          <Check className="w-3 h-3 stroke-[3px]" aria-hidden="true" /> Confirmed
+                          <Check className="w-3 h-3 stroke-[3px]" aria-hidden="true" /> CONFIRMED
                         </>
                       ) : (
                         <>
-                          <AlertTriangle className="w-3 h-3 stroke-[2.5px]" aria-hidden="true" /> FLAGGED GAP
+                          <AlertTriangle className="w-3 h-3 stroke-[2.5px]" aria-hidden="true" /> FLAGGED
                         </>
                       )}
                     </span>
@@ -552,14 +571,6 @@ export default function HeroRecord() {
                     )}
                   </div>
 
-                  <p
-                    className={`text-[11px] mt-1 leading-snug ${
-                      isConfirmed ? 'text-slate-200' : 'text-amber-200'
-                    }`}
-                  >
-                    {field.complianceNote}
-                  </p>
-
                   {/* Traceable Source Span or Flag Notice */}
                   {field.sourceSpan ? (
                     <div
@@ -575,40 +586,47 @@ export default function HeroRecord() {
                         }`}
                         aria-hidden="true"
                       />
-                      <span>
-                        {isConfirmed ? 'Source span: ' : 'Source phrase: '}
-                        &ldquo;{field.sourceSpan}&rdquo;
-                        {!isConfirmed && ' (not an electronic HIE consent flag)'}
-                      </span>
+                      <div>
+                        <span className="block text-[9.5px] uppercase font-semibold text-slate-300">Source phrase</span>
+                        <span>
+                          &ldquo;{field.sourceSpan}&rdquo;
+                        </span>
+                        {!isConfirmed && (
+                          <span className="block text-[10px] text-amber-300/80 mt-0.5">
+                            Reason: {field.complianceNote}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   ) : (
                     <div className="flex items-start gap-1.5 mt-1.5 text-[10.5px] text-amber-200 font-mono bg-amber-950/40 px-2 py-1 rounded border border-amber-500/30">
                       <AlertCircle className="w-3 h-3 shrink-0 mt-0.5 text-amber-400" aria-hidden="true" />
-                      <span>
-                        Source phrase: [None in source note] — {field.id === 'duration' ? 'duration withheld to prevent fabrication' : 'screening tool code withheld to prevent fabrication'}
-                      </span>
+                      <div>
+                        <span className="block text-[9.5px] uppercase font-semibold text-amber-400">Reason for flagged gap</span>
+                        <span>
+                          {field.complianceNote}
+                        </span>
+                      </div>
                     </div>
                   )}
                 </div>
               );
             })}
 
-            {/* Standardized Narrative Restatement */}
+            {/* Structured Encounter Summary */}
             <div className="pt-3 border-t border-white/10 text-xs">
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-slate-200 block text-[9.5px] uppercase font-bold tracking-tight">
-                  Standardized Clinical Narrative Restatement
-                </span>
-                <span className="text-[9px] font-mono text-amber-200 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30 font-bold">
-                  Strictly Grounded
+                  STRUCTURED ENCOUNTER SUMMARY
                 </span>
               </div>
               <div className="font-sans text-[11.5px] text-white/90 leading-relaxed bg-white/5 p-3 rounded-lg border border-white/10 space-y-2">
                 <p>{current.narrativeText}</p>
                 <div className="pt-2 border-t border-white/10 space-y-1 text-[11px]">
+                  <p className="text-[10px] font-bold text-amber-200/90 uppercase tracking-wide">Flagged gaps:</p>
                   {current.flaggedGaps.map((gap, idx) => (
                     <div key={idx} className="text-amber-200 flex items-start gap-1.5">
-                      <span className="font-bold shrink-0" aria-hidden="true">⚠️ [COMPLIANCE GAP]:</span>
+                      <span>•</span>
                       <span>{gap}</span>
                     </div>
                   ))}

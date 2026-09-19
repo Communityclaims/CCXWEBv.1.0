@@ -35,10 +35,10 @@ export default function AccessibilityStatement({ onViewChange }: AccessibilitySt
       title: 'NYS ITS Policy NYS-P08-005 Compliance',
       status: 'Legally Aligned Specification',
       description:
-        'Because Community Claims Exchange products and interfaces are delivered to New York State Medicaid Social Care Network (SCN) Lead Entities and subrecipients, our platform strictly adopts NYS Information and Communication Technology (ICT) Accessibility standards across all public, evaluation, and operational views.'
+        'Because Community Claims Exchange products and interfaces are delivered to New York State Medicaid Social Care Network (SCN) Lead Entities and subrecipients, our platform adopts NYS Information and Communication Technology (ICT) Accessibility standards across all public, evaluation, and operational views.'
     },
     {
-      title: 'Full Keyboard Operability & Zero Keyboard Traps',
+      title: 'Full Keyboard Operability & Keyboard Trap Prevention',
       status: 'Verified (SC 2.1.1 & 2.1.2)',
       description:
         'Every interactive control, interactive cartographic element (NYS regional map), proof citation popover, scenario selector, filter, and modal is reachable and fully operable using standard keyboard controls (Tab, Shift+Tab, Enter, Space, Escape, and Arrow keys) with persistent, high-contrast visual focus indicators.'
@@ -59,15 +59,15 @@ export default function AccessibilityStatement({ onViewChange }: AccessibilitySt
       title: 'Prefers-Reduced-Motion & Sensory Harmony',
       status: 'Verified (SC 2.2.2 & 2.3.3)',
       description:
-        'Strictly honors system-level prefers-reduced-motion settings. Zero auto-playing video or audio, no looping decorative flashes, and smooth transitions are bypassed when reduced motion is preferred by assistive settings.'
+        'Honors system-level prefers-reduced-motion settings. No auto-playing video or audio, no looping decorative flashes, and transitions adjust when reduced motion is preferred by assistive settings.'
     }
   ];
 
   const testedAssistiveTechnologies = [
     { tech: 'Screen Readers', details: 'Tested with NVDA (Windows / Firefox & Chrome) and Apple VoiceOver (macOS / Safari & iOS).' },
-    { tech: 'Keyboard Navigation', details: 'Full keyboard operability verified with zero traps; skip-to-main-content landmark active.' },
+    { tech: 'Keyboard Navigation', details: 'Full keyboard operability verified without keyboard traps; skip-to-main-content landmark active.' },
     { tech: 'Magnification & Zoom', details: 'Verified at 200%, 300%, and 400% browser zoom reflow in modern Chromium and Safari engines.' },
-    { tech: 'Automated Tooling', details: 'Audited against Deque axe-core rulesets and WCAG 2.2 test suites with zero critical violations.' }
+    { tech: 'Automated Tooling', details: 'Audited against Deque axe-core rulesets and WCAG 2.2 test suites with no critical violations.' }
   ];
 
   return (

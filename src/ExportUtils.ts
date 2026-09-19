@@ -34,9 +34,9 @@ export function triggerFileDownload(content: string, filename: string, mimeType:
  */
 export function generateCaseloadTemplateCsv(): string {
   return [
-    '# CCX RETROSPECTIVE BATCH INGESTION TEMPLATE — DE-IDENTIFIED SPECIFICATION',
+    '# CCX RETROSPECTIVE BATCH INGESTION TEMPLATE: DE-IDENTIFIED SPECIFICATION',
     '# MANDATORY PRIVACY RULE: Strip all 18 HIPAA Safe Harbor identifiers (no names, MRNs, SSNs, phone numbers, exact birthdates, addresses).',
-    '# Use synthetic encounter IDs and month/year offsets only. Real uploads occur strictly under signed BAA.',
+    '# Use synthetic encounter IDs and month/year offsets only. Live uploads occur under an executed BAA.',
     'encounter_id,service_month_year,duration_minutes,staff_credential,service_category,raw_casework_narrative,referral_destination,consent_documentation_type',
     'ENC-00101,2025-03,15,CHW,Food Insecurity,"Member intake visit: family ran out of groceries after SNAP lapse; child skipped breakfast. Connected to community food pantry. Verbal consent obtained.","Valley Harvest Food Bank",verbal_unverified',
     'ENC-00102,2025-03,8,Peer Specialist,Housing Instability,"Followed up on tenant eviction notice. Apartment has broken heating and ceiling mold exacerbating asthma. Sent referral to legal aid.","Metropolitan Legal Aid",client_signed_paper',
@@ -58,7 +58,7 @@ export function downloadCaseloadTemplate(): void {
 export function generateDiagnosticBlueprintText(preset: ExportScenarioPreset): string {
   return [
     '================================================================================',
-    'COMMUNITY CLAIMS EXCHANGE (CCX) — MEDICAID HRSN RETROSPECTIVE DEFICIT DIAGNOSTIC',
+    'COMMUNITY CLAIMS EXCHANGE (CCX) : MEDICAID HRSN RETROSPECTIVE DEFICIT DIAGNOSTIC',
     '================================================================================',
     `Document Reference : CCX-DX-${preset.id.toUpperCase()}-${new Date().toISOString().slice(0, 10)}`,
     `Evaluated Scenario : ${preset.name}`,
@@ -83,7 +83,7 @@ export function generateDiagnosticBlueprintText(preset: ExportScenarioPreset): s
     '• Taxonomy Mapping     : ICD-10 SDOH Z-codes verified against contemporaneous source spans.',
     '• Duration Threshold   : Enforces NYHER 1115 manual billing minimums without synthetic inflation.',
     '• Consent Verification : Paper consents flagged; requires regional HIE electronic consent flags.',
-    '• Zero Inferred Facts : Deterministic rules withhold unsubstantiated fields from final billing packages.',
+    '• Source Verification  : Deterministic rules withhold unsubstantiated fields from final review packages.',
     '',
     '================================================================================',
     'Community Claims Exchange (CCX) · Medicaid Retrospective SCN Standardization',

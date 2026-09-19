@@ -772,7 +772,7 @@ export const SCN_REGIONS: Record<string, Region> = {
       },
       {
         type: "CCX Capability Mapping",
-        text: "By retrospectively identifying incomplete documentation before OMIG does, CCX reduces the risk of claims rejection even when physical follow-ups are delayed.",
+        text: "By retrospectively identifying documentation gaps, CCX enables compliance review of exported records even when physical follow-ups are delayed.",
         confidence: "High"
       },
       {

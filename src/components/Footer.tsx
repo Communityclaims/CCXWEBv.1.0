@@ -124,29 +124,17 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
           <div className="md:col-span-5 text-left">
             <div className="flex flex-col text-left">
               <span className="font-sans font-bold text-[20px] text-white leading-none tracking-tight whitespace-nowrap">
-                CCX
-              </span>
-              <span className="font-sans font-normal text-[12px] text-slate-200 leading-none mt-[3px] whitespace-nowrap">
-                Community Claims Exchange, Inc.
-              </span>
-              <span className="font-sans font-normal text-[12px] text-slate-300 leading-normal mt-[8px]">
-                Retrospective documentation structuring and review packages for Medicaid social care networks.
+                Community Claims Exchange
               </span>
             </div>
 
-            {/* Corporate & Domain Substance Signals */}
+            {/* Corporate & Operating Reality Signals */}
             <div className="mt-5 pt-4 border-t border-white/10 space-y-2 text-xs text-slate-300">
               <p className="leading-relaxed">
-                <strong className="text-white font-medium">Entity:</strong> Delaware C-Corporation (Community Claims Exchange, Inc.), operating since 2024.
+                Product actively developed and available for customer evaluation.
               </p>
               <p className="leading-relaxed">
-                <strong className="text-white font-medium">Domain:</strong> Built by a team with revenue cycle management and healthcare compliance backgrounds.
-              </p>
-              <p className="leading-relaxed">
-                <strong className="text-white font-medium">Stage:</strong> Early-stage, founder-led company working toward formal SOC 2 Type II attestation and BAA-readiness.
-              </p>
-              <p className="leading-relaxed">
-                <strong className="text-white font-medium">Development:</strong> Actively developed; repository and technical schema access available on request during due-diligence or evaluation conversations under NDA.
+                SOC 2 Type II in progress (Target Q2 2027).
               </p>
             </div>
 
@@ -166,14 +154,14 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                 onClick={(e) => handleLinkClick(e, 'top')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                Home / Executive Summary
+                Home
               </a>
               <a 
                 href="#produces" 
                 onClick={(e) => handleLinkClick(e, 'produces')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                Platform (Capabilities)
+                What CCX Produces
               </a>
               <a 
                 href="#transformation-example" 
@@ -183,18 +171,18 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                 Standardization Methodology
               </a>
               <a 
-                href="#exposure-review" 
-                onClick={(e) => handleLinkClick(e, 'exposure-review')}
+                href="#review-scenario" 
+                onClick={(e) => handleLinkClick(e, 'review-scenario')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                Exposure Assessment
+                Review Scenarios
               </a>
               <a 
                 href="#about-ccx" 
                 onClick={(e) => handleLinkClick(e, 'about-ccx')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                About CCX (Operating Entity)
+                About CCX
               </a>
               <a 
                 href="#resources" 
@@ -203,14 +191,14 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                   currentView === 'resources' ? 'text-amber-300 font-semibold' : 'text-slate-300 hover:text-white'
                 }`}
               >
-                Resources &amp; Reference Library
+                Resources
               </a>
               <a 
                 href="#contact" 
                 onClick={(e) => handleLinkClick(e, 'contact')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                Request a Documentation Exposure Assessment
+                Request an Assessment
               </a>
             </div>
           </div>
@@ -282,17 +270,17 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                   className="text-slate-300 hover:text-amber-300 transition-colors flex items-center gap-1.5 group focus-visible:underline"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" aria-hidden="true" />
-                  <span>Hosting: US-East GovCloud · AES-256 / TLS 1.3</span>
+                  <span>Hosting: Dedicated AWS US-East</span>
                 </a>
                 <a
                   href="#compliance-guardrails"
                   className="text-slate-300 hover:text-amber-300 transition-colors flex items-center gap-1.5 group focus-visible:underline"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" aria-hidden="true" />
-                  <span>SOC 2 Type II: In Progress (Target Q2 2027)</span>
+                  <span>SOC 2 Type II: In Progress, Target Q2 2027</span>
                 </a>
                 <span className="text-slate-400 text-[10px] pt-1">
-                  OMIG Statutory Retention Standard (6–10 Yrs)
+                  OMIG Statutory Retention Standard (6-10 Yrs)
                 </span>
               </div>
             </div>
@@ -352,12 +340,12 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                     Last Updated: July 2026
                   </p>
                   <p>
-                    Community Claims Exchange (CCX) is committed to protecting member privacy in strict compliance with federal and state regulations, including the Health Insurance Portability and Accountability Act (HIPAA) and New York State confidentiality guidelines.
+                    This policy explains how CCX handles member information under HIPAA and New York State confidentiality requirements. See the Documentation Retention Policy below for specific retention and handling practices.
                   </p>
                   <div className="p-3.5 bg-gold/5 border border-gold/15 rounded-xl space-y-1.5">
                     <span className="font-sans font-bold text-xs text-navy uppercase block">Documentation Retention Policy</span>
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      CCX retains structured documentation records for the period required by applicable Medicaid recordkeeping rules (6–10 years depending on entity type), stored in an append-only format designed to prevent alteration after creation. Raw intake text is processed to produce this structured record; PHI values are omitted from system logs by default.
+                      CCX retains structured documentation records for the period required by applicable Medicaid recordkeeping rules (6-10 years depending on entity type), stored in an append-only format designed to prevent alteration after creation. Raw intake text is processed to produce this structured record; PHI values are omitted from system logs by default.
                     </p>
                   </div>
                   <div className="space-y-2">
@@ -403,7 +391,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                   <div className="space-y-2">
                     <h3 className="font-bold text-navy text-xs uppercase font-sans">1. No Reimbursement Guarantees</h3>
                     <p>
-                      Use of CCX, including the Documentation Exposure Assessment, does not guarantee Medicaid reimbursement, 100% compliance, or protection against retrospective OMIG audits or clawbacks. Reimbursement eligibility is subject to official guidelines, individual provider procedures, and regulatory determination.
+                      Use of CCX, including the Documentation Exposure Assessment, does not guarantee Medicaid reimbursement, statutory compliance, or protection against retrospective OMIG audits or clawbacks. Reimbursement eligibility is subject to official guidelines, individual provider procedures, and regulatory determination.
                     </p>
                   </div>
 
@@ -429,24 +417,24 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                     Last Updated: July 2026
                   </p>
                   <p>
-                    The Community Claims Exchange (CCX) platform utilizes cookies in a strictly limited capacity to support essential site operation.
+                    The Community Claims Exchange (CCX) platform utilizes cookies to support essential site operation.
                   </p>
                   <div className="space-y-2">
                     <h3 className="font-bold text-navy text-xs uppercase font-sans">1. Essential Session Cookies Only</h3>
                     <p>
-                      We use only strictly necessary session cookies. These cookies persist your selected NYS map county sector and active form inputs during a single browser session so you do not lose progress.
+                      We use essential session cookies. These cookies persist your selected NYS map county sector and active form inputs during a single browser session so you do not lose progress.
                     </p>
                   </div>
                   <div className="space-y-2">
                     <h3 className="font-bold text-navy text-xs uppercase font-sans">2. No Ad or Behavioral Tracking</h3>
                     <p>
-                      CCX never uses tracking pixels, behavioral cookies, advertising trackers, or marketing widgets. We maintain a professional, zero-telemetry boundary.
+                      This site does not use advertising trackers, behavioral cookies, or marketing pixels.
                     </p>
                   </div>
                   <div className="space-y-2">
                     <h3 className="font-bold text-navy text-xs uppercase font-sans">3. Management</h3>
                     <p>
-                      Because our cookies are strictly operational and required to render the application, they cannot be individually disabled. If you disable cookies in your browser settings, the interactive map and self-assessment documentation will fail to function.
+                      Because these cookies are essential to site operation, they cannot be disabled within the application. If you disable cookies in your browser settings, interactive features such as the map and scenario views may not function as expected.
                     </p>
                   </div>
                 </>
