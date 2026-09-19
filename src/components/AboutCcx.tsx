@@ -64,28 +64,28 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
                 <Building2 className="w-4 h-4 text-[#8B6420]" />
               </div>
               <h3 className="font-sans font-bold text-[17px] text-navy">
-                Delaware C-Corporation
+                Corporate Entity
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Incorporated Delaware C-Corporation developing documentation infrastructure for Medicaid social care networks.
+                Incorporated entity developing documentation infrastructure for Medicaid social care networks.
               </p>
             </div>
           </div>
 
-          {/* 2. Operating History */}
+          {/* 2. Operating Focus */}
           <div className="bg-[#FAF8F5] border border-[#E2E8F0] rounded-xl p-6 flex flex-col justify-between space-y-3 shadow-xs">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                  Operating History
+                  Operating Focus
                 </span>
                 <Calendar className="w-4 h-4 text-[#8B6420]" />
               </div>
               <h3 className="font-sans font-bold text-[17px] text-navy">
-                Operating Since 2024
+                Medicaid Focus
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Formed in 2024 with dedicated focus on Medicaid documentation integrity and retrospective review standards.
+                Formed with dedicated focus on Medicaid documentation integrity and retrospective review standards.
               </p>
             </div>
           </div>

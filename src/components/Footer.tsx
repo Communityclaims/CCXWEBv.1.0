@@ -139,7 +139,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
             </div>
 
             <p className="font-sans text-[11px] text-slate-400 mt-4">
-              © 2026 Community Claims Exchange, Inc. · Delaware C-Corp
+              © 2026 Community Claims Exchange, Inc.
             </p>
           </div>
 

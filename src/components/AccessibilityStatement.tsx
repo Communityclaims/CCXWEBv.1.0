@@ -236,7 +236,6 @@ export default function AccessibilityStatement({ onViewChange }: AccessibilitySt
               </span>
               <p className="font-semibold text-white">Community Claims Exchange, Inc.</p>
               <p>Attention: Accessibility &amp; Compliance Officer</p>
-              <p>Incorporated Delaware C-Corporation</p>
             </div>
           </div>
 

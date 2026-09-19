@@ -87,7 +87,7 @@ export function generateDiagnosticBlueprintText(preset: ExportScenarioPreset): s
     '',
     '================================================================================',
     'Community Claims Exchange (CCX) · Medicaid Retrospective SCN Standardization',
-    'Delaware C-Corporation · Compliance & Integrity Operations',
+    'Compliance & Integrity Operations',
     'Confidential Enterprise Review Document · Generated upon institutional request',
     '================================================================================'
   ].join('\n');
