@@ -23,9 +23,8 @@ export default function Header({ activeSection, onSectionChange, currentView, on
   }, [mobileMenuOpen]);
 
   const navItems = [
-    { id: 'problem', label: 'The Gap' },
-    { id: 'produces', label: 'What CCX Produces' },
-    { id: 'assessment', label: 'Assessment' },
+    { id: 'produces', label: 'Platform' },
+    { id: 'exposure-review', label: 'Assessment' },
     { id: 'compliance-guardrails', label: 'Security & BAA' },
     { id: 'about-ccx', label: 'About' },
     { id: 'resources', label: 'Resources' },

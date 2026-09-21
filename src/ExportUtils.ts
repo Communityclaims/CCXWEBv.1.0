@@ -31,17 +31,15 @@ export function triggerFileDownload(content: string, filename: string, mimeType:
 
 /**
  * Generates the CSV content for the de-identified caseload batch ingestion template.
+ * Strictly adheres to RFC 4180 standard formatting with column headers on line 1.
  */
 export function generateCaseloadTemplateCsv(): string {
   return [
-    '# CCX RETROSPECTIVE BATCH INGESTION TEMPLATE: DE-IDENTIFIED SPECIFICATION',
-    '# MANDATORY PRIVACY RULE: Strip all 18 HIPAA Safe Harbor identifiers (no names, MRNs, SSNs, phone numbers, exact birthdates, addresses).',
-    '# Use synthetic encounter IDs and month/year offsets only. Live uploads occur under an executed BAA.',
     'encounter_id,service_month_year,duration_minutes,staff_credential,service_category,raw_casework_narrative,referral_destination,consent_documentation_type',
     'ENC-00101,2025-03,15,CHW,Food Insecurity,"Member intake visit: family ran out of groceries after SNAP lapse; child skipped breakfast. Connected to community food pantry. Verbal consent obtained.","Valley Harvest Food Bank",verbal_unverified',
     'ENC-00102,2025-03,8,Peer Specialist,Housing Instability,"Followed up on tenant eviction notice. Apartment has broken heating and ceiling mold exacerbating asthma. Sent referral to legal aid.","Metropolitan Legal Aid",client_signed_paper',
     'ENC-00103,2025-03,20,Care Navigator,Transportation Barrier,"Screened using SDOH tool. Patient unable to attend dialysis appointments due to lack of public transit accessible van. Scheduled NEMT ride. Consent verified on HIE.","County Transit Coordinated Ride",hie_verified_consent'
-  ].join('\n');
+  ].join('\r\n');
 }
 
 /**

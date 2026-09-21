@@ -663,71 +663,6 @@ export default function App() {
               <p className="text-[16px] font-semibold text-navy leading-[26px]">
                 No frontline workflow changes. No rewriting of the source record.
               </p>
-
-              {/* OMIG Regulatory Reference */}
-              <div className="pt-2">
-                <div className="p-3 bg-white/90 border border-slate-200/90 rounded-xl flex flex-wrap items-center justify-between gap-3 text-[11.5px] font-mono shadow-2xs">
-                  <div className="flex flex-wrap items-center gap-2 text-slate-600">
-                    <CitationPopover
-                      id="retrospective-omig-reference"
-                      citationNumber={1}
-                      badge="NYS REGULATORY SOURCE"
-                      title="NYS OMIG Compliance Program Review"
-                      subtitle="Title 18 NYCRR Part 521"
-                      sourceName="New York State Office of the Medicaid Inspector General (OMIG)"
-                      details={[
-                        "For Compliance Program Reviews initiated after July 1, 2025, OMIG uses a 12-month review period."
-                      ]}
-                      links={[
-                        {
-                          label: "OMIG Compliance Program Review Protocols",
-                          url: "https://omig.ny.gov/compliance/compliance-library"
-                        },
-                        {
-                          label: "OMIG Annual Work Plan Portal",
-                          url: "https://omig.ny.gov/information-resources/work-plan"
-                        }
-                      ]}
-                    >
-                      <span
-                        id="button-retrospective-omig-citation"
-                        className="font-bold text-gold hover:text-navy px-1.5 py-0.5 bg-gold/15 hover:bg-gold/25 border border-gold/40 rounded text-[10px] cursor-pointer transition-colors inline-block"
-                        title="Click or tap to inspect verified primary source citation"
-                        aria-label="Citation [1]: NYS OMIG Review Period"
-                      >
-                        [1]
-                      </span>
-                    </CitationPopover>
-                    <span className="font-sans font-semibold text-navy">Regulatory Source:</span>
-                    <span className="font-sans text-slate-600">
-                      For Compliance Program Reviews initiated after July 1, 2025, OMIG uses a 12-month review period.
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <a
-                      href="https://omig.ny.gov/compliance/compliance-library"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-gold hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-sans font-medium transition-colors"
-                      title="Primary OMIG Compliance Program Review Protocols"
-                    >
-                      <span>Read OMIG Review Protocols</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                    <span className="text-slate-300">·</span>
-                    <a
-                      href="https://omig.ny.gov/information-resources/work-plan"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-gold hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-sans font-medium transition-colors"
-                      title="Official NYS OMIG Annual Work Plan Portal"
-                    >
-                      <span>OMIG Work Plan Portal</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Production Capabilities Grid: 4 items */}
@@ -891,7 +826,7 @@ export default function App() {
               href="#contact"
               className="inline-flex items-center gap-2 px-6 py-3 bg-navy hover:bg-[#1E293B] text-white text-sm font-semibold rounded-xl transition-colors shadow-xs cursor-pointer"
             >
-              <span>Request Documentation Exposure Assessment</span>
+              <span>Request a Documentation Exposure Assessment</span>
               <ArrowRight className="w-4 h-4 text-gold" />
             </a>
           </div>

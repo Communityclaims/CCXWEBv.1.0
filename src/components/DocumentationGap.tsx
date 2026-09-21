@@ -251,7 +251,7 @@ export default function DocumentationGap({ onNavigateToSection }: DocumentationG
               onClick={(e) => handleNav(e, 'contact')}
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#8B6420] hover:bg-[#6D4E18] text-white font-sans text-[13px] font-semibold rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-[#8B6420] shadow-xs"
             >
-              <span>Request Consultation</span>
+              <span>Request a Documentation Exposure Assessment</span>
             </a>
           </div>
         </div>

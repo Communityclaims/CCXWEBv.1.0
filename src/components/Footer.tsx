@@ -150,39 +150,32 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
             </div>
             <div className="flex flex-col gap-3">
               <a 
-                href="#top" 
-                onClick={(e) => handleLinkClick(e, 'top')}
-                className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
-              >
-                Home
-              </a>
-              <a 
                 href="#produces" 
                 onClick={(e) => handleLinkClick(e, 'produces')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                What CCX Produces
+                Platform
               </a>
               <a 
-                href="#transformation-example" 
-                onClick={(e) => handleLinkClick(e, 'transformation-example')}
+                href="#exposure-review" 
+                onClick={(e) => handleLinkClick(e, 'exposure-review')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                Standardization Methodology
+                Assessment
               </a>
               <a 
-                href="#review-scenario" 
-                onClick={(e) => handleLinkClick(e, 'review-scenario')}
+                href="#compliance-guardrails" 
+                onClick={(e) => handleLinkClick(e, 'compliance-guardrails')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                Review Scenarios
+                Security &amp; BAA
               </a>
               <a 
                 href="#about-ccx" 
                 onClick={(e) => handleLinkClick(e, 'about-ccx')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                About CCX
+                About
               </a>
               <a 
                 href="#resources" 
@@ -198,7 +191,7 @@ export default function Footer({ currentView, onViewChange }: FooterProps) {
                 onClick={(e) => handleLinkClick(e, 'contact')}
                 className="text-slate-300 hover:text-white text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:underline"
               >
-                Request an Assessment
+                Request a Documentation Exposure Assessment
               </a>
             </div>
           </div>

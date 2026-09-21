@@ -39,27 +39,6 @@ export interface BatchSampleEncounter {
 
 const BATCH_SAMPLE_RECORDS: BatchSampleEncounter[] = [
   {
-    id: 'rec-101',
-    encounterId: 'ENC-2025-0841',
-    dos: '2025-04-03',
-    providerAgency: 'Harbor Community Outreach',
-    staffCredential: 'CHW',
-    rawExcerpt: 'Intake with Mr. Bell. Ran out of SNAP 10 days early; family skipping dinners. Issued emergency food voucher. Paper intake signed in lobby.',
-    durationMinutes: 15,
-    durationThresholdMet: true,
-    domain: 'Food & Nutrition',
-    mappedCode: 'Z59.41 (Food Insecurity)',
-    screeningInstrument: null,
-    consentVerification: 'Signed Paper Only',
-    consentCompliant: false,
-    auditStatus: 'CORRECTIVE_REVIEW_REQUIRED',
-    estimatedExposure: 185,
-    flaggedGaps: [
-      'Missing electronic HIE consent verification (paper signature held locally).',
-      'No standardized screening questionnaire logged (LOINC withheld).'
-    ]
-  },
-  {
     id: 'rec-102',
     encounterId: 'ENC-2025-0842',
     dos: '2025-04-04',
@@ -98,27 +77,6 @@ const BATCH_SAMPLE_RECORDS: BatchSampleEncounter[] = [
     auditStatus: 'DEFENSIBLE',
     estimatedExposure: 0,
     flaggedGaps: []
-  },
-  {
-    id: 'rec-104',
-    encounterId: 'ENC-2025-0844',
-    dos: '2025-04-08',
-    providerAgency: 'Gateway Drop-In Center',
-    staffCredential: 'Case Manager',
-    rawExcerpt: 'Assisted Mr. Kowalski after tenancy lost due to condemned building. Couch-surfing temporarily with no fixed address. Referred to emergency shelter bed.',
-    durationMinutes: 35,
-    durationThresholdMet: true,
-    domain: 'Housing & Shelter',
-    mappedCode: 'Z59.01 (Sheltered Homelessness)',
-    screeningInstrument: null,
-    consentVerification: 'Verbal Only',
-    consentCompliant: false,
-    auditStatus: 'CORRECTIVE_REVIEW_REQUIRED',
-    estimatedExposure: 185,
-    flaggedGaps: [
-      'Electronic HIE consent verification unconfirmed.',
-      'Screening tool administration unlogged.'
-    ]
   },
   {
     id: 'rec-105',
@@ -165,7 +123,7 @@ const BATCH_SAMPLE_RECORDS: BatchSampleEncounter[] = [
 export default function BatchAuditSampling() {
   const [filterDomain, setFilterDomain] = useState<string>('ALL');
   const [filterStatus, setFilterStatus] = useState<string>('ALL');
-  const [selectedRecordId, setSelectedRecordId] = useState<string>('rec-101');
+  const [selectedRecordId, setSelectedRecordId] = useState<string>('rec-102');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filteredRecords = BATCH_SAMPLE_RECORDS.filter(rec => {
@@ -226,7 +184,7 @@ export default function BatchAuditSampling() {
             </button>
             <div className="px-3 py-2 rounded-lg bg-navy/5 border border-navy/10 text-xs font-mono text-navy font-semibold flex items-center gap-1.5">
               <Database className="w-3.5 h-3.5 text-navy/70" />
-              <span>Synthetic Cohort: 6 Encounters Sampled</span>
+              <span>Synthetic Cohort: {totalEncounters} Encounters Sampled</span>
             </div>
           </div>
         </div>
