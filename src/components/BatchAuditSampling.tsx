@@ -14,7 +14,8 @@ import {
   Calendar,
   Building2,
   TrendingDown,
-  Info
+  Info,
+  ExternalLink
 } from 'lucide-react';
 import { downloadCaseloadTemplate } from '../ExportUtils';
 
@@ -143,12 +144,13 @@ export default function BatchAuditSampling() {
 
   const selectedRecord = BATCH_SAMPLE_RECORDS.find(r => r.id === selectedRecordId) || BATCH_SAMPLE_RECORDS[0];
 
-  // Summary Metrics
+  // Summary Metrics (dynamically computed from BATCH_SAMPLE_RECORDS data source)
   const totalEncounters = BATCH_SAMPLE_RECORDS.length;
   const defensibleCount = BATCH_SAMPLE_RECORDS.filter(r => r.auditStatus === 'DEFENSIBLE').length;
   const reviewRequiredCount = BATCH_SAMPLE_RECORDS.filter(r => r.auditStatus === 'CORRECTIVE_REVIEW_REQUIRED').length;
   const highRiskCount = BATCH_SAMPLE_RECORDS.filter(r => r.auditStatus === 'HIGH_DEFICIT_RISK').length;
   const totalSampleExposure = BATCH_SAMPLE_RECORDS.reduce((acc, curr) => acc + curr.estimatedExposure, 0);
+  const defensibilityRate = totalEncounters > 0 ? Math.round((defensibleCount / totalEncounters) * 100) : 0;
 
   return (
     <div className="space-y-8 text-left">
@@ -160,8 +162,19 @@ export default function BatchAuditSampling() {
               <span className="font-mono text-[10px] uppercase font-bold text-gold bg-gold/10 px-2 py-0.5 rounded tracking-wider">
                 BATCH EXPORT AUDIT SAMPLING
               </span>
-              <span className="text-[11px] font-mono text-slate-500">
-                12-Month Lookback Protocol (Title 18 NYCRR Part 521)
+              <span className="text-[11px] font-mono text-slate-500 inline-flex items-center gap-1">
+                <span>12-Month Lookback Protocol (</span>
+                <a
+                  href="https://omig.ny.gov/compliance/compliance-regulations"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-0.5 text-gold hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-medium transition-colors"
+                  title="Official NYS OMIG 18 NYCRR Part 521 Mandatory Compliance Regulations"
+                >
+                  <span>18 NYCRR Part 521</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
+                <span>)</span>
               </span>
             </div>
             <h3 className="text-xl sm:text-2xl font-sans font-bold text-navy">
@@ -197,14 +210,14 @@ export default function BatchAuditSampling() {
             </span>
             <div className="flex items-baseline gap-2">
               <span className="text-2xl font-bold font-sans text-navy">
-                {Math.round((defensibleCount / totalEncounters) * 100)}%
+                {defensibilityRate}%
               </span>
               <span className="text-[11px] font-medium text-slate-500">
                 ({defensibleCount}/{totalEncounters} sealed)
               </span>
             </div>
             <div className="w-full bg-slate-200 h-1.5 rounded-full mt-2 overflow-hidden">
-              <div className="bg-emerald-600 h-full rounded-full" style={{ width: `${(defensibleCount / totalEncounters) * 100}%` }} />
+              <div className="bg-emerald-600 h-full rounded-full" style={{ width: `${defensibilityRate}%` }} />
             </div>
           </div>
 
@@ -423,8 +436,19 @@ export default function BatchAuditSampling() {
 
             {/* Structured Criteria Cross-Walk */}
             <div className="space-y-2 text-xs">
-              <span className="text-[9.5px] font-mono uppercase tracking-wider text-slate-400 font-bold block">
-                Audit Defense Checklist (18 NYCRR § 521)
+              <span className="text-[9.5px] font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-1">
+                <span>Audit Defense Checklist (</span>
+                <a
+                  href="https://omig.ny.gov/compliance/compliance-regulations"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-0.5 text-gold hover:text-white underline underline-offset-2 decoration-gold/40 hover:decoration-white font-medium transition-colors normal-case"
+                  title="Official NYS OMIG 18 NYCRR Part 521 Mandatory Compliance Regulations"
+                >
+                  <span className="uppercase">18 NYCRR Part 521</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
+                <span>)</span>
               </span>
 
               <div className="bg-white/[0.04] p-3 rounded-lg border border-white/10 space-y-2 font-mono text-[11px]">

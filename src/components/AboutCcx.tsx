@@ -142,7 +142,7 @@ export default function AboutCcx({ onNavigateToSection }: AboutCcxProps) {
             </h3>
             <div className="space-y-2 text-sm md:text-[15px] text-slate-300 leading-relaxed font-normal">
               <p>
-                CCX structures source documentation using rules-based terminology mapping and source-text traceability.
+                Building on that structuring process, this section covers the five-step technical methodology from ingestion to review.
               </p>
             </div>
           </div>

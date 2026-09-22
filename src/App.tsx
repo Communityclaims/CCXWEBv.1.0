@@ -54,28 +54,28 @@ interface PilotScenarioPreset {
 const PILOT_SCENARIO_PRESETS: PilotScenarioPreset[] = [
   {
     id: 'unstructured_scribble',
-    name: 'Unstructured Crisis Entry (Food & Nutrition)',
+    name: 'Unstructured Crisis Entry (Housing & Shelter)',
     badge: 'High Risk Deficit',
     badgeColor: 'bg-red-50 text-red-700 border-red-200/50',
-    description: 'A raw casework text entry describing a nutritional crisis, containing factual basis for coding but lacking structured screening tools and electronic consent verification.',
-    rawNote: 'Intake interview with Mr. Bell. Ran out of SNAP benefit balance 10 days early; family relying on pantry staples and skipping meals. Issued emergency grocery voucher and scheduled nutrition counseling. Paper intake form signed in reception area. 15 mins.',
+    description: 'A raw casework text entry describing an acute housing crisis, containing factual basis for coding but lacking structured screening tools, formal eviction verification, and electronic consent.',
+    rawNote: 'Intake interview with Mr. Henderson. Received 14-day notice of eviction for rental arrears; facing imminent displacement with two school-aged children. Initiated emergency shelter referral and submitted housing advocacy intake. Paper intake form signed in reception area. 15 mins.',
     riskLevel: 'HIGH',
     score: 20,
     gaps: [
-      'Missing explicit ICD-10 SDOH classification codes in source export (e.g., Z59.41 Food Insecurity).',
+      'Missing explicit ICD-10 SDOH classification codes in source export (e.g., Z59.811 Housing Instability, housed with risk of homelessness).',
       'Missing contemporaneous digital member consent verification on HIE network.',
-      'Lacks structured screening questionnaire references (e.g., LOINC 96777-8).',
-      'Lacks secure proof of contemporaneous signature and entry-day lock.'
+      'Lacks structured housing screening questionnaire references (e.g., LOINC 71802-3).',
+      'Lacks verifiable documentation of housing court notice or proof of entry-day signature lock.'
     ],
-    correctiveAction: 'During retrospective review, CCX structures the verified food insecurity diagnosis (ICD-10 Z59.41) and 15-minute duration directly from the frontline entry, while explicitly flagging the unverified paper consent and missing screening tool before state audit review.'
+    correctiveAction: 'During retrospective review, CCX structures the verified housing instability diagnosis (ICD-10 Z59.811) and 15-minute duration directly from the frontline entry, while explicitly flagging the unverified paper consent and missing housing screening instrument before state audit review.'
   },
   {
     id: 'partial_referral',
-    name: 'Partially Documented Referral (Utility & Heat Hazard)',
+    name: 'Partially Documented Referral (Interpersonal Safety & Crisis Support)',
     badge: 'Moderate Risk Deficit',
     badgeColor: 'bg-amber-50 text-amber-700 border-amber-200/50',
-    description: 'An encounter record documenting utility insecurity and an emergency HEAP referral, but falling short on minimum duration thresholds and authenticated consent.',
-    rawNote: 'Follow-up for Mrs. Martinez. Received shutoff notice for gas heating with pending disconnect. Boiler non-functional since freeze. Submitted emergency HEAP application through portal. Consent flag checked in local tracker. Encounter duration: 10 mins.',
+    description: 'An encounter record documenting intimate partner safety concerns and an emergency protective shelter referral, but falling short on minimum duration thresholds and authenticated consent.',
+    rawNote: 'Follow-up check-in with Ms. Lawson. Client reported escalating intimate partner safety crisis and requested confidential relocation support. Initiated referral to designated community domestic violence advocacy program and emergency safety planning. Consent flag checked in local tracker. Encounter duration: 10 mins.',
     riskLevel: 'MODERATE',
     score: 55,
     gaps: [
@@ -83,7 +83,7 @@ const PILOT_SCENARIO_PRESETS: PilotScenarioPreset[] = [
       'Missing explicit contemporaneous member consent verification on HIE network (local tracker check only).',
       'Checklist entries lack corroborating clinical-narrative description required for retrospective audit defense.'
     ],
-    correctiveAction: 'During retrospective review, CCX flags the duration and consent documentation gaps, structures the utility hazard finding from the available narrative, and produces an evidence-referenced finding for compliance review.'
+    correctiveAction: 'During retrospective review, CCX flags the duration and consent documentation gaps, structures the interpersonal safety finding from the available narrative, and produces an evidence-referenced finding for compliance review.'
   },
   {
     id: 'fully_standardized',
@@ -425,7 +425,7 @@ export default function App() {
               </h1>
 
               <p className="text-[17px] sm:text-[18px] font-normal text-slate-600 leading-[29px] sm:leading-[30px] max-w-[640px] mt-5">
-                CCX provides retrospective documentation structuring, source traceability, documentation gap flagging, and retrospective review-package compilation for Medicaid social care records. Working from exported encounter notes and claims data, CCX reviews documentation claim by claim to identify supported findings and documentation gaps for compliance teams.
+                CCX provides retrospective documentation structuring, terminology and code cross-walking, source traceability, documentation gap flagging, and retrospective review-package compilation for Medicaid social care records. Working from exported encounter notes and claims data, CCX reviews documentation claim by claim to identify supported findings and documentation gaps for compliance teams.
               </p>
 
               <p className="text-[15.5px] font-normal text-slate-600 leading-[26px] max-w-[640px] mt-3">
@@ -440,12 +440,12 @@ export default function App() {
                     citationNumber={1}
                     badge="NYS REGULATORY SOURCE"
                     title="NYS OMIG Annual Work Plan: Bureau of Compliance"
-                    subtitle="Title 18 NYCRR Part 521 (§ 521-1.3 & § 521-1.4: Mandatory Compliance Program Requirements)"
+                    subtitle="18 NYCRR Part 521 (§ 521-1.3 & § 521-1.4: Mandatory Compliance Program Requirements)"
                     sourceName="New York State Office of the Medicaid Inspector General (OMIG)"
                     details={[
                       "Review Lookback Window: Under OMIG's updated Compliance Program Review (CPR) protocol, effective for reviews initiated on or after July 1, 2025 and active through 2026, OMIG expanded the mandatory review lookback period from the historical 3 months to 12 consecutive months.",
                       "Review Targets: In its Annual Work Plan, OMIG's Bureau of Compliance established an annual target of approximately 200 comprehensive compliance program effectiveness reviews.",
-                      "Statutory Payment Condition: Under NY Social Services Law § 363-d and Title 18 NYCRR § 521-1.1(c), maintenance of an effective compliance program satisfying all statutory elements is an explicit statutory condition of Medicaid payment, not mere paperwork."
+                      "Statutory Payment Condition: Under NY Social Services Law § 363-d and 18 NYCRR § 521-1.1(c), maintenance of an effective compliance program satisfying all statutory elements is an explicit statutory condition of Medicaid payment, not mere paperwork."
                     ]}
                     links={[
                       {
@@ -457,7 +457,7 @@ export default function App() {
                         url: "https://omig.ny.gov/information-resources/work-plan"
                       },
                       {
-                        label: "Title 18 NYCRR Part 521 Mandatory Compliance Regulations",
+                        label: "18 NYCRR Part 521 Mandatory Compliance Regulations",
                         url: "https://omig.ny.gov/compliance/compliance-regulations"
                       }
                     ]}
@@ -472,8 +472,18 @@ export default function App() {
                     </span>
                   </CitationPopover>
                   <span className="font-sans font-semibold text-navy">Regulatory Source:</span>
-                  <span className="font-sans text-slate-600">
-                    NYS OMIG Annual Work Plan · 18 NYCRR Part 521
+                  <span className="font-sans text-slate-600 inline-flex items-center gap-1 flex-wrap">
+                    <span>NYS OMIG Annual Work Plan ·</span>
+                    <a
+                      href="https://omig.ny.gov/compliance/compliance-regulations"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-0.5 text-gold hover:text-navy underline underline-offset-2 decoration-gold/40 hover:decoration-navy font-medium transition-colors"
+                      title="Official NYS OMIG 18 NYCRR Part 521 Mandatory Compliance Regulations"
+                    >
+                      <span>18 NYCRR Part 521</span>
+                      <ExternalLink className="w-2.5 h-2.5" />
+                    </a>
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5">
@@ -597,7 +607,7 @@ export default function App() {
                   What CCX reviews
                 </h3>
                 <p className="text-[15px] font-normal text-slate-600 leading-[25px]">
-                  CCX compares the submitted records claim by claim using defined documentation and terminology rules.
+                  Building on that review process, submitted records are evaluated claim by claim against defined documentation and terminology rules.
                 </p>
               </div>
             </div>
@@ -658,15 +668,15 @@ export default function App() {
                 Turn existing casework documentation into structured review packages.
               </p>
               <p className="text-[16px] font-normal text-slate-600 leading-[28px]">
-                CCX ingests exported social care casework notes, structures documented facts against relevant Medicaid documentation requirements, maps supported terminology, and flags missing evidence for compliance review.
+                Building on that structuring process, this section covers the core deliverables generated for compliance review.
               </p>
               <p className="text-[16px] font-semibold text-navy leading-[26px]">
                 No frontline workflow changes. No rewriting of the source record.
               </p>
             </div>
 
-            {/* Production Capabilities Grid: 4 items */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Production Capabilities Grid: 5 items */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Card 1: RETROSPECTIVE DOCUMENTATION STRUCTURING */}
               <div id="capability-doc-structuring" className="bg-white p-6 sm:p-7 rounded-xl border border-[#0F172A]/[0.08] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/40 transition-colors">
                 <div className="space-y-2.5">
@@ -678,55 +688,71 @@ export default function App() {
                     RETROSPECTIVE DOCUMENTATION STRUCTURING
                   </h3>
                   <p className="text-[14px] font-normal text-slate-600 leading-[24px]">
-                    Standardized terminology and structured fields derived from exported casework documentation.
+                    Parses exported casework encounter notes into standard discrete fields without altering source documentation records.
                   </p>
                 </div>
               </div>
 
-              {/* Card 2: SOURCE TRACEABILITY */}
-              <div id="capability-source-traceability" className="bg-white p-6 sm:p-7 rounded-xl border border-[#0F172A]/[0.08] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/40 transition-colors">
+              {/* Card 2: TERMINOLOGY & CODE CROSS-WALKING */}
+              <div id="capability-terminology-crosswalk" className="bg-white p-6 sm:p-7 rounded-xl border border-[#0F172A]/[0.08] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/40 transition-colors">
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-gold font-bold text-xs tracking-wider">02:</span>
                     <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200/60">Ships Today</span>
                   </div>
                   <h3 className="font-sans font-bold text-[16px] text-navy tracking-tight leading-snug">
-                    SOURCE TRACEABILITY
+                    TERMINOLOGY &amp; CODE CROSS-WALKING
                   </h3>
                   <p className="text-[14px] font-normal text-slate-600 leading-[24px]">
-                    Structured outputs linked directly to their supporting source casework text.
+                    Cross-references documented social care needs to standardized ICD-10 SDOH codes and LOINC screening identifiers.
                   </p>
                 </div>
               </div>
 
-              {/* Card 3: DOCUMENTATION GAP FLAGGING */}
-              <div id="capability-gap-flagging" className="bg-white p-6 sm:p-7 rounded-xl border border-[#0F172A]/[0.08] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/40 transition-colors">
+              {/* Card 3: SOURCE TRACEABILITY */}
+              <div id="capability-source-traceability" className="bg-white p-6 sm:p-7 rounded-xl border border-[#0F172A]/[0.08] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/40 transition-colors">
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-gold font-bold text-xs tracking-wider">03:</span>
                     <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200/60">Ships Today</span>
                   </div>
                   <h3 className="font-sans font-bold text-[16px] text-navy tracking-tight leading-snug">
-                    DOCUMENTATION GAP FLAGGING
+                    SOURCE TRACEABILITY
                   </h3>
                   <p className="text-[14px] font-normal text-slate-600 leading-[24px]">
-                    Identification of missing, incomplete, or unsupported documentation elements required for compliance review.
+                    Anchors structured findings directly to exact supporting text in source casework notes to verify provenance.
                   </p>
                 </div>
               </div>
 
-              {/* Card 4: RETROSPECTIVE REVIEW PACKAGES */}
-              <div id="capability-retrospective-review" className="bg-white p-6 sm:p-7 rounded-xl border border-[#0F172A]/[0.08] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/40 transition-colors">
+              {/* Card 4: DOCUMENTATION GAP FLAGGING */}
+              <div id="capability-gap-flagging" className="bg-white p-6 sm:p-7 rounded-xl border border-[#0F172A]/[0.08] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/40 transition-colors">
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-gold font-bold text-xs tracking-wider">04:</span>
                     <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200/60">Ships Today</span>
                   </div>
                   <h3 className="font-sans font-bold text-[16px] text-navy tracking-tight leading-snug">
+                    DOCUMENTATION GAP FLAGGING
+                  </h3>
+                  <p className="text-[14px] font-normal text-slate-600 leading-[24px]">
+                    Identifies missing, incomplete, or unsupported documentation elements required for compliance review, including duration and consent.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 5: RETROSPECTIVE REVIEW PACKAGES */}
+              <div id="capability-retrospective-review" className="bg-white p-6 sm:p-7 rounded-xl border border-[#0F172A]/[0.08] shadow-xs space-y-3 flex flex-col justify-between hover:border-gold/40 transition-colors">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-gold font-bold text-xs tracking-wider">05:</span>
+                    <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200/60">Ships Today</span>
+                  </div>
+                  <h3 className="font-sans font-bold text-[16px] text-navy tracking-tight leading-snug">
                     RETROSPECTIVE REVIEW-PACKAGE COMPILATION
                   </h3>
                   <p className="text-[14px] font-normal text-slate-600 leading-[24px]">
-                    Exportable structured documentation packages prepared for internal compliance and audit defense.
+                    Generates indexed, exportable structured documentation packages prepared for internal compliance audits and review defense.
                   </p>
                 </div>
               </div>
@@ -870,10 +896,10 @@ export default function App() {
                 <div className="grid grid-cols-1 gap-4 pt-1">
                   <div className="p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-1">
                     <h4 className="font-sans font-bold text-sm text-navy">
-                      Casework Narrative Normalization
+                      Retrospective Documentation Structuring
                     </h4>
                     <p className="text-[14px] text-slate-600 leading-relaxed font-normal">
-                      Parses retrospective encounter notes into standard discrete fields without altering frontline documentation records.
+                      Parses exported casework encounter notes into standard discrete fields without altering source documentation records.
                     </p>
                   </div>
 
@@ -888,35 +914,35 @@ export default function App() {
 
                   <div className="p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-1">
                     <h4 className="font-sans font-bold text-sm text-navy">
-                      Source-Text Grounding &amp; Span Linking
+                      Source Traceability
                     </h4>
                     <p className="text-[14px] text-slate-600 leading-relaxed font-normal">
-                      Anchors every structured finding directly to the exact verbatim sentence in source casework notes to prevent unsupported facts.
+                      Anchors structured findings directly to exact supporting text in source casework notes to verify provenance.
                     </p>
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-1">
                     <h4 className="font-sans font-bold text-sm text-navy">
-                      Contemporaneous Gap Identification
+                      Documentation Gap Flagging
                     </h4>
                     <p className="text-[14px] text-slate-600 leading-relaxed font-normal">
-                      Surfaces omitted billing units, absent duration thresholds, missing screening tools, or unverified consent flags.
+                      Identifies missing, incomplete, or unsupported documentation elements required for compliance review, including duration and consent.
                     </p>
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/60 space-y-1">
                     <h4 className="font-sans font-bold text-sm text-navy">
-                      Exportable Audit Dossier Assembly
+                      Retrospective Review-Package Compilation
                     </h4>
                     <p className="text-[14px] text-slate-600 leading-relaxed font-normal">
-                      Generates indexed, verifiable review packages prepared for internal compliance audits and state agency inquiries.
+                      Generates indexed, exportable structured documentation packages prepared for internal compliance audits and review defense.
                     </p>
                   </div>
                 </div>
               </div>
 
               <div className="pt-4 border-t border-slate-100 text-[12px] font-mono text-slate-500">
-                Scope: Algorithmic structuring, terminology alignment, and proof compilation.
+                Scope: Automated execution of the structuring process referenced above.
               </div>
             </div>
 

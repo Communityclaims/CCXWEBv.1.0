@@ -234,7 +234,7 @@ export default function DocumentationGap({ onNavigateToSection }: DocumentationG
               How CCX Addresses the Gap
             </span>
             <p className="text-[15.5px] text-slate-700 leading-relaxed font-sans">
-              CCX structures documented information from casework notes, identifies missing evidence, and prepares organized records for retrospective review.
+              Building on that structuring process, CCX bridges these narrative deficits to ensure records align with formal audit standards.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3 shrink-0">
